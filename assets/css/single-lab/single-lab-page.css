@@ -1,0 +1,164 @@
+/* *, *::after, *::before{
+    box-sizing: inherit;
+    font-family: sans-serif;
+}
+html{
+    box-sizing: border-box;
+} */
+.main_section{
+    width: 100%;
+    height: auto;
+}
+.single_page{
+    margin: 200px auto 0;
+    width: 70%;
+    height: auto;
+    /* margin: 0 auto; */
+    display: flex;
+    justify-content: space-between;
+}
+.image{
+    width: 35%;
+    padding-top: 5px;
+}
+.image img{
+    width: 100%;
+}
+.text_box{
+    width: 60%;
+}
+.text_box .title h1{
+    margin: 0;
+    font-weight: 600;
+    font-size: 24px;
+}
+.text_box .title p{
+    line-height: 25px;
+}
+.title2{
+    padding-top: 25px;
+}
+.title2 h2{
+    font-size: 15px;
+    font-weight: bolder;
+}
+.provide{
+    padding-top: 25px;
+}
+.provide h2{
+    font-size: 17px;
+    font-weight: bolder;
+}
+.provide_lab{
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.medicy_lab{
+    font-size: 15px;
+}
+.provide_lab .logo img{
+    width: 90px;
+}
+.provide_lab_para p{
+    padding-top: 15px;
+}
+.need{
+    padding-top: 25px;
+}
+.need h2{
+    margin: 0;
+    font-size: 15px;
+    font-weight: bolder;
+}
+.need h2, p{
+    margin: 0;
+    padding-top: 10px;
+}
+.included_test{
+    padding-top: 25px;
+}
+.included_test h2{
+    font-size: 15px;
+    font-weight: bolder;
+}
+.all_test_name{
+    display: flex;
+    align-items: center;
+    padding-bottom: 25px;
+}
+.test_photo img{
+    width: 40px;
+    padding-left: 10px;
+}
+.test_name p{
+    margin: 0;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-size: 12px;
+}
+.why_book{
+    padding-top: 25px;
+}
+.why_book img{
+    width: 80px;
+    margin: 0;
+}
+.why_book h2{
+    font-size: 15px;
+    font-weight: bolder;
+}
+.reason{
+    display: flex;
+    align-items: center;
+}
+.reason_photo img{
+    width: 60px;
+}
+.reason_text p{
+    padding-bottom: 15px;
+}
+p{
+    font-size: 14px;
+}
+.custom-row{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.c-col-33{
+    width: 33.33%;
+    padding: 7px;
+}
+.c-card{
+    cursor: pointer;
+    padding: 12px 12px 12px 15px;
+    position: relative;
+    box-shadow: 0 2px 4px 1px rgb(128 128 128 / 30%);
+    border-radius: 10px;
+    background-color: #fff;
+}
+.c-card-body{
+    display: flex;
+    text-align: left;
+    align-items: center;
+    flex-direction: column;
+}
+.c-card-footer{
+    display: flex;
+    /* align-items: center; */
+    justify-content: right;
+}
+@media only screen and (max-width:765px) {
+    .single_page{
+        flex-direction: column;
+        width: 100%;
+    }
+    .text_box{
+        width: 100%;
+        padding-top: 20px;
+    }
+    .image{
+        width: 100%;
+    }
+}

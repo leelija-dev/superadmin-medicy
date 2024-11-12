@@ -1,0 +1,38 @@
+.hospital_logo{
+    width: 100%;
+}
+.hospital_logo_input{
+    float: left;
+}
+.card_padding{
+    padding: 1.25rem 0;
+}
+.col_padding{
+    padding: 0;
+}
+
+.text-center{
+    display: inline-flex;
+    justify-content: space-between;
+}
+.text_area{
+    align-items: left;
+    line-height: 1rem;
+    padding-top: 10px;
+}
+.para{
+    text-align: left;
+}
+.address_col{
+    max-width: 100%;
+    padding-left: 0;
+}
+
+/* @media only screen and (max-width:986){
+    .flex_direction{
+        flex-direction: column;
+    }
+    .text-center{
+        flex-direction: column;
+    }
+} */

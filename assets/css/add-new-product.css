@@ -1,0 +1,234 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Festive&family=Poppins:wght@200&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+.c-inp {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #1683ff;
+}
+
+.c-inp option:hover {
+    background: #1683ff;
+}
+
+.c-inp option {
+    color: #323233;
+}
+
+.c-inp:active {
+    border-bottom: 1px solid #e01414;
+}
+
+.c-inp:hover {
+    border-bottom: 1px solid #e01414;
+}
+
+.image-area {
+    font-family: 'Poppins', sans-serif;
+    height: 150px;
+    background-color: rgb(243, 243, 243);
+    border: 2px dashed #e0eafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.activeted {
+    border: 2px solid #1683ff;
+}
+
+.back-image {
+    font-family: 'Poppins', sans-serif;
+    height: 4rem;
+    background-color: rgb(243, 243, 243);
+    border: 2px dashed #e0eafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.side-image {
+    font-family: 'Poppins', sans-serif;
+    height: 4rem;
+    background-color: rgb(243, 243, 243);
+    border: 2px dashed #e0eafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-area h6 {
+    opacity: 50%;
+    margin-bottom: 0;
+}
+
+.icon {
+    font-size: 30px;
+    color: #1683ff;
+}
+
+.upload-img-span1 {
+    opacity: 70%;
+    font-size: 15px;
+    font-weight: 200;
+    margin: 2px 0 -6px 0;
+}
+
+.upload-img-span-back {
+    opacity: 70%;
+    font-size: 15px;
+    font-weight: 200;
+    margin: 2px 0 -6px 0;
+}
+
+.upload-img-span-side {
+    opacity: 70%;
+    font-size: 15px;
+    font-weight: 200;
+    margin: 2px 0 -6px 0;
+}
+
+.browse {
+    color: #1683ff;
+    cursor: pointer;
+}
+
+.browse-back {
+    color: #1683ff;
+    cursor: pointer;
+}
+
+.upload-img-span {
+    opacity: 70%;
+    font-size: 15px;
+    font-weight: 200;
+    margin: 0;
+}
+
+.upload-img-type {
+    font-size: 12px;
+    opacity: 70%;
+}
+
+.back-file {
+    visibility: hidden;
+    position: absolute;
+}
+
+.side-file {
+    visibility: hidden;
+    position: absolute;
+}
+
+#back-preview {
+    height: 4rem;
+    display: none;
+    border: 2px solid #1683ff;
+}
+
+#side-preview {
+    height: 4rem;
+    display: none;
+    border: 2px solid #1683ff;
+}
+
+/* image div controler start */
+#img-div{
+    padding: 1rem;
+    margin: 0;
+    height: 20rem;
+    box-sizing: border-box ;
+    background-color: #f5f8ff;
+    font-family: "Rubik",sans-serif;
+    max-height: 20rem;
+    overflow: auto;
+}
+
+.img-container{
+    background-color: #ffffff;
+    width: 90%;
+    max-height: 100%;
+    min-width: 450px;
+    position: relative;
+    margin: 50px auto;
+    padding: 50px 20px;
+    border-radius: 7px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.05);
+}
+
+#uppy{
+    background-color: white;
+    max-height: 100%;
+    min-width: 300px;
+    position: relative;
+    margin: 5px auto;
+    padding: 5px 2px;
+    border-radius: 7px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.05);
+}
+
+input[type="file"]{
+    display: none;
+}
+
+#num-of-files{
+    text-align: center;
+    margin: 20px 0 30px 0;
+}
+#priority-check-option{
+    text-align: center;
+    margin: 20px 0 30px 0;
+}
+#images{
+    width: 90%;
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+figure{
+    width: 70px;
+    height: 70px;
+}
+img{
+    width: 100%;
+}
+figcaption{
+    text-align: center;
+    font-size: 2.4vmin;
+    margin-top: 0.5vmin;
+}
+
+/* ////// */
+.figure-style{
+    border: 2px solid gray;
+}
+.close-button {
+    position: absolute;
+    margin-top: -72px;
+    margin-left: 41px;
+    /* padding: 5px; */
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+}
+.close-button:hover {
+    background-color: darkred;
+}
+.radio-button{
+    accent-color:green;
+}

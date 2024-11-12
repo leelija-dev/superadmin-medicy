@@ -1,0 +1,13 @@
+.lab-val-inp{
+    width: 6rem;
+    border: none;
+    border-bottom: 1px solid #0009;
+    background: transparent;
+}
+
+.lab-val-inp:focus{
+    border: none;
+    border-bottom: 1px solid #0009;
+    background: transparent;
+    outline: none;
+}

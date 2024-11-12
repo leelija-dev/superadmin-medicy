@@ -1,0 +1,75 @@
+/* *, *::after, *::before{
+    box-sizing: inherit;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+html{
+    box-sizing: border-box;
+} */
+.doccategory {
+    width: 80%;
+    /* height: 20rem; */
+    /* margin: 0 auto; */
+    /* margin:auto; */
+    margin: 200px auto 0 auto;
+    padding: 15px 0;
+    justify-content: center;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    grid-gap: 1.5rem;
+  }
+.doccard {
+    overflow: hidden;
+    margin-top: 25px;
+    /* margin-top: 18rem; */
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.1) 11px 20px 23px -5px, rgba(0, 0, 0, 0.04) 11px 10px 10px -5px;
+    justify-content: center;
+  }
+.doccard h2{
+    font-size: 17px;
+    margin: 10px auto;
+    text-align: center;
+    color: rgb(2, 71, 91, 0.6);
+}
+.image_box{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+.image_box img{
+    width: 100%;
+    height: 100%;
+}
+.text_box{
+    margin: 0 auto;
+}
+.para1 p{
+    font-size: 12px;
+    text-align: center;
+    color: rgb(2, 71, 91, 0.6);
+    font-weight: 700;
+}
+.doccard_button{
+    width: 100%;
+    text-decoration: none;
+    margin: 12px 0 0 0;
+    background-color: #7552f1;
+    text-align: center;
+    box-shadow: none;
+    height: 40px;
+    border: none;
+    border-radius: 0 0 5px 5px;
+    cursor: pointer;
+    position: fixed;
+}
+.doccard_button:hover{
+    background: #ff7a19;
+}
+.doccard_button a{
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+}

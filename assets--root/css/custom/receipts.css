@@ -1,0 +1,104 @@
+:root{
+    --divider-border-color: solid rgba(0, 0, 0, .3);
+}
+.custom-container {
+    width: 20cm;
+    min-width: 20cm;
+    max-width: 20cm;
+    margin: auto;
+}
+
+.custom-body {
+    margin-top: 30px;
+    padding: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.paid-bg {
+    /* background-image: url(../../images/paid-seal.png); */
+    background-image: url(../../../images/paid-seal.png);
+    background-repeat: no-repeat;
+    background-size: 300px 180px;
+    background-position-x: center;
+    background-position-y: 150px;
+}
+
+.invoice-info{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.invoice-info p{
+    font-size: 0.875em;
+    margin-bottom: 0;
+    margin-top: -2px;
+}
+
+.hr-divider{
+    opacity: .5;
+    height:1px;
+    margin: 4px auto 0px auto; 
+}
+table{
+    min-height: 400px;
+}
+.table-header-divider{
+border-bottom: 1px var(--divider-border-color);
+}
+.bill-summary{
+    border-left: 1px var(--divider-border-color);
+}
+@media print {
+    @page {
+        margin: 5px 5px 5px;
+    }
+    html,
+    body {
+        height: 100%;
+        margin: 0 5px 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
+    }
+    .custom-container {
+        width: 100%;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+    .custom-body {
+        margin-top: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+    .paid-bg {
+        height: 140vh;
+        background-position-y: 250px;
+    }
+    .custom-width-name {
+        width: 32%;
+        margin-left: -30px;
+    }
+    .custom-width-email {
+        width: 42%;
+        margin-left: -30px;
+    }
+    .custom-width-number {
+        width: 38%;
+        margin-left: -40px;
+    }
+    .border-thin {
+        border-width: thin;
+    }
+    .border-thick {
+        border-width: thick;
+    }
+    /* .footer {
+        position: fixed;
+        top: 430px;
+        width: 93.5%;
+    } */
+    .print-sec {
+        visibility: hidden;
+    }
+}

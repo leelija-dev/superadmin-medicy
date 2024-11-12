@@ -1,0 +1,34 @@
+.sales-table:hover {
+    background: #e2e1e1;
+}
+
+/* .cvx-inp {
+    border: 1px solid rgba(17, 17, 17, 0.2);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0px 10px;
+    outline: none;
+    border-radius: 2px;
+}
+.cvx-inp1 {
+    border: 1px solid rgba(17, 17, 17, 0.2);
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(4, 76, 157, 1);
+    padding: 0px 10px;
+    width: 100%;
+    height: 30px;
+    border-radius: 2px;
+    outline: none;
+    text-transform: capitalize;
+    align-items: center;
+}
+.cvx-inp:focus {
+    border: 1px solid rgb(62, 141, 187);
+    ;
+}
+
+.cvx-inp1:focus {
+    border: 1px solid rgb(62, 141, 187);
+    ;
+} */

@@ -1,0 +1,149 @@
+/* *, *::after, *::before{
+    box-sizing: inherit;
+    font-family: sans-serif;
+}
+html{
+    box-sizing: border-box;
+} */
+.main_section{
+    width: 100%;
+    height: auto;
+}
+.single_page{
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+/* .image-text{
+    display: flex;
+} */
+.image{
+    width: 45%;
+    padding-top: 5px;
+}
+.image img{
+    width: 100%;
+    max-height: 250px;
+}
+.text_box{
+    width: 50%;
+    /* background-color:#c5c5c521; */
+    padding: 4px;
+}
+
+.provide{
+    padding-top: 25px;
+}
+.provide h2{
+    font-size: 17px;
+    font-weight: bolder;
+}
+.provide_lab{
+    /* padding-top: 15px; */
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+    padding-bottom: 8px;
+}
+.medicy_lab{
+    font-size: 18px;
+}
+.provide_lab .logo img{
+    width: 90px;
+}
+.need{
+    padding-top: 25px;
+}
+.need h2{
+    margin: 0;
+    font-size: 15px;
+    font-weight: bolder;
+}
+.need h2, p{
+    margin: 0;
+    padding-top: 10px;
+}
+.included_test{
+    padding-top: 25px;
+}
+.included_test h2{
+    font-size: 15px;
+    font-weight: bolder;
+}
+.all_test_name{
+    display: flex;
+    align-items: center;
+    padding-bottom: 25px;
+}
+.test_photo{
+    display: flex;
+}
+.test_photo img{
+    width: 30px;
+    margin: 0;
+    /* padding-left: 10px; */
+}
+.test_name p{
+    margin: 0;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-size: 12px;
+}
+.why_book{
+    padding-top: 25px;
+}
+.why_book img{
+    width: 80px;
+    margin: 0;
+}
+.why_book h2{
+    font-size: 15px;
+    font-weight: bolder;
+}
+.reason{
+    display: flex;
+    align-items: center;
+}
+.reason_photo img{
+    width: 60px;
+}
+.reason_text p{
+    padding-bottom: 15px;
+}
+p{
+    font-size: 14px;
+}
+
+@media only screen and (max-width:765px) {
+    .single_page{
+        flex-direction: column;
+        width: 100%;
+    }
+    .text_box{
+        width: 100%;
+        padding-top: 0px;
+    }
+    .image{
+        width: 100%;
+    }
+}
+
+
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 765px) {
+    .mobile-only {
+        display: flex;
+    }
+    .large-screen{
+        display: none;
+    }
+}
+.item-column{
+    border-radius: 8px;
+    background-color: #c5c5c521;
+}

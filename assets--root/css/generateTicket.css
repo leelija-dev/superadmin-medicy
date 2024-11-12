@@ -1,0 +1,20 @@
+.g-ticketBtn{
+    width: 40px;
+    height: 40px;
+    right: 15px;
+    bottom: 22px;
+    position: fixed;
+    z-index: 1;
+    background-color:var(--blue) !important;
+    border-radius: 50% !important;
+    font-weight: 900 !important;
+    font-size: larger !important;
+    outline: none !important;
+    border: none !important;
+    transition: transform 0.3s ease !important;
+}
+.g-ticketBtn:hover{
+    background-color:var(--blue);
+    transform:scale(1.1);
+}
+

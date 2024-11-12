@@ -1,0 +1,96 @@
+#select-bill {
+    max-height: 10rem;
+    max-width: 100%;
+    overflow: inherit;
+    font-size: 0.9rem;
+    z-index: 9;
+    background: rgb(255, 255, 255);
+    display: none;
+    border-radius: 0 0 3px 3px;
+    position: absolute;
+    margin-top: 0.1rem;
+    transition: 3.3s ease;
+    width: 96%;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 30%);
+}
+
+.jsales-order-list-block {
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding: 6px 20px;
+    border-bottom: 1px solid rgba(4, 76, 157, 0.2);
+}
+
+.jsales-order-list-group {
+    display: flex;
+}
+
+.jsales-order-list-head {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    color: rgba(4, 76, 157, 1);
+}
+
+.jsort-icon p {
+    cursor: pointer;
+    width: 7rem;
+    padding: 0px;
+}
+
+.cvx-inp {
+    border: 1px solid rgba(17, 17, 17, 0.2);
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(4, 76, 157, 1);
+    padding: 0px 10px;
+    width: 100%;
+    height: 30px;
+    border-radius: 2px;
+    text-transform: capitalize;
+}
+
+.cvx-inp:focus {
+    border: 1px solid rgb(62, 141, 187);
+    ;
+}
+
+.cvx-inp1:focus {
+    border: 1px solid rgb(62, 141, 187);
+    ;
+}
+
+.cvx-inp1 {
+    border: 1px solid rgba(17, 17, 17, 0.2);
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(4, 76, 157, 1);
+    padding: 0px 10px;
+    width: 100%;
+    height: 30px;
+    border-radius: 2px;
+    outline: none;
+    text-transform: capitalize;
+}
+
+.left {
+    display: flex;
+}
+
+@media screen and (max-width: 767px) {
+    .cvx-inp {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+    .jsales-order-list-block {
+        width: 100%;
+        overflow: scroll;
+        overflow-y: hidden;
+    }
+    .cvx-inp1 {
+        position: relative;
+        padding: 0rem;
+        margin-bottom: 1rem;
+    }
+}

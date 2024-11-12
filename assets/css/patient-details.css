@@ -1,0 +1,87 @@
+.graph-Chart{
+    width: 40%; 
+    height: 196px;
+    margin-top:9px; 
+    padding:4px; 
+    border-radius:4px; 
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+/* #myChart{
+    width: 50%;
+    height: 300px;
+    /* padding: 8px; */
+    /* display: block; */
+    /* box-sizing: border-box; */
+/* }  */
+.table-div{
+    display: flex; 
+    align-items:flex-start;
+    justify-content:space-between; 
+    flex-wrap: wrap;
+    /* width: 100%; */
+    margin-top:15px; 
+    padding:4px; 
+    border-radius:4px;
+}
+.left-table{
+    width: 40%; 
+    padding:8px; 
+    border-radius:4px; 
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.right-table{
+    width: 55%; 
+    height: 20%;
+    padding:8px; 
+    border-radius:4px; 
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.left-table,
+.right-table {
+    flex-basis: calc(50% - 10px); /* Adjust as needed, considering margin or padding */
+    margin-bottom: 20px; /* Adjust as needed */
+}
+.table {
+    width: 100%;
+    color: #858796;
+}
+/* Style for the toggle button */
+#toggleButton {
+    margin-top: -10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#toggleButton:hover {
+    background-color: #0056b3;
+}
+.rounded{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+#chart2{
+    height: 167px; width: 100%;
+}
+@media (min-width: 260px) and (max-width: 767.98px) {
+    .rounded{
+        width: 58%;
+    }  
+    #chart2{
+        width: 40%
+    } 
+    .scondrow{
+        height: 125px;
+    }
+    .graph-Chart{
+        height: 110px;
+    }
+    .left-table{
+        width: 100%;
+    }
+    .right-table{
+        width: 100%;
+    }
+}

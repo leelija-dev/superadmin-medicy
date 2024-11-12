@@ -1,0 +1,123 @@
+/* .card img{
+    width: 55px;
+    padding-left: 15px;
+} */
+.delete{
+    width: 20px;
+    position: absolute;
+    top: 7px;
+    right: 25px;
+    font-size: 25px;
+    cursor: pointer;
+    color: red;
+}
+.view_edit{
+    display: flex;
+    justify-content: space-between;
+}
+.testImg{
+    width: 6%;
+    object-fit: cover;
+}
+.testImg img{
+width: 100%;
+aspect-ratio: 1/1;
+border: 1px solid gray;
+border-radius: 50%;
+}
+
+
+/* ///////edit css///// */
+.editDiv{
+    display: flex;
+    justify-content: space-between;
+}
+.editImgDiv{
+    width: 40%;
+}
+.editImg{
+    width: 100%;
+    object-fit: cover;
+    border: 2px solid rgb(175, 175, 175);
+    padding: 8px;
+}
+.editImg img{
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+.editContDiv{
+    width: 55%;
+}
+.testEditInput{
+    outline: none;
+    border: none;
+    background: transparent;
+    border-bottom: 0.1rem solid gray;
+    border-radius: 0px !important;
+}
+.testEditInput:focus,
+.testEditInput:active{
+    border-color: #5A59EB;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#reportUpdate{
+    position: absolute;
+    z-index: 2;
+    /* margin-top: -18.5rem; */
+    /* margin-left: -9.5rem; */
+    border-radius: 8px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.status-active {
+    color: green;
+    background-color: lightgreen;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.status-inactive {
+    color:white;
+    background-color: lightcoral;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#categoryModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Black overlay */
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* style="outline: none;border: 1px solid rgba(17, 17, 17, 0.2);border-radius: 2px;" */
+/* .cvx-inp{
+    outline: none;
+    border: 1px solid rgba(17, 17, 17, 0.2);
+    border-radius: 2px;
+} */
+@media screen and (max-width: 767px){
+    /* .editDiv{
+       flex-direction: column;
+       width: 100%;
+    }
+    .editImgDiv{
+        width: 100%;
+    }
+    .editContDiv{
+        margin-top: 12px;
+        width: 100%;
+    } */
+    .testImg img{
+        width: 20px;
+        height: 20px;
+    }
+
+}

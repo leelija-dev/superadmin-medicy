@@ -1,0 +1,200 @@
+.c-dropdown{
+    display: none;
+    position: absolute;
+    max-height: 15rem;
+    max-width: 100%;
+    overflow: auto;
+    transition: 60ms;
+    border-radius: 3px;
+    box-shadow: 0 5px 8px rgb(0 0 6 / 28%);
+    z-index: 999;
+}
+.c-dropdown .list{
+    cursor: pointer;
+    background-color: #f2f1ff;
+}
+
+.c-dropdown .list:hover {
+    background-color: #c3bff1;
+}
+
+/* .c-inp,
+.cvx-inp1{
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+} */
+.focus-out{
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.c-inp option:hover,
+select option:hover{
+    /* outline: none !important;
+    border: none !important; */
+    color: #ffffff;
+    background-color: rgba(12, 161, 246, 1) !important;
+    cursor: pointer;
+}
+
+.dropdown-menu li{
+    padding: 4px 12px;
+}
+.dropdown-menu li:hover,
+.dropdown-menu label:hover,
+.dropdown-menu input:hover{
+    color: #ffffff;
+    background-color: rgba(12, 161, 246, 1) !important;
+    cursor: pointer;
+}
+
+
+#print-report{
+    padding-bottom: 6px;
+}
+.reportNavbar{
+    background-color: rgba(4, 76, 157, 0.1);
+    padding: 12px 24px;
+}
+
+#dtPickerDiv{
+    width: 25%;
+    top: 13rem;
+    left: 1rem;
+    background-color: #ffffff;
+    position: absolute;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.table thead th {
+    font-size: 15px;
+    font-weight: 600;
+    color: #044c9d;
+}
+.table tbody td{
+    font-size: 14px;
+    /* font-weight: 600; */
+}
+
+@media screen and (max-width:768px) {
+    #dtPickerDiv{
+        width: 75%;
+    }
+    .reportNavbar{
+        padding: 12px 12px;
+    }
+    .selectDiv{
+        margin-bottom: 6px;
+    }
+    .searchFilterDiv{
+        width: 100%;
+        padding: 0px;
+    }
+    .searchFilterDiv button{
+        width: 100%;
+    }
+}
+/* ..........................  */
+
+.reportCard{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(12, 161, 246, .1);
+    width: 20%;
+    height: 100px;
+    padding: 20px 25px;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #044c9d;
+    font-weight: 600;
+    transition: all .3s ease;
+}
+.reportCard:hover{
+    text-decoration: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.accordion-flush,
+.accordion-body {
+    max-height: 450px;
+    height: auto;
+    overflow-y: auto;
+}
+.accordion-button{
+    font-size: 1.2rem;
+    font-weight: 600;
+    outline: none !important;
+    border: none;
+}
+.accordion-button::after {
+    background-image:none;
+    outline: none !important;
+}
+.accordion-button:not(.collapsed)::after {
+    background-image: none;
+}
+.accordion-button:not(.collapsed) {
+    color: var(--bs-accordion-active-color);
+    background-color: transparent;
+    box-shadow: inset 0 calc(-1* var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+}
+.accordion-body{
+    width: 100%;
+    padding: 8px 0px 4px 20px;
+}
+.accordion-body a{
+    color: black;
+    text-decoration: none;
+}
+.accordion-body:hover{
+    border-radius: 4px;
+    background-color: #dee8f3;
+}
+
+/* ...........................  */
+.checkbox-menu li{
+    border-bottom: 1px solid rgb(185, 185, 185);
+}
+.checkbox-menu li label {
+    display: block;
+    padding: 8px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    margin:0;
+    transition: background-color .4s ease;
+}
+.checkbox-menu li input {
+    margin: 0px 5px;
+    top: 2px;
+    position: relative;
+}
+.checkbox-menu li input:active{
+    background-color: rgba(12, 161, 246, 1) !important;
+}
+
+.checkbox-menu li.active label {
+    background-color: #cbcbff;
+    font-weight:bold;
+}
+
+.checkbox-menu li label:hover,
+.checkbox-menu li label:focus{
+    background-color: rgba(12, 161, 246, 1) !important;
+    color: #ffffff;
+}
+.activeCheckedBox {
+    background-color: rgba(12, 161, 246, 1) !important;
+    color: #ffffff;
+}
+.checkbox-menu li.active label:hover,
+.checkbox-menu li.active label:focus {
+    background-color: #b8b8ff;
+}
+

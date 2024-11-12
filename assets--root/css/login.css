@@ -1,0 +1,64 @@
+body {
+  background-color: #f0f2f5;
+}
+
+.login-wrapper {
+  min-height: 100vh;
+}
+form {
+  width: 30%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #fff;
+}
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Ensuring specificity and compatibility with different browsers */
+input:-webkit-autofill,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+  box-shadow: 0 0 0 1000px #fff inset !important;
+  -webkit-text-fill-color: #000 !important; /* Ensures text color is readable */
+}
+
+@media (min-width: 260px) and (max-width: 575.98px) {
+  form {
+    width: 78%;
+  }
+}
+
+@media (min-width: 576px){
+  form {
+    width: 400px !important;
+  }
+}
+
+/* @media (min-width: 992px) and (max-width: 1199.98px) {
+  form {
+    width: 35%;
+  }
+}
+
+@media (min-width: 1200px) {
+  form {
+    width: 25%;
+  }
+} */
+
+/* .form-group {
+    position: relative;
+}
+
+#toggleBtn {
+    position: absolute;
+    top: 74%;
+    right: 6px;
+    transform: translateY(-50%);
+    cursor: pointer;
+} */

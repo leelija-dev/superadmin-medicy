@@ -1,0 +1,105 @@
+/* td a{
+    padding: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.booked_btn{
+    display: inline-flex;
+    justify-content: space-between;
+}
+.booked_btn button{
+    padding: 6px 20px;
+}
+.booked_btn button i{
+    margin: 5px;
+    font-size: 15px;
+}
+.booked_btn a{
+    text-decoration: none;
+    color: white;
+} */
+/* #browsers{
+    background-color: #ffffff;
+    color: #000000;
+} */
+/* .newbillInput{
+    outline: none;
+    border: none;
+    background: transparent;
+    border-bottom: 0.1rem solid #000000;
+    border-radius: 0px !important;
+}
+.newbillInput:focus{
+    border: none;
+    border-bottom: 1px solid rgb(27, 134, 235);
+} */
+
+.entry-button-col {
+    text-align: right;
+    margin-top: 10px;
+    color: rgb(18, 22, 21);
+}
+
+#patient-list {
+    display: none;
+    color: #4e73df;
+    z-index: 9;
+    background: rgb(255, 255, 255);
+    border-radius: 0 0 3px 3px;
+    position: absolute;
+    padding: 12px;
+    transition: 1.1s ease;
+    width: 95%;
+    box-shadow: 0 5px 8px rgb(0 0 6 / 28%);
+    max-height: 16.5rem;
+    overflow: auto;
+}
+.customer-row:hover {
+    background: #3e059b26;
+    cursor: pointer;
+}
+
+/* ........custom dropdown for doctor selection.........  */
+/* .custom-dropdown {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+} */
+
+.dropdown-selected {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.dropdown-options {
+    display: none;
+    position: absolute;
+    width: 96%;
+    border: 1px solid #ccc;
+    background-color: white;
+    z-index: 1;
+    max-height: 150px;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+
+.dropdown-options.show {
+    display: block;
+}
+
+.dropdown-option {
+    padding: 8px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+}
+
+.dropdown-option:last-child {
+    border-bottom: none;
+}
+
+.dropdown-option:hover {
+    border-radius: 4px;
+    background-color: #dad9d9;
+}/* ........custom dropdown for doctor selection.........  */

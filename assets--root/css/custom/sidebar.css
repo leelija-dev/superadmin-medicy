@@ -1,0 +1,374 @@
+.Nsidebar {
+    width: 17rem;
+    background-color: #4e73df;
+    background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+    background-size: cover;
+    color: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: sticky;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease;
+    z-index: 1000;
+    scrollbar-width: thin;
+    scrollbar-color: #224abe transparent;
+}
+
+.Nsidebar a {
+    color: var(--menu-color) !important;
+
+}
+
+.Nsidebar.active {
+    width: 250px;
+}
+
+.Nsidebar a {
+
+    margin-bottom: 5px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    padding: 1rem;
+    text-align: center;
+    background-color: #4e73df;
+
+    background-size: cover;
+}
+
+.logo .logo-favicon {
+    display: none;
+}
+
+.logo .logo-full {
+    display: inline;
+
+}
+
+.logo-favicon {
+    width: 62% !important;
+}
+
+.Nmenu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.Nmenu li {
+    color: var(--light) !important;
+}
+
+.Nsidebar .nav-item .nav-link i {
+    opacity: .3;
+}
+
+.Nsidebar .nav-item .nav-link span {
+    opacity: .8;
+}
+
+.Nsidebar .nav-item.active span,
+.Nsidebar .nav-item.active i {
+    opacity: 1;
+    color: var(--white);
+    font-weight: 700;
+}
+
+.Nsidebar .nav-item .nav-link:focus span,
+.Nsidebar .nav-item .nav-link:focus i,
+.Nsidebar .nav-item .nav-link:hover span,
+.Nsidebar .nav-item .nav-link:hover i
+{
+    opacity: 1;
+    color: var(--white);
+}
+.Nsidebar .nav-item.active .NSarrow{
+    transform: rotate(90deg);
+}
+
+
+
+
+.Nmenu-item {
+    display: flex;
+    
+    padding: 15px 20px;
+    align-items: center;
+    color: #f4fbff;
+    text-decoration: none;
+    transition: background 0.3s;
+
+}
+
+.Nsidebar-divider {
+    color: #f7f5f5cb;
+}
+
+.Nmenu-item a {
+    color: #ffffff;
+    font-size: 0.85rem;
+
+}
+
+.Nmenu-item i {
+    padding-right: 2px;
+    margin-top: 5px;
+
+}
+
+/* Hover effect */
+.Nmenu-item:hover {
+
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.section-title {
+    padding: 1rem 20px;
+    font-size: 0.9rem;
+    color: #ecf0f1;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+
+.Nsubmenu {
+    max-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #ffffff;
+    margin: 10px;
+    padding: 0 10px;
+
+    border-radius: 5px;
+    transition: max-height 0.2s ease, padding 0.3s ease;
+    margin-top: 10px;
+
+}
+
+.Nsubmenu a {
+    color: #141414 !important;
+    padding: 10px;
+    text-decoration: none !important;
+    width: 100%;
+    margin-bottom: 0px;
+
+}
+
+
+.Nsubmenu.show {
+
+    max-height: 200px;
+
+}
+
+.logo img {
+    object-fit: contain;
+    width: 100%;
+}
+
+
+
+
+.Ntoggle-btn {
+    display: none;
+    background-color: #3498db;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.Ntoggle-btn:hover {
+    background-color: #2980b9;
+}
+
+
+.Nsidebar.active {
+    display: none;
+    /* Adjust margin when Nsidebar is active */
+}
+
+.Nsidebar a:hover{
+    color: #0c1e70 !important;
+}
+
+.Nexpand-btn {
+
+    bottom: 0;
+
+    position: relative;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -16%);
+    width: 3rem;
+    height: 3rem;
+    background-color: #4e73df;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+
+.Nexpand-btn:hover {
+    background-color: #2980b9;
+}
+
+.head-titles {
+    font-size: 0.85rem;
+    margin-left: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 700;
+}
+
+.Nsidebar a {
+    margin-bottom: 5px;
+}
+
+/* Styles for collapsed sidebar (7rem) */
+.Nsidebar.collapsed a {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+}
+
+.Nmenu-item {
+    display: flex;
+    align-items: center;
+  
+    /* Adjust gap as needed */
+}
+
+.NSarrow {
+    right: 15px;
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+
+.rotate {
+    transform: rotate(90deg);
+}
+
+.Nmenu-item .arrow-icon {
+    margin-left: auto;
+    /* Push the arrow icon to the end */
+}
+
+.head-titles .collapsed {
+    font-size: smaller;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 700;
+}
+
+.Nsidebar.collapsed .NSarrow {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .Nsidebar {
+
+        width: 8rem !important;
+        background-color: #2c3e50;
+        color: #fff;
+        position: static;
+        height: auto;
+        z-index: 1000;
+        /* Sidebar width on mobile */
+
+    }
+
+    .head-titles {
+        font-size: 0.75rem;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 700;
+    }
+
+    .Ntoggle-btn {
+        display: block;
+    }
+
+    .Nmenu-item {
+        justify-content: center;
+        padding: 10px 0;
+        flex-direction: column;
+    }
+
+    .search-container {
+        display: none;
+    }
+
+
+    .Nsidebar a {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.85rem;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+    }
+
+
+
+    .Nexpand-btn {
+        display: none;
+    }
+
+    .Nmenu {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+    }
+
+    .Nmenu-item {
+        justify-content: center;
+        padding: 10px 0;
+        flex-direction: column;
+        /* Set to column in mobile view */
+    }
+
+    .Nsubmenu {
+
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        color: #3a3b45;
+        margin: 10px;
+        padding: 0 10px;
+        border-radius: 5px;
+        transition: 0.2s ease;
+        margin-top: -10px;
+        position: absolute;
+        left: 90px;
+        z-index: 999;
+        margin-top: -67px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    }
+
+    .active {
+        color: #f4f6f7;
+    }
+
+
+}

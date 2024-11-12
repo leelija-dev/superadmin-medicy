@@ -1,0 +1,8 @@
+td a{
+    padding: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+td a i{
+    font-size: 15px;
+}

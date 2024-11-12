@@ -1,0 +1,234 @@
+.apointment_details {
+    margin-top: 1.5rem;
+    width: 100%;
+    height: auto;
+}
+
+.apointment_details table {
+    color: #5a5c69 !important;
+}
+
+.apointment_details h2 {
+    color: #5a5c69 !important;
+}
+
+
+#search-for {
+    max-height: 10rem;
+    overflow: auto;
+    font-size: 0.9rem;
+    z-index: 9;
+    background: rgb(255, 255, 255);
+    display: none;
+    border-radius: 0 0 3px 3px;
+    position: absolute;
+    margin-top: 0.1rem;
+    transition: 3.3s ease;
+    width: 96%;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+}
+
+/* making the chat div responsive */
+#salesPurchaseDataChartDiv {
+    width: 100%;
+    margin: 0 auto;
+    height: 95%;
+}
+
+#salesPurchaseDataChartDiv canvas {
+    display: block;
+    box-sizing: border-box;
+    height: 95%;
+    width: 100%;
+}
+
+#mostVisitCustomerCharDiv canvas {
+    display: block;
+    box-sizing: border-box;
+    height: 95%;
+    width: 100%;
+}
+
+#soldItemsChartDiv {
+    width: 100%;
+    margin: 0 auto;
+
+}
+
+.box-top {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.icon-top {
+    margin-left: 80%;
+}
+
+.micon {
+    margin-left: 50%;
+}
+
+
+
+@media (max-width: 767.98px) {
+    /* #salesPurchaseDataChartDiv {
+        width: 100%; 
+        margin: 0 auto; 
+        height: 95%;
+    }  */
+
+    #salesPurchaseDataChart {
+        width: 100% !important;
+        height: 95% !important;
+    }
+
+    #soldItemsChart{
+        width: 100% !important;
+        height: 95% !important;
+    }
+
+    #mostVisitCustomerChart{
+        width: 100% !important;
+        height: 95% !important;
+
+    }
+   
+
+    /* #mostVisitCustomerCharDiv {
+        width: 100%;
+
+    } */
+
+    /* #mostVisitCustomerCharDiv canvas {
+       
+    } */
+
+    /* #soldItemsChartDiv canvas {
+        width: 100% !important;
+        height: 95% !important;
+    } */
+
+   
+
+    .sold-res {
+        margin-left: -50%;
+        margin-top: -2%;
+    }
+
+   
+
+    .icon-top {
+        margin-left: -7%;
+    }
+
+    .micon {
+        margin-left: 0;
+    }
+
+    #soldItemDtPickerDiv {
+        margin-right: 0 !important;
+    }
+
+    #soldItemDtRngPickerDiv {
+        margin-right: 0% !important;
+
+    }
+    #sales-purchase-dt-picker {
+        margin-right: 0 !important;
+    }
+
+    #sales-purchase-dt-picker-range {
+        margin-right: 5% !important;
+       
+    }
+
+    #mostVistedCustomerDtPkrRng {
+        margin-right: 0 !important;
+    }
+
+    #mostVistedCustomerDtPkr {
+        margin-right: 0 !important;
+    }
+
+    li .nav-link {
+        padding: 10px;
+        
+
+    }
+
+    
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+
+    #salesPurchaseDataChartDiv {
+        width: 80%; 
+       
+        height: 100%;
+    } 
+
+     #salesPurchaseDataChartDiv canvas {
+        /* width: 100% !important;  */
+        height: 100% !important;
+     } 
+
+    #mostVisitCustomerCharDiv {
+        width: 100%;
+
+    }
+
+    #mostVisitCustomerCharDiv canvas {
+        width: 100% !important;
+  
+        height: 100% !important; 
+    }
+
+    #soldItemsChartDiv canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .sold-res {
+        margin-left: -50%;
+        margin-top: -2%;
+    }
+
+    .icon-top {
+        margin-left: -10%;
+    }
+
+    .micon {
+        margin-left: 0;
+    }
+
+    #soldItemDtPickerDiv {
+        margin-right: 5rem !important;
+    }
+
+    #soldItemDtRngPickerDiv {
+        margin-right: 5rem !important;
+
+    }
+
+    #sales-purchase-dt-picker {
+        margin-right: -23rem !important;
+    }
+
+    #sales-purchase-dt-picker-range {
+        margin-right: -23rem !important;
+    }
+
+    #mostVistedCustomerDtPkrRng {
+        margin-right: -19rem !important;
+    }
+
+    #mostVistedCustomerDtPkr {
+        margin-right: -19rem !important;
+    }
+
+    li .nav-link {
+        padding: 8px;
+    }
+}

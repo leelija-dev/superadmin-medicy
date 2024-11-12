@@ -1,0 +1,14 @@
+.border-info:hover {
+    background: #36b9cc!important;
+    color: #FFFFFF!important;
+}
+
+.card img {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+.card img:hover {
+    transform: scale(1.1); 
+}

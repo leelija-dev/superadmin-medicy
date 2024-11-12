@@ -1,0 +1,112 @@
+.custom-container {
+    padding-left: 12rem;
+    padding-right: 12rem;
+}
+
+.custom-body {
+    margin-top: 30px;
+    padding: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.paid-bg {
+    background-image: url(../../images/refund-seal.png);
+    background-repeat: no-repeat;
+    background-size: 150px 150px;
+    background-position-x: center;
+    background-position-y: start;
+}
+
+
+/* 
+@media (min-width: 992px){
+    .custom-container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 768px){
+    .custom-container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 576px){
+    .custom-container {
+        max-width: 540px;
+    }
+} */
+
+@media print {
+    @page {
+        size: landscape;
+        margin: 5px 5px 5px;
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0 5px 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
+
+        /* transform: rotate(90deg);
+        transform-origin: left top; */
+        /* width: 100vh; */
+        max-height: 90%;
+        /* Viewport height */
+        top: 100%; 
+        /* Move content off-screen */
+        page-break-after: always;
+        /* Ensure content is on a separate page */
+    }
+
+    .custom-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .custom-body {
+        margin-top: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+
+    .paid-bg {
+        height: 140vh;
+        background-position-y: 250px;
+    }
+
+    .custom-width-name {
+        width: 32%;
+        margin-left: -30px;
+    }
+
+    .custom-width-email {
+        width: 42%;
+        margin-left: -30px;
+    }
+
+    .custom-width-number {
+        width: 38%;
+        margin-left: -40px;
+    }
+
+    .border-thin {
+        border-width: thin;
+    }
+
+    .border-thick {
+        border-width: thick;
+    }
+
+    .footer {
+        position: fixed;
+        top: 430px;
+        width: 93.5%;
+    }
+
+    .print-sec {
+        visibility: hidden;
+    }
+}

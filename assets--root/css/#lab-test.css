@@ -1,0 +1,17 @@
+.card img{
+    width: 55px;
+    padding-left: 15px;
+}
+.delete{
+    width: 20px;
+    position: absolute;
+    top: 7px;
+    right: 25px;
+    font-size: 25px;
+    cursor: pointer;
+    color: red;
+}
+.view_edit{
+    display: flex;
+    justify-content: space-between;
+}

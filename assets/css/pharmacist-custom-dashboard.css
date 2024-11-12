@@ -1,0 +1,17 @@
+.apointment_details {
+    margin-top: 1.5rem;
+    width: 100%;
+    height: auto;
+}
+
+.apointment_details table {
+    color: #5a5c69!important;
+}
+
+.apointment_details h2 {
+    color: #5a5c69!important;
+}
+
+.card-btn {
+    margin-bottom: -2rem;
+}

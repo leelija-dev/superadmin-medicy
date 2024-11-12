@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+body {
+    color: #000;
+    overflow-x: hidden;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%
+}
+
+.headerDoctorDetails{
+    font-family: auto;
+    flex: 0 0 auto;
+    width: 33.33333333%;
+    margin-top: -35px;
+}
+.blue-text {
+    color: #00BCD4
+}
+
+.form-control-label {
+    margin-bottom: 0
+}
+
+#dropSelection,
+input,
+textarea,
+button {
+    padding: 8px 15px;
+    border-radius: 5px !important;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 18px !important;
+    font-weight: 300
+}
+
+#dropSelection:focus,
+input:focus,
+textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #00BCD4;
+    outline-width: 0;
+    font-weight: 400
+}
+
+.customDropSelection{
+    padding: 8px 15px;
+    border-radius: 5px !important;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 18px !important;
+    font-weight: 300;
+    transition: 1.1 ease;
+}
+.customDropSelection:focus{
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #00BCD4;
+    outline-width: 0;
+    font-weight: 400
+}
+.btn-block {
+    text-transform: uppercase;
+    font-size: 15px !important;
+    font-weight: 400;
+    height: 43px;
+    cursor: pointer
+}
+
+.btn-block:hover {
+    color: #fff !important
+}
+
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
+}
+.space{
+    min-height: 60vh;
+}
+.footerDetails{
+ max-height: 40px;
+}
+
+.footerImgCol1{
+    margin-left: 5px;
+    min-height: 50px;
+
+}
+.footerNameCol1{
+    margin-left: 5px;
+    min-height: 50px;
+
+}
+
+.Hoscol{
+    flex: 0 0 auto;
+    width: 23%;
+    padding-left: 40px;
+}
+.colCus {
+    flex: 0 0 auto;
+    width: 71%;
+    margin-top: 0.2rem;
+}
+
+.emailCol {
+    flex: 0 0 auto;
+    width: 14%;
+    margin-top: 0.2rem;
+}
+
+.emailColText{
+    flex: 0 0 auto;
+    width: 75%;
+    margin-left: -28px;
+    margin-top: 0.2rem;
+}
+
+.numColLogo {
+    flex: 0 0 auto;
+    width: 25%;
+    margin-left: -65px;
+    margin-top: 0.2rem;
+
+}
+
+.numColtext {
+    flex: 0 0 auto;
+    width: 95%;
+}
+
+.last{
+
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y) * -1);
+    margin-right: calc(var(--bs-gutter-x) * -.5);
+    margin-left: calc(var(--bs-gutter-x) * -.5);
+}
+.printButton{
+    margin-top: 10px;
+    align-items: center;
+    text-align: center;
+}
+button{
+    background-color: #3047c5;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+#appointmentDate{
+    width: 100%;
+}
+@media print{
+    @page{
+        margin: -25px 0 0;
+    }
+    .headerHospitalLogo{
+        margin-left: -30px;
+    }
+    .headerHospitalDetails{
+        margin-left: 20px;
+        width: 45%; 
+    }
+    .headerHospitalDetails h1{
+        font-size: 2rem;
+    }
+    .headerDoctorDetails{
+        margin-top: -10px;
+        width: 40%;
+        margin-right: -200px;
+
+    }
+    .space{
+        min-height: 37vh;
+    }
+     html, body {
+        height:100%; 
+        margin: 0 !important; 
+        padding: 0 !important;
+        overflow: hidden;
+      }
+    .printButton{
+        visibility: hidden;
+    }
+}
+
+
+

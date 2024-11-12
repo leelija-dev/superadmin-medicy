@@ -1,0 +1,32 @@
+/* td a{
+    padding: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.booked_btn{
+    display: inline-flex;
+    justify-content: space-between;
+}
+.booked_btn button{
+    padding: 6px 20px;
+}
+.booked_btn button i{
+    margin: 5px;
+    font-size: 15px;
+}
+.booked_btn a{
+    text-decoration: none;
+    color: white;
+} */
+
+.entry-button-col {
+    text-align: right;
+    margin-top: 10px;
+    color: rgb(18, 22, 21);
+}
+
+@media (min-width: 260px) and (max-width: 767.98px) {
+    .entry-button-col{
+        width: 78%;
+    }   
+}

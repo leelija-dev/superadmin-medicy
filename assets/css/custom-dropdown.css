@@ -1,0 +1,19 @@
+.c-dropdown{
+    display: none;
+    position: absolute;
+    max-height: 15rem;
+    max-width: 100%;
+    overflow: auto;
+    transition: 60ms;
+    border-radius: 3px;
+    box-shadow: 0 5px 8px rgb(0 0 6 / 28%);
+    z-index: 999;
+}
+.c-dropdown .list{
+    cursor: pointer;
+    background-color: #f2f1ff;
+}
+
+.c-dropdown .list:hover {
+    background-color: #c3bff1;
+}

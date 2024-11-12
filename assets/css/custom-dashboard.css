@@ -1,0 +1,27 @@
+.apointment_details{
+    margin-top: 1.5rem;
+    width: 100%;
+    height: auto;
+  }
+  .apointment_details table{
+      color: #5a5c69!important;
+  }
+  .apointment_details h2{
+      color: #5a5c69!important;
+  }
+  
+
+  #search-for {
+    max-height: 10rem;
+    overflow: auto;
+    font-size: 0.9rem;
+    z-index: 9;
+    background: rgb(255, 255, 255);
+    display: none;
+    border-radius: 0 0 3px 3px;
+    position: absolute;
+    margin-top: 0.1rem;
+    transition: 3.3s ease;
+    width: 96%;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+}

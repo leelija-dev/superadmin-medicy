@@ -1,0 +1,99 @@
+#####
+# ajax.custom-lib.js
+# 1. all date pickeer custom close and date picker current date control
+
+
+
+write a sql quey to truncate data from the tables "
+admin
+appointments
+clinic_info
+current_stock
+employees
+
+
+lab_billing
+lab_billing_details
+
+login_activity
+
+patient_details
+pharmacy_invoice
+query_request
+query_response
+
+sales_return
+sales_return_details
+
+stock_in
+stock_in_details
+
+stock_out
+stock_out_details
+
+stock_return
+stock_return_details
+
+subscription
+
+test_report
+test_report_details
+
+ticket_request
+ticket_response"
+
+
+
+
+
+
+
+
+
+
+
+
+-- Replace 'your_admin_id' with the actual admin_id value you want to delete
+SET 'ADM240918125921184' = 'ADM240918125921184';
+
+DELETE FROM admin WHERE admin_id = 'ADM240918125921184';
+DELETE FROM appointments WHERE admin_id = 'ADM240918125921184';
+DELETE FROM clinic_info WHERE admin_id = 'ADM240918125921184';
+DELETE FROM current_stock WHERE admin_id = 'ADM240918125921184';
+DELETE FROM employees WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM lab_billing WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM login_activity WHERE admin_id = 'ADM240918125921184';
+DELETE FROM patient_details WHERE admin_id = 'ADM240918125921184';
+DELETE FROM query_request WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM stock_out WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM sales_return WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM stock_in WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM stock_return WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM subscription WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM test_report WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM ticket_request WHERE admin_id = 'ADM240918125921184';
+
+DELETE FROM stock_return WHERE stockin_id NOT IN (SELECT id FROM stock_in);
+DELETE FROM sales_return WHERE invoice_id  NOT IN (SELECT invoice_id FROM stock_out);
+
+DELETE FROM lab_billing_details WHERE bill_id NOT IN (SELECT bill_id FROM lab_billing);
+DELETE FROM test_report_details WHERE report_id NOT IN (SELECT id FROM test_report);
+
+DELETE FROM stock_out_details WHERE invoice_id  NOT IN (SELECT invoice_id FROM stock_out);
+DELETE FROM sales_return_details WHERE sales_return_id  NOT IN (SELECT id FROM sales_return);
+
+DELETE FROM stock_in_details WHERE stokIn_id  NOT IN (SELECT id FROM lab_billing);
+DELETE FROM stock_return_details WHERE stock_return_id  NOT IN (SELECT id FROM stock_return);
+
+DELETE FROM query_response WHERE ticket_no NOT IN (SELECT ticket_no FROM query_request);
+DELETE FROM ticket_response WHERE ticket_no NOT IN (SELECT ticket_no FROM ticket_request);
+

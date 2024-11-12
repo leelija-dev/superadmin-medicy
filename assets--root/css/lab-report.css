@@ -1,0 +1,178 @@
+body {
+  color: #000;
+  background-color: #fff;
+  width: 20cm;
+  margin: auto;
+  padding: 0;
+
+  overflow-x: hidden;
+  font-size: 14px;
+}
+.print-page{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 12px 16px;
+}
+.lab-name {
+  margin-top: -1rem;
+  margin-right: 1rem;
+  margin-bottom: 6px;
+  color: #183697;
+  text-align: end;
+  font-size: 2.5rem;
+}
+
+.lab-tag {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.lab-tag span {
+  margin-right: 2rem;
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(24, 54, 151, 1) 28%);
+  padding: 8px 4px;
+  width: 347px;
+  color: #fff;
+  text-align: end;
+}
+/* footer{
+  text-align: center;
+} */
+.footerCont{
+  display: flex;
+  justify-content: space-around;
+}
+
+.lab-address {
+  color: #183697;
+  margin-top: 10px;
+  text-align: end;
+}
+
+.lab-address p {
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.hear-icon{
+  width: 8%;
+  margin-top: -20px;
+  position: absolute;
+}
+.hear-icon img{
+  width: 100%;
+  height: 100%;
+  /* aspect-ratio: 1/1; */
+}
+.patient-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 16px;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+}
+.patient-info p{
+  margin: 4px;
+}
+.report-area{
+  min-height: 200px;
+  height: auto;
+  width: 80%;
+  margin: auto;
+}
+
+.report-area h5{
+  text-align: center;
+  font-size: 1rem;
+  margin: 10px auto;
+}
+
+.report-area table{
+  margin-top: 25px;
+  width: 100%;
+}
+
+.report-area table td{
+  padding-bottom: 10px;
+}
+
+.subtestHead p{
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+.footer-info {
+  margin-top: 6px;
+  justify-content: space-around;
+}
+
+.footer-info .footerTag,
+.footerHead{
+  text-align: center;
+  margin: 4px 0;
+}
+.footer-content{
+  display: flex;
+  justify-content: space-around;
+}
+.footer-content-Left{
+color:#183697 ;
+}
+.footer-content p,
+.footerTag p{
+  margin: 2px;
+}
+.verified-by {
+  margin-top: 0px;
+  text-align: end;
+}
+
+.printDiv{
+  display: flex;
+ justify-content: center;
+ padding: 4px;
+}
+.printButton{
+  padding: 10px;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #4e73df;
+  border: none;
+  cursor: pointer;
+}
+
+.addHr{
+  height: 1px;
+  background-color: #183697;
+}
+.customHr{
+  width: 90%;
+  height: 2px;
+  background-color: #020f3a;
+}
+
+
+@media screen and (max-width:767px) {
+  .hear-icon{
+    width: 23%;
+    margin-top: -15px;
+    position: absolute;
+  }
+}
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .hear-icon{
+    width: 12%;
+    margin-top: -16px;
+    position: absolute;
+  }
+}
+@media screen and (min-width:1024px) and (max-width:1224px) {
+  .hear-icon{
+    width: 10%;
+    margin-top: -18px;
+    position: absolute;
+  }
+}

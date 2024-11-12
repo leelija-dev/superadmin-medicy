@@ -1,0 +1,17 @@
+th {
+    cursor: pointer;
+}
+
+th:after {
+    content: ' ↑↓';
+    display: inline-block !important;
+    margin-left: 5px !important;
+}
+
+th.sorted-asc:after {
+    content: ' ↑';
+}
+
+th.sorted-desc:after {
+    content: ' ↓';
+}

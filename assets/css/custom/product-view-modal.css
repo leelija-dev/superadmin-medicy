@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+.button1{
+    width: 100%;
+    height: 2rem;
+    border: none;
+    border-radius: 4px;
+   
+}
+
+.button2{
+    width: 4rem;
+    height: 2rem;
+    border: none;
+    border-radius: 4px;
+    margin-left: -2rem;
+}
+.button3{
+    width: 4rem;
+    height: 2rem;
+    border: none;
+    border-radius: 4px;
+   
+}
+
+#anchor1{
+    color: white;
+    text-decoration: none;
+}
+
+/* @media (min-width: 800px) {
+    .button2{
+        display: none;
+    }
+ }
+
+ @media (min-width: 800px) {
+    .button3 {
+        display: none;
+    }
+ } */
+ 
+ @media(max-width: 1000px){
+    .button1{
+        display: none;
+    }
+ }
+
+mark {
+    background-color: aquamarine;
+    color: black;
+  }
