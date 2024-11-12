@@ -1,6 +1,7 @@
 <?php
 
-require_once dirname(__DIR__) . '/config/constant.php';
+// require_once dirname(__DIR__) . '/config/constant.php';
+require_once 'config/constant.php';
 require_once SUP_ADM_DIR . '_config/sessionCheck.php'; //check admin loggedin or not
 require_once SUP_ADM_DIR . '_config/accessPermission.php';
 
@@ -239,10 +240,7 @@ if (isset($_GET['search'])) {
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <?php include_once SUP_ROOT_COMPONENT . 'footer-text.php'; ?>
-            <!-- End of Footer -->
-
+          
         </div>
         <!--End of Content Wrapper -->
 

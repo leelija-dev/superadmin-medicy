@@ -50,7 +50,7 @@ session_start();
 	
 	define('ROOT_DIR', 			$_SERVER['DOCUMENT_ROOT'].LOCAL_DIR);
 	
-	define('ROOT_COMPONENT', 		ROOT_DIR.'components/');
+	define('ROOT_COMPONENT', 		ROOT_DIR.'components-root/');
 	define('DASHBOARD_COMPONENT', 	ROOT_DIR.'components/dashboard/');
 
 	// define('PORTAL_COMPONENT', 	ADM_DIR.'components/');
@@ -141,7 +141,6 @@ session_start();
 	const PROD_IMG_PATH						=	URL.'images/product-image/';
 	const ADM_IMG_PATH						=	URL.'images/admin-images/';
 	
-	const EMPLOYEE_IMG_PATH					=	URL.'images/employee-images/';
 	const DEFAULT_USER_IMG_PATH				=	URL.'images/user-default-image/defaultAvtar.png';
 	const EMP_PATH							=	URL.'employee/';
 	const EMP_ASSETS						=	URL.'employee/assets/';
@@ -151,11 +150,11 @@ session_start();
 	
 
 	///// =========== super admin constant control =============
-	define('SUP_ADM_DIR', 		$_SERVER['DOCUMENT_ROOT'].LOCAL_DIR.'admin/');
+	define('SUP_ADM_DIR', 		$_SERVER['DOCUMENT_ROOT'].LOCAL_DIR);
 	define('SUP_ROOT_COMPONENT', SUP_ADM_DIR.'components/');
 	define('SUP_ADM_IMG_DIR',	SUP_ADM_DIR.'images/admin-images/');
 	// define('LAB_CAT_IMG_DIR', SUP_ADM_DIR.'images/lab-category-images/');
-	define('ADM_URL',  			URL.'admin/');
+	define('ADM_URL',  			URL);
 
 	const SUP_ADM_IMG_PATH						=	ADM_URL.'images/admin-images/';
 	// const LAB_CAT_IMG_PATH						=	ADM_URL.'images/lab-category-images/';

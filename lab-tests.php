@@ -2,7 +2,8 @@
 
 $page = "lab-tests";
 
-require_once dirname(__DIR__) . '/config/constant.php';
+// require_once dirname(__DIR__) . '/config/constant.php';
+require_once 'config/constant.php';
 require_once SUP_ADM_DIR . '_config/sessionCheck.php'; //check admin loggedin or not
 require_once SUP_ADM_DIR . '_config/accessPermission.php';
 

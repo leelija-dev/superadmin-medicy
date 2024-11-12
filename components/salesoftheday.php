@@ -1,6 +1,6 @@
 <?php
-require_once realpath(dirname(dirname(__DIR__)) . '/config/constant.php');
-// require_once dirname(__DIR__) . '/config/constant.php';
+// require_once realpath(dirname(dirname(__DIR__)) . '/config/constant.php');
+require_once dirname(__DIR__) . '/config/constant.php';
 require_once SUP_ADM_DIR . '_config/sessionCheck.php';
 // require_once ROOT_DIR.'_config/user-details.inc.php';
 

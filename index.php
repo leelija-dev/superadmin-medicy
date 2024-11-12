@@ -1,7 +1,7 @@
 <?php
 require_once 'config/constant.php';
 require_once '_config/sessionCheck.php';
-exit;
+// exit;
 
 require_once CLASS_DIR . 'dbconnect.php';
 require_once CLASS_DIR . 'appoinments.class.php';
