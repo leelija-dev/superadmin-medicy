@@ -1,5 +1,6 @@
 <?php
-require_once dirname(__DIR__).'/config/constant.php';
+// require_once dirname(__DIR__).'/config/constant.php';
+require_once 'config/constant.php';
 require_once 'controllers/ContactController.php';
 
 use Api\Controllers\ApiContactController;

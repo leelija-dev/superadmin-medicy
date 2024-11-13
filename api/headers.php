@@ -6,11 +6,17 @@ $allowed_origins = ['https://medicy.in', 'http://localhost:5173'];
 $server = LOCAL_DIR;
 // echo $server;
 if ($server === '/') {
+// if ($server === '/superadmin-medicy/') {
+    // echo $server;
     $uriPosition = 1;
     $uriContains = 2;
 }
 
 if ($server === '/medicy.in/') {
+    $uriPosition = 2;
+    $uriContains = 3;
+}
+if ($server === '/superadmin-medicy/') {
     $uriPosition = 2;
     $uriContains = 3;
 }

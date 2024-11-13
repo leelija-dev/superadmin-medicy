@@ -27,7 +27,7 @@ session_start();
 	}
 
 	if (is_localhost()):
-		define('LOCAL_DIR',				'/superadmin.medicy.in/');
+		define('LOCAL_DIR',				'/superadmin-medicy/');
 
 		define('DBHOST',				'localhost');
 		define('DBUSER',				'root');
