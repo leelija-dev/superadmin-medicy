@@ -2,8 +2,10 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+// print_r(dirname(dirname(__DIR__)));  die();
+require_once dirname(dirname(__DIR__)) . '/config/constant.php';
 
-require_once dirname(dirname(dirname(__DIR__))) . '/config/constant.php';
+// require_once dirname(dirname(dirname(__DIR__))) . '/config/constant.php';
 require_once SUP_ADM_DIR . '_config/sessionCheck.php'; //check admin loggedin or not
 
 require_once CLASS_DIR . 'dbconnect.php';
