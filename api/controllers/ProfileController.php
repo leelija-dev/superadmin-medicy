@@ -12,8 +12,6 @@ class ProfileController
 
     public function updateProfileImage($prodId, $data)
     {
-        // print_r($prodId);  die();
-        // Prepare the image data array for processing in `UpdateProduct`
         $files = [];
             $files[] = [
                 'file_name' => $data['imagesName'],

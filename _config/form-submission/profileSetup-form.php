@@ -1,6 +1,7 @@
 <?php
-
-require_once realpath(dirname(dirname(dirname(__DIR__))) . '/config/constant.php');
+// print_r(dirname(dirname(__DIR__)) . '/config/constant.php');  die();
+require_once dirname(dirname(__DIR__)) . '/config/constant.php';
+// require_once realpath(dirname(dirname(dirname(__DIR__))) . '/config/constant.php');
 require_once SUP_ADM_DIR . '_config/sessionCheck.php'; //check admin loggedin or not
 
 require_once CLASS_DIR . 'dbconnect.php';
