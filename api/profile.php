@@ -44,8 +44,8 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
                                     file_put_contents($tempPath, $fileContent);
 
                                     // Add image data to the $data array
-                                    $data['imagesName'][] = $filename;
-                                    $data['tempImgsName'][] = $tempPath;
+                                    $data['imagesName'] = $filename;
+                                    $data['tempImgsName'] = $tempPath;
                                 } else {
                                     // Regular form data
                                     $value = trim(explode("\r\n\r\n", $part)[1]);

@@ -15,12 +15,10 @@ class ProfileController
         // print_r($prodId);  die();
         // Prepare the image data array for processing in `UpdateProduct`
         $files = [];
-        for ($i = 0; $i < count($data['imagesName']); $i++) {
             $files[] = [
-                'file_name' => $data['imagesName'][$i],
-                'temp_path' => $data['tempImgsName'][$i]
+                'file_name' => $data['imagesName'],
+                'temp_path' => $data['tempImgsName']
             ];
-        }
 
         $productData = ['files' => $files];
         return $this->UpdateProfilePic($prodId, $productData);
