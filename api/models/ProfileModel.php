@@ -88,13 +88,12 @@ class Profile
             $stmt->close();
     
             // Return the profile image filename or null if not found
-            return $row['profile_image'] ?? null;
+            // print_r($row['adm_img']);  die();
+            return $row['adm_img'] ?? null;
         } else {
             // Handle execution failure
             die("Statement execution failed: " . $stmt->error);
         }
-    
-        return null;
     }
     
 }

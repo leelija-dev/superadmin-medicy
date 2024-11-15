@@ -12,6 +12,7 @@ class ProfileController
 
     public function updateProfileImage($prodId, $data)
     {
+        // print_r($prodId);  die();
         // Prepare the image data array for processing in `UpdateProduct`
         $files = [];
         for ($i = 0; $i < count($data['imagesName']); $i++) {
@@ -22,24 +23,20 @@ class ProfileController
         }
 
         $productData = ['files' => $files];
-
-        // Call the UpdateProduct function
         return $this->UpdateProfilePic($prodId, $productData);
     }
 
-    private function UpdateProfilePic($prodId, $data)
+    private function UpdateProfilePic($admId, $data)
     {
         try {
             $files = $data['files'];
             $profileModel = new Profile();
-            // $admId = 111;
-            $existingImage = $profileModel->getProfileImage($prodId);
+            $existingImage = $profileModel->getProfileImage($admId);
             foreach ($files as $file) {
                 $imageName = $file['file_name'];
                 $tempImgName = $file['temp_path'];
 
                 if ($imageName && $tempImgName) {
-                    // Delete existing image if it exists
                     if ($existingImage) {
                         $existingImagePath = SUP_ADM_IMG_DIR . DIRECTORY_SEPARATOR . $existingImage;
                         if (file_exists($existingImagePath) && is_writable($existingImagePath)) {
@@ -64,7 +61,6 @@ class ProfileController
                         throw new \Exception("Directory not writable: " . SUP_ADM_IMG_DIR);
                     }
 
-                    // Use rename() since we created the file manually in the temporary path
                     if (!rename($tempImgName, $imgFolder)) {
                         $errorMessage = "Failed to move file from '$tempImgName' to '$imgFolder'";
                         error_log($errorMessage);
@@ -73,16 +69,16 @@ class ProfileController
 
                     $image = addslashes($imageFile);
                     $status = 1;
-                    $addImages = $profileModel->updateprofileImage($prodId, $image);
+                    $addImages = $profileModel->updateprofileImage($admId, $image);
 
                     if (!$addImages) {
-                        throw new \Exception("Failed to add image for product ID: $prodId");
+                        throw new \Exception("Failed to add image for product ID: $admId");
                     }
                 } else {
-                    throw new \Exception("Image data missing for product ID: $prodId");
+                    throw new \Exception("Image data missing for product ID: $admId");
                 }
             } else {
-                throw new \Exception("Image data missing for product ID: $prodId");
+                throw new \Exception("Image data missing for product ID: $admId");
             }
             }
 
