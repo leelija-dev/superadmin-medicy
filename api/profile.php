@@ -2,9 +2,9 @@
 
 require_once dirname(__DIR__) . '/config/constant.php';
 // require_once 'config/constant.php';
-require_once 'controllers/ProductController.php';
+require_once 'controllers/ProfileController.php';
 
-use Api\Controllers\ProductController;
+use Api\Controllers\ProfileController;
 
 require_once "./headers.php";
 
@@ -15,55 +15,16 @@ $uri = explode('/', $uri);
 $method = $_SERVER['REQUEST_METHOD'];
 
 // if ($third_segment === 'api' && $forth_segment == 'products.php') {
-if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.php')) {
+if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.php')) {
 
-    $controller = new ProductController();
+    $controller = new ProfileController();
     switch ($method) {
-        case 'POST':
-            if ($_POST['name'] == 'add-image') {
-                $imagesName         = $_FILES['img-files']['name'];
-                $data['imagesName']         = $imagesName;
-
-                $data['tempImgsName']       = $_FILES['img-files']['tmp_name'];
-                $tempImgsName = $_FILES['img-files']['tmp_name'];
-                $imageArrayCaount = count($imagesName);
-                $data['tempImageArrayCaount'] = count($tempImgsName);
-
-                if ($imageArrayCaount >= 1) {
-                    if ($imagesName[0] != '') {
-                        $imageAdded = true;
-                    } else {
-                        $imageAdded = false;
-                    }
-                } else {
-                    $imageAdded = false;
-                }
-
-                $controller->addProductImage($data);
-                if (true) {
-                    $response = array(
-                        'status' => true,
-                        'message' => 'Image added successfully',
-                    );
-                    echo json_encode($response);
-                }
-            } else {
-                $response = array(
-                    'status' => false,
-                    'message' => 'Key value must be wrong',
-                );
-                echo json_encode($response);
-            }
-            break;
         case 'PUT':
-            // Parse `PUT` request body for `multipart/form-data`
+            $id = $_GET['id'];
             $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
-            // print_r($contentType);  die();
             if (strpos($contentType, 'multipart/form-data') !== false) {
                 $boundary = substr($contentType, strpos($contentType, "boundary=") + 9);
                 $inputData = file_get_contents("php://input");
-
-                // Parse the multipart data into an associative array
                 $parts = explode("--" . $boundary, $inputData);
                 $data = [];
                 foreach ($parts as $part) {
@@ -71,7 +32,6 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
                         preg_match('/name="([^"]*)"/', $part, $matches);
                         $name = $matches[1] ?? '';
 
-                        // Check if the part is an image file
                         if (strpos($part, 'filename="') !== false) {
                             preg_match('/filename="([^"]*)"/', $part, $fileMatches);
                             $filename = $fileMatches[1] ?? '';
@@ -95,8 +55,8 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
                 }
 
                 if (!empty($data['imagesName'])) {
-                    $id = 8;
-                    $controller->updateProductImage($id, $data);
+                    // $id = 8;
+                    $controller->updateProfileImage($id, $data);
                     $response = array(
                         'status' => true,
                         'message' => 'Image Update successfully',
