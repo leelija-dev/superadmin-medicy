@@ -138,4 +138,12 @@ class ProductController
 }
 
 
+public function getProductDetails($ProductId)
+    {
+        $productModel = new Product();
+        // Prepare the image data array for processing in `UpdateProduct`
+        $data = $productModel->getDetails($ProductId);
+        return $data;
+    }
+
 }

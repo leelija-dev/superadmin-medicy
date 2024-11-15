@@ -45,4 +45,32 @@ class Product
             return "Error: " . $e->getMessage();
         }
     }
+
+    public function getDetails($hospitalId)
+    {
+        $query = "SELECT * FROM product_images WHERE product_id = ? LIMIT 1";
+    
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            die("Statement preparation failed: " . $this->conn->error);
+        }
+    
+        $stmt->bind_param('i', $hospitalId);
+    
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Get the result
+            $result = $stmt->get_result();
+    
+            // Fetch the row
+            $row = $result->fetch_assoc();
+    
+            // Close the statement
+            $stmt->close();
+            return $row['logo'] ?? null;
+        } else {
+            // Handle execution failure
+            die("Statement execution failed: " . $stmt->error);
+        }
+    }
 }
