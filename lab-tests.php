@@ -194,9 +194,9 @@ if ($testCategories->status) {
                                                             <td><?= $catStatus; ?></td>
                                                             <td class='text-center'>
 
-                                                                <!-- <a class='text-light' href=" single-lab-page.php?labtypeid=<?= url_enc($testCatId) ?>">
+                                                                <a class='text-light' href=" single-lab-page.php?labtypeid=<?= url_enc($testCatId) ?>">
                                                                     <i class="fas fa-eye" style="color: #4e73df;"></i>
-                                                                </a> -->
+                                                                </a>
 
                                                                 <a class='text-light' data-id="<?= url_enc($testCatId) ?>" id="test-category-edit" onclick="openAddNewCategoryModal(this)">
                                                                     <i class="fas fa-edit" style="color: #4e73df;"></i>

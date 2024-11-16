@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/config/constant.php';
+require_once 'config/constant.php';
 require_once SUP_ADM_DIR . '_config/sessionCheck.php';
 require_once CLASS_DIR . 'dbconnect.php';
 require_once CLASS_DIR . 'Pathology.class.php';
@@ -135,7 +135,7 @@ if (isset($_GET['catId']) && isset($_GET['testId'])) {
                             
                             <hr>
 
-                            <form id="test-details-form" class="container-fluid">
+                            <form id="test-details-form" class="" style="width: 21cm" >
                                 <div class="row" id="dynamic-row-container">
                                     <?php
                                     if ($reportType == 2) {
@@ -173,10 +173,10 @@ if (isset($_GET['catId']) && isset($_GET['testId'])) {
     <script src="<?= JS_PATH ?>sb-admin-2.min.js"></script>
     <script src="<?= JS_PATH ?>sweetalert2/sweetalert2.all.min.js"></script>
     <!-- <script src="<?= JS_PATH ?>admin-js/ckEditor-import-map.js" defer></script> -->
-    <script type="module" src="<?= JS_PATH ?>admin-js/ckEditor-module.js" defer></script>
-    <script type="module" src="<?= JS_PATH ?>admin-js/add-edit-labTestData.js"></script>
-    <script type="module" src="<?= JS_PATH ?>admin-js/report-format-selector.js"></script>
-    <script type="module" src="<?= JS_PATH ?>admin-js/report-single-field-format.js"></script>
+    <script type="module" src="<?= JS_PATH ?>ckEditor-module.js" defer></script>
+    <script type="module" src="<?= JS_PATH ?>add-edit-labTestData.js"></script>
+    <script type="module" src="<?= JS_PATH ?>report-format-selector.js"></script>
+    <script type="module" src="<?= JS_PATH ?>report-single-field-format.js"></script>
 </body>
 
 </html>

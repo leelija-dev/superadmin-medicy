@@ -364,7 +364,7 @@ if (!empty($testList)) {
     <script src="<?= JS_PATH ?>sb-admin-2.min.js"></script>
 
     <!-- <script src="<?= JS_PATH ?>lab-tests.js"></script> -->
-    <script src="<?php echo JS_PATH ?>admin-js/lab-test-page.js"></script>
+    <script src="<?php echo JS_PATH ?>lab-test-page.js"></script>
 
 
     <!-- inline script -->
