@@ -85,6 +85,7 @@ function saveTextFormatReport() {
         contentType: false,
         processData: false,
         success(response) {
+            
             try {
                 const jsonResponse = JSON.parse(response);
                 if (jsonResponse.status === true) {

@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/config/constant.php';
+require_once 'config/constant.php';
 require_once SUP_ADM_DIR . '_config/sessionCheck.php'; //check admin loggedin or not
 require_once SUP_ADM_DIR . '_config/accessPermission.php';
 
@@ -57,8 +57,6 @@ if (isset($_GET['labtypeid'])) {
 
     <link rel="stylesheet" href="<?= CSS_PATH ?>sb-admin-2.css" type="text/css" />
     <link rel="stylesheet" href="<?= CSS_PATH ?>custom/single-lab-page.css" type="text/css" />
-    <link rel="stylesheet" href="<?= CSS_PATH ?>bootstrap 5/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="<?= CSS_PATH ?>bootstrap 5/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="<?= PLUGIN_PATH ?>fontawesome-free/css/all.min.css" type="text/css" />
 
 
@@ -287,7 +285,7 @@ if (isset($_GET['labtypeid'])) {
     <script src="<?php echo JS_PATH ?>popperjs/popper.min.js"></script>
     <script src="<?php echo JS_PATH ?>bootstrap-js-5/bootstrap-5.3.3-bootstrap.min.js"></script>
 
-    <script src="<?php echo JS_PATH ?>admin-js/single-lab-page.js"></script>
+    <script src="<?php echo JS_PATH ?>single-lab-page.js"></script>
 </body>
 
 </html>
