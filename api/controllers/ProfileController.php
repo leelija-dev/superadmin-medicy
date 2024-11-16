@@ -86,4 +86,12 @@ class ProfileController
             return false;
         }
     }
+
+    public function getAdminDetails($ProductId)
+    {
+        $productModel = new Profile();
+        $data = $productModel->getAdminDetails($ProductId);
+        return $data;
+    }
+
 }

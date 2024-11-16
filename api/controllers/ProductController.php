@@ -143,6 +143,7 @@ public function getProductDetails($ProductId)
         $productModel = new Product();
         // Prepare the image data array for processing in `UpdateProduct`
         $data = $productModel->getDetails($ProductId);
+        // print_r($data);  die();
         return $data;
     }
 

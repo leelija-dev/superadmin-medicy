@@ -95,5 +95,35 @@ class Profile
             die("Statement execution failed: " . $stmt->error);
         }
     }
+
+    public function getAdminDetails($admId)
+    {
+
+        header('Content-Type: application/json');
+        $query = "SELECT * FROM admin WHERE admin_id = ?";
+    
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            die("Statement preparation failed: " . $this->conn->error);
+        }
+    
+        $stmt->bind_param('s', $admId);
+    
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Get the result
+            $result = $stmt->get_result();
+    
+            // Fetch the row
+            $row = $result->fetch_assoc();
+    
+            // Close the statement
+            $stmt->close();
+            return $row;
+        } else {
+            // Handle execution failure
+            die("Statement execution failed: " . $stmt->error);
+        }
+    }
     
 }

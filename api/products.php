@@ -116,26 +116,26 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
                 echo json_encode($response);
             }
             break;
-            case 'GET':
-                if ($_GET['name'] == 'get-image') {
-                    $id = $_GET['id'];
-                    $data = $controller->getProductDetails($productId);
-                    if (true) {
-                        $response = array(
-                            'status' => true,
-                            'message' => 'details fetched successfully',
-                            'data' => $data,
-                        );
-                        echo json_encode($response);
-                    }
-                } else {
+        case 'GET':
+            if ($_GET['name'] == 'get-image') {
+                $productId = $_GET['id'];
+                $data = $controller->getProductDetails($productId);
+                if (true) {
                     $response = array(
-                        'status' => false,
-                        'message' => 'Key value must be wrong',
+                        'status' => true,
+                        'message' => 'details fetched successfully',
+                        'data' => $data,
                     );
                     echo json_encode($response);
                 }
-                break;
+            } else {
+                $response = array(
+                    'status' => false,
+                    'message' => 'Key value must be wrong',
+                );
+                echo json_encode($response);
+            }
+            break;
     }
 } else {
     header("HTTP/1.1 404 Not Found");

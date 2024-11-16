@@ -89,4 +89,11 @@ class SettingController
             return false;
         }
     }
+
+    public function getSettingValues($hospitalId)
+    {
+        $productModel = new Setting();
+        $data = $productModel->getSettinsData($hospitalId);
+        return $data;
+    }
 }

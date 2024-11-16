@@ -96,5 +96,35 @@ class Setting
             die("Statement execution failed: " . $stmt->error);
         }
     }
+
+    public function getSettinsData($hospitalId)
+    {
+
+        header('Content-Type: application/json');
+        $query = "SELECT * FROM clinic_info WHERE hospital_id = ?";
+    
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            die("Statement preparation failed: " . $this->conn->error);
+        }
+    
+        $stmt->bind_param('s', $hospitalId);
+    
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Get the result
+            $result = $stmt->get_result();
+    
+            // Fetch the row
+            $row = $result->fetch_assoc();
+    
+            // Close the statement
+            $stmt->close();
+            return $row;
+        } else {
+            // Handle execution failure
+            die("Statement execution failed: " . $stmt->error);
+        }
+    }
     
 }

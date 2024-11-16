@@ -21,6 +21,7 @@ class Product
 
     function addImagesBySupAdmin($productId, $productImage, $status, $addedBy, $addedOn, $adminId)
     {
+        header('Content-Type: application/json');
         try {
             if (!empty($adminId)) {
                 $insertImage = "INSERT INTO `product_images` (`product_id`, `image`, `status`, `added_by`,  `added_on`, `admin_id`) VALUES (?, ?, ?, ?, ?, ?)";
@@ -48,7 +49,8 @@ class Product
 
     public function getDetails($hospitalId)
     {
-        $query = "SELECT * FROM product_images WHERE product_id = ? LIMIT 1";
+        header('Content-Type: application/json');
+        $query = "SELECT * FROM product_images WHERE product_id = ?";
     
         $stmt = $this->conn->prepare($query);
         if (!$stmt) {
@@ -63,14 +65,15 @@ class Product
             $result = $stmt->get_result();
     
             // Fetch the row
-            $row = $result->fetch_assoc();
+            $row = $result->fetch_all();
     
             // Close the statement
             $stmt->close();
-            return $row['logo'] ?? null;
+            return $row;
         } else {
             // Handle execution failure
             die("Statement execution failed: " . $stmt->error);
         }
     }
+  
 }

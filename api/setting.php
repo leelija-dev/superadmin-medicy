@@ -77,6 +77,27 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'setting.ph
                         echo json_encode($response);
                     }
                     break;
+
+                    case 'GET':
+                        if ($_GET['name'] == 'settings-details') {
+                            $hospitalId = $_GET['id'];
+                            $data = $controller->getSettingValues($hospitalId);
+                            if (true) {
+                                $response = array(
+                                    'status' => true,
+                                    'message' => 'details fetched successfully',
+                                    'data' => $data,
+                                );
+                                echo json_encode($response);
+                            }
+                        } else {
+                            $response = array(
+                                'status' => false,
+                                'message' => 'Key value must be wrong',
+                            );
+                            echo json_encode($response);
+                        }
+                        break;
             }
     
 } else {
