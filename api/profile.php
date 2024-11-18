@@ -21,7 +21,7 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
     $controller = new ProfileController();
     switch ($method) {
         case 'PUT':
-            $id = $_GET['id'];
+            // $id = $_GET['id'];
             $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
             if (strpos($contentType, 'multipart/form-data') !== false) {
                 $boundary = substr($contentType, strpos($contentType, "boundary=") + 9);
@@ -56,12 +56,22 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
                 }
 
                 if (!empty($data['imagesName'])) {
+                    $defined_token = 'profile_details';
+                    $id = $data['id'];
+                    // print_r($data); die();
                     // $id = 8;
+                    if($data['token'] == $defined_token){
                     $controller->updateProfileImage($id, $data);
                     $response = array(
                         'status' => true,
                         'message' => 'Image Update successfully',
                     );
+                }else{
+                    $response = array(
+                        'status' => true,
+                        'message' => 'Invalid token',
+                    ); 
+                }
                 } else {
                     $response = array(
                         'status' => false,
@@ -88,6 +98,7 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
                 // die();
                 if ($key == $newToken) {
                     $admId = $_GET['id'];
+                    // print_r($admId);  die();
                     $data = $controller->getAdminDetails($admId);
                     if (true) {
                         $response = array(

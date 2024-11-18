@@ -16,6 +16,7 @@ class Profile
     {
         $db = new DatabaseConnection();
         $this->conn = $db->conn;
+        header('Content-Type: application/json');
         
     }
 
@@ -116,7 +117,7 @@ class Profile
     
             // Fetch the row
             $row = $result->fetch_assoc();
-    
+    // print_r($row);  die();
             // Close the statement
             $stmt->close();
             return $row;

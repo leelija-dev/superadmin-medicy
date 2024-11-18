@@ -89,6 +89,7 @@ class ProfileController
 
     public function getAdminDetails($ProductId)
     {
+        // print_r($ProductId);  die();
         $productModel = new Profile();
         $data = $productModel->getAdminDetails($ProductId);
         return $data;

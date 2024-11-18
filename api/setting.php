@@ -21,102 +21,109 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'setting.ph
 
     $controller = new SettingController();
     switch ($method) {
-                case 'PUT':
-                    $id = $_GET['id'];
-                    $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
-                    if (strpos($contentType, 'multipart/form-data') !== false) {
-                        $boundary = substr($contentType, strpos($contentType, "boundary=") + 9);
-                        $inputData = file_get_contents("php://input");
-                        $parts = explode("--" . $boundary, $inputData);
-                        $data = [];
-                        foreach ($parts as $part) {
-                            if (strpos($part, 'Content-Disposition: form-data;') !== false) {
-                                preg_match('/name="([^"]*)"/', $part, $matches);
-                                $name = $matches[1] ?? '';
+        case 'PUT':
+            // $id = $_GET['id'];
+            $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+            if (strpos($contentType, 'multipart/form-data') !== false) {
+                $boundary = substr($contentType, strpos($contentType, "boundary=") + 9);
+                $inputData = file_get_contents("php://input");
+                $parts = explode("--" . $boundary, $inputData);
+                $data = [];
+                foreach ($parts as $part) {
+                    if (strpos($part, 'Content-Disposition: form-data;') !== false) {
+                        preg_match('/name="([^"]*)"/', $part, $matches);
+                        $name = $matches[1] ?? '';
 
-                                if (strpos($part, 'filename="') !== false) {
-                                    preg_match('/filename="([^"]*)"/', $part, $fileMatches);
-                                    $filename = $fileMatches[1] ?? '';
-                                    preg_match('/Content-Type: ([^"]*)/', $part, $typeMatches);
-                                    $fileType = $typeMatches[1] ?? '';
+                        if (strpos($part, 'filename="') !== false) {
+                            preg_match('/filename="([^"]*)"/', $part, $fileMatches);
+                            $filename = $fileMatches[1] ?? '';
+                            preg_match('/Content-Type: ([^"]*)/', $part, $typeMatches);
+                            $fileType = $typeMatches[1] ?? '';
 
-                                    // Get the file content
-                                    $fileContent = trim(explode("\r\n\r\n", $part)[1]);
-                                    $tempPath = sys_get_temp_dir() . '/' . $filename;
-                                    file_put_contents($tempPath, $fileContent);
+                            // Get the file content
+                            $fileContent = trim(explode("\r\n\r\n", $part)[1]);
+                            $tempPath = sys_get_temp_dir() . '/' . $filename;
+                            file_put_contents($tempPath, $fileContent);
 
-                                    $data['imagesName'] = $filename;
-                                    $data['tempImgsName'] = $tempPath;
-                                } else {
-                                    // Regular form data
-                                    $value = trim(explode("\r\n\r\n", $part)[1]);
-                                    $data[$name] = $value;
-                                }
-                            }
-                        }
-
-                        if (!empty($data['imagesName'])) {
-                            
-                            // $id = 8;
-                            $controller->updateSiteLogo($id, $data);
-                            $response = array(
-                                'status' => true,
-                                'message' => 'Logo Updated successfully',
-                            );
+                            $data['imagesName'] = $filename;
+                            $data['tempImgsName'] = $tempPath;
                         } else {
-                            $response = array(
-                                'status' => false,
-                                'message' => 'No image file provided',
-                            );
+                            // Regular form data
+                            $value = trim(explode("\r\n\r\n", $part)[1]);
+                            $data[$name] = $value;
                         }
-                        echo json_encode($response);
+                    }
+                }
+
+                if (!empty($data['imagesName'])) {
+                    $id = $data['id'];
+                    $defined_token = 'setting_update';
+                    if ($data['token'] == $defined_token) {
+                        // $id = 8;
+                        $controller->updateSiteLogo($id, $data);
+                        $response = array(
+                            'status' => true,
+                            'message' => 'Logo Updated successfully',
+                        );
                     } else {
                         $response = array(
                             'status' => false,
-                            'message' => 'Unsupported Content-Type',
+                            'message' => 'Invalid token',
+                        );
+                    }
+                } else {
+                    $response = array(
+                        'status' => false,
+                        'message' => 'No image file provided',
+                    );
+                }
+                echo json_encode($response);
+            } else {
+                $response = array(
+                    'status' => false,
+                    'message' => 'Unsupported Content-Type',
+                );
+                echo json_encode($response);
+            }
+            break;
+
+        case 'GET':
+            $key = 'setting-detail';
+            $token = pass_enc($key, ADMIN_PASS);
+            // print_r($token); die();
+            if ($_GET['name'] == 'settings-details') {
+                $getToken = $_GET['token'];
+                $newToken = pass_dec($getToken, ADMIN_PASS);
+                // print_r($newToken);  die();
+                if ($key == $newToken) {
+                    // echo "hi"; die();
+
+                    $hospitalId = $_GET['id'];
+                    $data = $controller->getSettingValues($hospitalId);
+                    if (true) {
+                        $response = array(
+                            'status' => true,
+                            'message' => 'details fetched successfully',
+                            'data' => $data,
                         );
                         echo json_encode($response);
                     }
-                    break;
-
-                    case 'GET':
-                        $key = 'setting-detail';
-                        $token = pass_enc($key, ADMIN_PASS);
-                        // print_r($token); die();
-                        if ($_GET['name'] == 'settings-details') {
-                            $getToken = $_GET['token'];
-                            $newToken = pass_dec($getToken, ADMIN_PASS);
-                            // print_r($newToken);  die();
-                            if($key == $newToken){
-                                // echo "hi"; die();
-                            
-                            $hospitalId = $_GET['id'];
-                            $data = $controller->getSettingValues($hospitalId);
-                            if (true) {
-                                $response = array(
-                                    'status' => true,
-                                    'message' => 'details fetched successfully',
-                                    'data' => $data,
-                                );
-                                echo json_encode($response);
-                            }
-                        }else {
-                            $response = array(
-                                'status' => false,
-                                'message' => 'Token value must be wrong',
-                            );
-                            echo json_encode($response);
-                        }
-                        } else {
-                            $response = array(
-                                'status' => false,
-                                'message' => 'Key value must be wrong',
-                            );
-                            echo json_encode($response);
-                        }
-                        break;
+                } else {
+                    $response = array(
+                        'status' => false,
+                        'message' => 'Token value must be wrong',
+                    );
+                    echo json_encode($response);
+                }
+            } else {
+                $response = array(
+                    'status' => false,
+                    'message' => 'Key value must be wrong',
+                );
+                echo json_encode($response);
             }
-    
+            break;
+    }
 } else {
     header("HTTP/1.1 404 Not Found");
     echo json_encode(["message" => "Endpoint not found"]);
