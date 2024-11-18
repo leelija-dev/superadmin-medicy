@@ -149,7 +149,7 @@ if (isset($_GET['labtypeid'])) {
                                         echo "<td>{$subTestDsc}</td>";
                                         echo "<td>{$subTestPrep}</td>";
                                         echo "<td>{$subTestPrice}</td>";
-                                        echo "<td><a class='text-light' cat-id='" . url_enc($showLabtypeId) . "'  test-id='" . url_enc($subTest->id) . "' id='lab-test-edit' onclick='addEditNewTestModal(this)'>";
+                                        echo "<td><a class='text-light' href='" . URL. "edit-labTestData.php?catId=".url_enc($showLabtypeId)."&testId=" . url_enc($subTest->id) . "' cat-id='" . url_enc($showLabtypeId) . "'  test-id='" . url_enc($subTest->id) . "' id='lab-test-edit' onclick='addEditNewTestModal(this)'>";
                                         echo "<i class='fas fa-edit' style='color: #4e73df;'></i>";
                                         echo "</a></td>";
                                         echo "</tr>";
