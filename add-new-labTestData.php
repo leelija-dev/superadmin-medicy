@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/config/constant.php';
+require_once __DIR__ . '/config/constant.php';
 require_once SUP_ADM_DIR . '_config/sessionCheck.php'; // Check if admin is logged in
 require_once CLASS_DIR . 'dbconnect.php';
 require_once CLASS_DIR . 'Pathology.class.php';
@@ -135,8 +135,8 @@ $parentCategoryId = isset($_GET['catId']) ? url_dec($_GET['catId']) : null;
 
     <!-- SweetAlert JS and Custom Script -->
     <script src="<?= JS_PATH ?>sweetalert2/sweetalert2.all.min.js"></script>
-    <script type="module" src="<?= JS_PATH ?>admin-js/ckEditor-module.js"></script>
-    <script type="module" src="<?= JS_PATH ?>admin-js/add-edit-labTestData.js"></script>
+    <script type="module" src="<?= JS_PATH ?>ckEditor-module.js"></script>
+    <script type="module" src="<?= JS_PATH ?>add-edit-labTestData.js"></script>
 </body>
 
 </html>
