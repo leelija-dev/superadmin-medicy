@@ -1,6 +1,8 @@
 <?php
 
 require_once dirname(__DIR__) . '/config/constant.php';
+require_once CLASS_DIR . 'encrypt.inc.php';
+
 // require_once 'config/constant.php';
 require_once 'controllers/SettingController.php';
 
@@ -43,7 +45,6 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'setting.ph
                                     $tempPath = sys_get_temp_dir() . '/' . $filename;
                                     file_put_contents($tempPath, $fileContent);
 
-                                    // Add image data to the $data array
                                     $data['imagesName'] = $filename;
                                     $data['tempImgsName'] = $tempPath;
                                 } else {
@@ -79,7 +80,16 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'setting.ph
                     break;
 
                     case 'GET':
+                        $key = 'setting-detail';
+                        $token = pass_enc($key, ADMIN_PASS);
+                        // print_r($token); die();
                         if ($_GET['name'] == 'settings-details') {
+                            $getToken = $_GET['token'];
+                            $newToken = pass_dec($getToken, ADMIN_PASS);
+                            // print_r($newToken);  die();
+                            if($key == $newToken){
+                                // echo "hi"; die();
+                            
                             $hospitalId = $_GET['id'];
                             $data = $controller->getSettingValues($hospitalId);
                             if (true) {
@@ -90,6 +100,13 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'setting.ph
                                 );
                                 echo json_encode($response);
                             }
+                        }else {
+                            $response = array(
+                                'status' => false,
+                                'message' => 'Token value must be wrong',
+                            );
+                            echo json_encode($response);
+                        }
                         } else {
                             $response = array(
                                 'status' => false,
