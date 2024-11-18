@@ -16,6 +16,8 @@ class Setting
     {
         $db = new DatabaseConnection();
         $this->conn = $db->conn;
+        header('Content-Type: application/json');
+
         
     }
 

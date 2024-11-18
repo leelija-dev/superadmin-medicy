@@ -35,8 +35,11 @@ class ProfileController
                 if ($imageName && $tempImgName) {
                     if ($existingImage) {
                         $existingImagePath = SUP_ADM_IMG_DIR . DIRECTORY_SEPARATOR . $existingImage;
+                        // print_r($existingImagePath);  die();
+
                         if (file_exists($existingImagePath) && is_writable($existingImagePath)) {
                             unlink($existingImagePath);
+                            // echo "hi"; die;
                         }
                     }
 
@@ -66,7 +69,7 @@ class ProfileController
                     $image = addslashes($imageFile);
                     $status = 1;
                     $addImages = $profileModel->updateprofileImage($admId, $image);
-
+// print_r($addImages);  die();
                     if (!$addImages) {
                         throw new \Exception("Failed to add image for product ID: $admId");
                     }
@@ -89,6 +92,7 @@ class ProfileController
 
     public function getAdminDetails($ProductId)
     {
+        // print_r($ProductId);  die();
         $productModel = new Profile();
         $data = $productModel->getAdminDetails($ProductId);
         return $data;

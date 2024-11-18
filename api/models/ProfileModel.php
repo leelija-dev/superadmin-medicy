@@ -16,11 +16,13 @@ class Profile
     {
         $db = new DatabaseConnection();
         $this->conn = $db->conn;
+        header('Content-Type: application/json');
         
     }
 
     function updateprofileImage($id, $imageName) {
         try {
+            // print_r($imageName);  die();
             $updateQuery = "UPDATE `admin` SET `adm_img`=? WHERE `admin_id`=?";
             
             $stmt = $this->conn->prepare($updateQuery);
@@ -30,8 +32,13 @@ class Profile
             $stmt->execute();
     
             $stmt->close();
+            if(true){
+               $result = ['result' => '1', 'image_name' => $imageName];
+            }else{
+                $result = ['result' => '1'];
+               }
     
-            return ['result' => '1'];
+            return $result;
         } catch (Exception $e) {
             return ['result' => '0', 'message' => $e->getMessage()];
         }
@@ -67,6 +74,7 @@ class Profile
 
     public function getProfileImage($prodId)
     {
+        // print_r($prodId);  die();
         $query = "SELECT adm_img FROM admin WHERE admin_id = ? LIMIT 1";
     
         $stmt = $this->conn->prepare($query);
@@ -74,7 +82,7 @@ class Profile
             die("Statement preparation failed: " . $this->conn->error);
         }
     
-        $stmt->bind_param('i', $prodId);
+        $stmt->bind_param('s', $prodId);
     
         // Execute the statement
         if ($stmt->execute()) {
@@ -116,7 +124,7 @@ class Profile
     
             // Fetch the row
             $row = $result->fetch_assoc();
-    
+    // print_r($row);  die();
             // Close the statement
             $stmt->close();
             return $row;

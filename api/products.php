@@ -21,31 +21,34 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
     switch ($method) {
         case 'POST':
             if ($_POST['name'] == 'add-image') {
-                $imagesName         = $_FILES['img-files']['name'];
-                $data['imagesName']         = $imagesName;
+                $define_token = 'products_details';
+                if ($_POST['token'] == $define_token) {
+                    $imagesName         = $_FILES['img-files']['name'];
+                    $data['imagesName']         = $imagesName;
 
-                $data['tempImgsName']       = $_FILES['img-files']['tmp_name'];
-                $tempImgsName = $_FILES['img-files']['tmp_name'];
-                $imageArrayCaount = count($imagesName);
-                $data['tempImageArrayCaount'] = count($tempImgsName);
+                    $data['tempImgsName']       = $_FILES['img-files']['tmp_name'];
+                    $tempImgsName = $_FILES['img-files']['tmp_name'];
+                    $imageArrayCaount = count($imagesName);
+                    $data['tempImageArrayCaount'] = count($tempImgsName);
 
-                if ($imageArrayCaount >= 1) {
-                    if ($imagesName[0] != '') {
-                        $imageAdded = true;
+                    if ($imageArrayCaount >= 1) {
+                        if ($imagesName[0] != '') {
+                            $imageAdded = true;
+                        } else {
+                            $imageAdded = false;
+                        }
                     } else {
                         $imageAdded = false;
                     }
-                } else {
-                    $imageAdded = false;
-                }
 
-                $controller->addProductImage($data);
-                if (true) {
-                    $response = array(
-                        'status' => true,
-                        'message' => 'Image added successfully',
-                    );
-                    echo json_encode($response);
+                    $controller->addProductImage($data);
+                    if (true) {
+                        $response = array(
+                            'status' => true,
+                            'message' => 'Image added successfully',
+                        );
+                        echo json_encode($response);
+                    }
                 }
             } else {
                 $response = array(
@@ -70,13 +73,15 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
                     if (strpos($part, 'Content-Disposition: form-data;') !== false) {
                         preg_match('/name="([^"]*)"/', $part, $matches);
                         $name = $matches[1] ?? '';
+                        preg_match('/token="([^"]*)"/', $part, $matches);
+                        $token = $matches[1] ?? '';
 
                         // Check if the part is an image file
                         if (strpos($part, 'filename="') !== false) {
                             preg_match('/filename="([^"]*)"/', $part, $fileMatches);
                             $filename = $fileMatches[1] ?? '';
-                            preg_match('/Content-Type: ([^"]*)/', $part, $typeMatches);
-                            $fileType = $typeMatches[1] ?? '';
+                            // preg_match('/Content-Type: ([^"]*)/', $part, $typeMatches);
+                            // $fileType = $typeMatches[1] ?? '';
 
                             // Get the file content
                             $fileContent = trim(explode("\r\n\r\n", $part)[1]);
@@ -90,17 +95,23 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
                             // Regular form data
                             $value = trim(explode("\r\n\r\n", $part)[1]);
                             $data[$name] = $value;
+                        
                         }
                     }
                 }
 
                 if (!empty($data['imagesName'])) {
-                    $id = 8;
+                    $defined_token = 'prod_details';
+                    $id = $data['id'];
+                    $token = $data['token'];
+                    // print_r($data);  die();
+                    if($defined_token == $token){
                     $controller->updateProductImage($id, $data);
                     $response = array(
                         'status' => true,
                         'message' => 'Image Update successfully',
                     );
+                }
                 } else {
                     $response = array(
                         'status' => false,
@@ -117,16 +128,20 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
             }
             break;
         case 'GET':
+            $defined_token = 'product_details';
             if ($_GET['name'] == 'get-image') {
-                $productId = $_GET['id'];
-                $data = $controller->getProductDetails($productId);
-                if (true) {
-                    $response = array(
-                        'status' => true,
-                        'message' => 'details fetched successfully',
-                        'data' => $data,
-                    );
-                    echo json_encode($response);
+                $token = $_GET['token'];
+                if ($defined_token == $token) {
+                    $productId = $_GET['id'];
+                    $data = $controller->getProductDetails($productId);
+                    if (true) {
+                        $response = array(
+                            'status' => true,
+                            'message' => 'details fetched successfully',
+                            'data' => $data,
+                        );
+                        echo json_encode($response);
+                    }
                 }
             } else {
                 $response = array(
