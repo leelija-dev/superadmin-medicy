@@ -58,13 +58,13 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
                 if (!empty($data['imagesName'])) {
                     $defined_token = 'profile_details';
                     $id = $data['id'];
-                    // print_r($data); die();
-                    // $id = 8;
                     if($data['token'] == $defined_token){
-                    $controller->updateProfileImage($id, $data);
+                    $data = $controller->updateProfileImage($id, $data);
+                    if($data['result'] == 1){
                     $response = array(
                         'status' => true,
                         'message' => 'Image Update successfully',
+                        'data'    =>  $data,
                     );
                 }else{
                     $response = array(
@@ -72,6 +72,7 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
                         'message' => 'Invalid token',
                     ); 
                 }
+            }
                 } else {
                     $response = array(
                         'status' => false,
