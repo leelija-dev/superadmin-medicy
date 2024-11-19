@@ -23,7 +23,6 @@ if (isset($_GET['catId']) && isset($_GET['testId'])) {
         $reportType         = $testDetails->data->report_type;
         $reportTextFormat   = $testDetails->data->report_text_format;
         $testStatus        = $testDetails->data->status;
-        print_r($testStatus);
 
         // $testParamHeading = json_decode($Pathology->showHeadByTestId($testId));
 
