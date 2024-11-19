@@ -24,7 +24,7 @@ class Setting
     function updatelogo($id, $imageName) {
         // print_r($id);  die();
         try {
-            $updateQuery = "UPDATE `clinic_info` SET `logo`= ? WHERE `hospital_id` = ?";
+            $updateQuery = "UPDATE `clinic_info` SET `logo`= ? WHERE `admin_id` = ?";
             
             $stmt = $this->conn->prepare($updateQuery);
     
@@ -41,43 +41,44 @@ class Setting
     }
 
 
-    function addImagesBySupAdmin($productId, $productImage, $status, $addedBy, $addedOn, $adminId)
-    {
-        try {
-            if (!empty($adminId)) {
-                $insertImage = "INSERT INTO `product_images` (`product_id`, `image`, `status`, `added_by`,  `added_on`, `admin_id`) VALUES (?, ?, ?, ?, ?, ?)";
-                $stmt = $this->conn->prepare($insertImage);
-                $stmt->bind_param("ssssss", $productId, $productImage, $status, $addedBy, $addedOn, $adminId);
-            } else {
-                $insertImage = "INSERT INTO `product_images` (`product_id`, `image`, `added_by`, `added_on`)    VALUES (?, ?, ?, ?)";
-                $stmt = $this->conn->prepare($insertImage);
-                $stmt->bind_param("ssss", $productId, $productImage, $addedBy, $addedOn);
-            }
+    // function addImagesBySupAdmin($productId, $productImage, $status, $addedBy, $addedOn, $adminId)
+    // {
+    //     try {
+    //         if (!empty($adminId)) {
+    //             $insertImage = "INSERT INTO `product_images` (`product_id`, `image`, `status`, `added_by`,  `added_on`, `admin_id`) VALUES (?, ?, ?, ?, ?, ?)";
+    //             $stmt = $this->conn->prepare($insertImage);
+    //             $stmt->bind_param("ssssss", $productId, $productImage, $status, $addedBy, $addedOn, $adminId);
+    //         } else {
+    //             $insertImage = "INSERT INTO `product_images` (`product_id`, `image`, `added_by`, `added_on`)    VALUES (?, ?, ?, ?)";
+    //             $stmt = $this->conn->prepare($insertImage);
+    //             $stmt->bind_param("ssss", $productId, $productImage, $addedBy, $addedOn);
+    //         }
 
-            if ($stmt->execute()) {
-                // Insert successful
-                $stmt->close();
-              return true;
+    //         if ($stmt->execute()) {
+    //             // Insert successful
+    //             $stmt->close();
+    //           return true;
                 
-            } else {
-                // Insert failed
-                throw new Exception("Error inserting data into the database: " . $stmt->error);
-            }
-        } catch (Exception $e) {
-            return "Error: " . $e->getMessage();
-        }
-    }
+    //         } else {
+    //             // Insert failed
+    //             throw new Exception("Error inserting data into the database: " . $stmt->error);
+    //         }
+    //     } catch (Exception $e) {
+    //         return "Error: " . $e->getMessage();
+    //     }
+    // }
 
     public function getSiteLogo($hospitalId)
     {
-        $query = "SELECT * FROM clinic_info WHERE hospital_id = ? LIMIT 1";
+        // print_r($hospitalId);   die();
+        $query = "SELECT * FROM clinic_info WHERE admin_id = ? LIMIT 1";
     
         $stmt = $this->conn->prepare($query);
         if (!$stmt) {
             die("Statement preparation failed: " . $this->conn->error);
         }
     
-        $stmt->bind_param('i', $hospitalId);
+        $stmt->bind_param('s', $hospitalId);
     
         // Execute the statement
         if ($stmt->execute()) {
@@ -92,7 +93,7 @@ class Setting
     
             // Return the profile image filename or null if not found
             // print_r($row['logo']);  die();
-            return $row['logo'] ?? null;
+            // return $row['logo'] ?? null;
         } else {
             // Handle execution failure
             die("Statement execution failed: " . $stmt->error);
@@ -103,7 +104,7 @@ class Setting
     {
 
         header('Content-Type: application/json');
-        $query = "SELECT * FROM clinic_info WHERE hospital_id = ?";
+        $query = "SELECT * FROM clinic_info WHERE admin_id = ?";
     
         $stmt = $this->conn->prepare($query);
         if (!$stmt) {
