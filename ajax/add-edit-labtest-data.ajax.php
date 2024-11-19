@@ -17,19 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $addResponseArray = [];
             $rowCount = $_POST['param-row-count'];
 
-            $parentCategoryId = url_dec($_POST['lab-cat-id']);
-            $testName = $_POST['lab-test-name'];
-            $testPrice = $_POST['lab-test-price'];
-            $testDescription = $_POST['lab-test-dsc'];
-            $testProcess = $_POST['lab-test-process'];
+            $parentCategoryId   = url_dec($_POST['lab-cat-id']);
+            $testName           = $_POST['lab-test-name'];
+            $testPrice          = $_POST['lab-test-price'];
+            $testDescription    = $_POST['lab-test-dsc'];
+            $testProcess        = $_POST['lab-test-process'];
 
             // Decode JSON data once and check for errors
-            $testParamNameArray = json_decode($_POST['paramName'], true);
-            $testParamUnitArray = json_decode($_POST['paramUnit'], true);
-            $childRangeArray = json_decode($_POST['childRange'], true);
-            $adultMaleRangeArray = json_decode($_POST['adultMaleRange'], true);
-            $adultFemaleRangeArray = json_decode($_POST['adultFemaleRange'], true);
-            $generalRangeArray = json_decode($_POST['generalRange'], true);
+            $testParamNameArray     = json_decode($_POST['paramName'], true);
+            $testParamUnitArray     = json_decode($_POST['paramUnit'], true);
+            $childRangeArray        = json_decode($_POST['childRange'], true);
+            $adultMaleRangeArray    = json_decode($_POST['adultMaleRange'], true);
+            $adultFemaleRangeArray  = json_decode($_POST['adultFemaleRange'], true);
+            $generalRangeArray      = json_decode($_POST['generalRange'], true);
 
             if (json_last_error() !== JSON_ERROR_NONE) {
                 echo json_encode(['status' => false, 'message' => 'Invalid JSON data']);

@@ -33,7 +33,7 @@ class Profile
     
             $stmt->close();
             if(true){
-               $result = ['result' => '1'];
+               $result = ['result' => '1', 'image_name' => $imageName];
             }else{
                 $result = ['result' => '1'];
                }
