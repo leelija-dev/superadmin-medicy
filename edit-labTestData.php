@@ -94,7 +94,7 @@ if (isset($_GET['catId']) && isset($_GET['testId'])) {
                             </div>
                             <div class="d-flex">
                                 <div class="col-4">
-                                    <select class="form-control form-control-sm" id="change-report-status" data-test="<?=$testId?>"  require>
+                                    <select class="form-control form-control-sm" id="change-report-status" data-test="<?=$testId?>">
                                         <option value="1" <?= $testStatus === 1 ? 'selected' : '' ?>>Active</option>
                                         <option value="0" <?= $testStatus === 0 ? 'selected' : '' ?>>Inactive</option>
                                     </select>
