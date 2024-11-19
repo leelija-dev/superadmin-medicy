@@ -22,6 +22,7 @@ if (isset($_GET['catId']) && isset($_GET['testId'])) {
         $testPreparation    = $testDetails->data->preparation;
         $reportType         = $testDetails->data->report_type;
         $reportTextFormat   = $testDetails->data->report_text_format;
+        $testStatus        = $testDetails->data->status;
 
         // $testParamHeading = json_decode($Pathology->showHeadByTestId($testId));
 
@@ -57,7 +58,8 @@ if (isset($_GET['catId']) && isset($_GET['testId'])) {
     <meta name="description" content="Test Details Page">
     <meta name="author" content="">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900"
+        type="text/css" />
     <link rel="stylesheet" href="<?= PLUGIN_PATH ?>fontawesome-free/css/all.min.css" type="text/css" />
     <link rel="stylesheet" href="<?= CSS_PATH ?>sb-admin-2.min.css" type="text/css" />
     <link rel="stylesheet" href="<?= CSS_PATH ?>custom-dropdown.css" type="text/css" />
@@ -90,7 +92,14 @@ if (isset($_GET['catId']) && isset($_GET['testId'])) {
                                 <h5>Edit Old Test Data</h3>
                             </div>
                             <div class="d-flex">
-                                <select class="form-control form-control-sm mr-2" id="change-report-format" data-test="<?=$testId?>">
+                                <div class="col-4">
+                                    <select class="form-control form-control-sm" id="change-report-status" data-test="<?=$testId?>">
+                                        <option value="1" <?= $testStatus === 1 ? 'selected' : '' ?>>Active</option>
+                                        <option value="0" <?= $testStatus === 0 ? 'selected' : '' ?>>Inactive</option>
+                                    </select>
+                                </div>
+                                <select class="form-control form-control-sm mr-2" id="change-report-format"
+                                    data-test="<?=$testId?>">
                                     <!-- <option value="" selected disabled>Select Report Type</option> -->
                                     <?php
                                     foreach ($allReportTypes as $eachType) {
@@ -99,25 +108,32 @@ if (isset($_GET['catId']) && isset($_GET['testId'])) {
                                     }
                                     ?>
                                 </select>
-                                <button type="button" class="btn btn-sm btn-primary px-3" id="update-test-data-btn">Save</button>
+                                <button type="button" class="btn btn-sm btn-primary px-3"
+                                    id="update-test-data-btn">Save</button>
                             </div>
 
                         </div>
                         <div class="card-body">
                             <!-- Hidden Inputs for Category and Test IDs -->
                             <input type="hidden" id="global-flag" value="2">
-                            <input type="hidden" id="parent-category-id" name="parent-category-id" value="<?= htmlspecialchars(url_enc($parentCategoryId)); ?>">
-                            <input type="hidden" id="test-id" name="test-id" value="<?= htmlspecialchars(url_enc($testId)); ?>">
+                            <input type="hidden" id="parent-category-id" name="parent-category-id"
+                                value="<?= htmlspecialchars(url_enc($parentCategoryId)); ?>">
+                            <input type="hidden" id="test-id" name="test-id"
+                                value="<?= htmlspecialchars(url_enc($testId)); ?>">
 
                             <!-- Test Details Section -->
                             <div class="row mt-3">
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="test-name" class="form-label">Test Name</label>
-                                    <input type="text" id="test-name" name="test-name" class="form-control" placeholder="Enter test name" value="<?= htmlspecialchars($testName); ?>" required data-edit-id="<?= $testId; ?>" test-name-prev-data="<?= $testName; ?>">
+                                    <input type="text" id="test-name" name="test-name" class="form-control"
+                                        placeholder="Enter test name" value="<?= htmlspecialchars($testName); ?>"
+                                        required data-edit-id="<?= $testId; ?>" test-name-prev-data="<?= $testName; ?>">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="test-price" class="form-label">Test Price</label>
-                                    <input type="number" id="test-price" name="test-price" class="form-control" placeholder="Enter test price" value="<?= htmlspecialchars($testPrice); ?>" required>
+                                    <input type="number" id="test-price" name="test-price" class="form-control"
+                                        placeholder="Enter test price" value="<?= htmlspecialchars($testPrice); ?>"
+                                        required>
                                 </div>
                             </div>
 
@@ -125,17 +141,20 @@ if (isset($_GET['catId']) && isset($_GET['testId'])) {
                             <div class="row mt-3">
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="test-description" class="form-label">Test Description</label>
-                                    <textarea id="test-description" name="test-description" class="form-control" rows="4" placeholder="Enter test description"><?= htmlspecialchars($testDescription); ?></textarea>
+                                    <textarea id="test-description" name="test-description" class="form-control"
+                                        rows="4"
+                                        placeholder="Enter test description"><?= htmlspecialchars($testDescription); ?></textarea>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label for="test-process" class="form-label">Test Preparation</label>
-                                    <textarea id="test-process" name="test-process" class="form-control" rows="4" placeholder="Enter test preparation"><?= htmlspecialchars($testPreparation); ?></textarea>
+                                    <textarea id="test-process" name="test-process" class="form-control" rows="4"
+                                        placeholder="Enter test preparation"><?= htmlspecialchars($testPreparation); ?></textarea>
                                 </div>
                             </div>
-                            
+
                             <hr>
 
-                            <form id="test-details-form" class="" style="width: 21cm" >
+                            <form id="test-details-form" class="" style="width: 21cm">
                                 <div class="row" id="dynamic-row-container">
                                     <?php
                                     if ($reportType == 2) {
