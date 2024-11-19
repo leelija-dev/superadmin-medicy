@@ -1,4 +1,3 @@
-
 const masterTable = document.getElementById('master-table');
 const responseTable = document.getElementById('respnse-table-name');
 const adminId = document.getElementById('user-id');
@@ -17,133 +16,123 @@ const queryResponse = document.getElementById('query-responce');
 const masterUrl = document.getElementById('master-url');
 
 
-function responseOfQuery(t) {
-    let fileName ='';
-    let filePath ='';
+$(document).ready(function() {
+    const ticketNo = $('#ticket-number').val();
+    const queryTable = $('#query-table').val();
+    let dataFetchFlag = '1';  
 
-    if (masterTable.value === '') {
-        Swal.fire('Error', 'Master Table not found', 'error');
-        return;
-    }
-    if (responseTable.value === '') {
-        Swal.fire('Error', 'Response table not found', 'error');
-        return;
-    }
-    if (adminId.value === '') {
-        Swal.fire('Error', 'Admin id not found', 'error');
-        return;
-    }
-    if (ticketNo.value === '') {
-        Swal.fire('Error', 'Admin id not found', 'error');
-        return;
-    }
-    if (adminUsername.value === '') {
-        Swal.fire('Error', 'Admin Username not found', 'error');
-        return;
-    }
-    if (msgSender.value === '') {
-        Swal.fire('Error', 'Message sender not found', 'error');
-        return;
-    }
-    if (email.value === '') {
-        Swal.fire('Error', 'Email not found', 'error');
-        return;
-    }
-    if (msgTitle.value === '') {
-        Swal.fire('Error', 'Message Title not found', 'error');
-        return;
-    }
-    if (contact.value === '') { 
-        Swal.fire('Error', 'User Contact not found', 'error');
-        return;
-    }
-    if (queryResponse.value === '') {
-        Swal.fire('Error', 'Enter Response', 'error');
+    if (!ticketNo || !queryTable) {
+        Swal.fire({ 
+            icon: 'warning',
+            title: 'Input Missing',
+            text: 'Ticket number or Query table is missing!'
+        });
         return;
     }
 
-    let formData = new FormData();
-    let file = '';
-    if (inputedDocument.value !== '') {
-        file = inputedDocument.files[0]; // Get the selected file
-        fileName = file.name;
-        filePath = inputedDocument.value;
-        formData.append('file', file);
-    }else{
-        fileName    = oldFileData.value;
-        filePath    = '';
+    $.ajax({
+        url: 'ajax/ticket-query-request-fetch.ajax.php', 
+        type: 'POST',  
+        data: {
+            ticketNo: ticketNo,
+            tableIdentity: queryTable,
+        },
+        success: function(response) {
+            var jsonResponse = JSON.parse(response);
+            if(jsonResponse.status){
+                // console.log(jsonResponse.masterTable);
+                
+                // $('#master-table').val(jsonResponse.masterTable);
+                // $('#respnse-table-name').val(jsonResponse.responseTable);
+                
+                // $('#db-file-data-holder').val(jsonResponse.data.attachment);
+                // console.log(jsonResponse); 
+            }
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({ 
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while submitting the form. Please try again.'
+            });
+            console.log('AJAX Error:', status, error);
+        }
+    });
+});
+
+
+
+
+function ticketQueryResponse() {
+    const form = document.getElementById('admin-ticket-response'); 
+    const submitFormData = new FormData(form);
+
+    // Validate form fields, skipping file inputs
+    for (let [key, value] of submitFormData.entries()) {
+        if (key !== 'new-file-input' && key !== 'prev-file-input') {
+            if (value.trim() === '') { 
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Alert',
+                    text: `Please fill in the ${key} field.`,
+                });
+                return; // Stop submission if validation fails
+            }
+        }
     }
-
-    console.log(file);
-    console.log('file path'+inputedDocument.value);
-    console.log(filePath);
-
-    formData.append('masterTable', masterTable.value);
-    formData.append('responseTable', responseTable.value);
-    formData.append('adminId', adminId.value);
-    formData.append('ticketNo', ticketNo.value);
-    formData.append('adminUsername', adminUsername.value);
-    formData.append('msgSender', msgSender.value);
-    formData.append('email', email.value);
-    formData.append('msgTitle', msgTitle.value);
-    formData.append('contact', contact.value);
-    formData.append('queryResponse', queryResponse.value);
- 
-    formData.append('fileName',fileName);
-    formData.append('filePath',filePath);
-
+    
+    // AJAX submission
     $.ajax({
         url: 'ajax/ticket-query-response.ajax.php',
         type: 'POST',
-        data: formData,
-        contentType: false, 
-        processData: false, 
+        data: submitFormData,  // Send the FormData directly
+        contentType: false,  // Let FormData handle the content type
+        processData: false,  // Let FormData handle the data processing
         success: function(response) {
             console.log(response);
             var jsonResponse = JSON.parse(response);
-                if (jsonResponse.status) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: jsonResponse.message
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = 'requests.php'; 
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: jsonResponse.message
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href ='requests.php';
-                        }
-                    });;
-                }
 
-            // Clear all fields
-            masterTable.value = '';
-            responseTable.value = '';
-            adminId.value = '';
-            adminUsername.value = '';
-            msgSender.value = '';
-            email.value = '';
-            msgTitle.value = '';
-            contact.value = '';
-            queryResponse.value = '';
+            /*// Check if response status is success
+            if (jsonResponse.status) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: jsonResponse.message,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'requests.php'; // Redirect on success
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: jsonResponse.message,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'requests.php'; // Redirect on error
+                    }
+                });
+            }*/
+
+            // Optionally, reset form fields (you can modify field names to match your actual form IDs)
+            form.reset();
         },
         
         error: function() {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'An error occurred while submitting the form.'
+                text: 'An error occurred while submitting the form.',
             });
         }
     });
 }
+
+
+
+
+
 
 
 
@@ -181,3 +170,8 @@ function takeInputFile(fileInput, fileShowDivId) {
         reader.readAsDataURL(file);
     }
 }
+
+
+
+
+

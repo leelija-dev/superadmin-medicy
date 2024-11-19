@@ -885,6 +885,53 @@ class Request
 
 
 
+    // new fucntion for fetching ticket query data
+    function fetchedTicketQueryData($table1, $table2, $token)
+    {
+        try {
+            $status = false;
+            $fetchQuery = "
+                SELECT 
+                    t1.*, 
+                    t2.email AS sender_email,
+                    t2.contact AS sender_contact,
+                    t2.status AS master_table_status
+                FROM $table1 t1
+                JOIN $table2 t2 ON t1.ticket_no = t2.ticket_no
+                WHERE t1.ticket_no = ?";
+            
+            $stmt = $this->conn->prepare($fetchQuery);
+            if ($stmt === false) {
+                throw new Exception('Prepare failed: ' . $this->conn->error);
+            }
+    
+            $stmt->bind_param('s', $token);
+            $stmt->execute();
+            
+            $result = $stmt->get_result();
+            
+            if ($result && $result->num_rows > 0) {
+                while($res = $result->fetch_object()){
+                    $status = true;
+                    $data[] = $res;  
+                    $message = 'Data found';
+                }
+            } else {
+                $data = null; 
+                $message = 'No data found';
+            }
+    
+            $stmt->close();  
+    
+            return json_encode(['status' => $status, 'data' => $data, 'message' => $message]);
+        } catch (Exception $e) {
+            return json_encode(['status' => false, 'data' => null, 'message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
+    
+
+
+
 
     function fetchMasterTicketData($table, $token)
     {
