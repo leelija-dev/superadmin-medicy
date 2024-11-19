@@ -36,11 +36,10 @@ class SettingController
                 if ($imageName && $tempImgName) {
                     if ($existingImage) {
                         $existingImagePath =dirname(dirname(__DIR__)) . "/assets/images/orgs" . DIRECTORY_SEPARATOR . $existingImage;
-                        // print_r($existingImagePath);  die();
+                        print_r($existingImagePath);  die();
                         if (file_exists($existingImagePath) && is_writable($existingImagePath)) {                          
                             unlink($existingImagePath);
                         // print_r($existingImagePath);  die();
-
                         }
                     }
 

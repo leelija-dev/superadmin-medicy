@@ -19,7 +19,10 @@ class ProfileController
             ];
 
         $productData = ['files' => $files];
-        return $this->UpdateProfilePic($prodId, $productData);
+        $res = $this->UpdateProfilePic($prodId, $productData);
+        // print_r($this->UpdateProfilePic($prodId, $productData));  die();
+        // print_r($res);  die();
+        return $res;
     }
 
     private function UpdateProfilePic($admId, $data)
@@ -81,7 +84,7 @@ class ProfileController
             }
             }
 
-            return true;
+            return $addImages;
         } catch (\Exception $e) {
             echo "Error: " . $e->getMessage();
             error_log("UpdateProduct Error: " . $e->getMessage());

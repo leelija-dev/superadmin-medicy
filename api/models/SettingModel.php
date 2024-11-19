@@ -93,7 +93,7 @@ class Setting
     
             // Return the profile image filename or null if not found
             // print_r($row['logo']);  die();
-            // return $row['logo'] ?? null;
+            return $row['logo'] ?? null;
         } else {
             // Handle execution failure
             die("Statement execution failed: " . $stmt->error);

@@ -58,21 +58,22 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
                 if (!empty($data['imagesName'])) {
                     $defined_token = 'profile_details';
                     $id = $data['id'];
-                    if($data['token'] == $defined_token){
-                    $data = $controller->updateProfileImage($id, $data);
-                    if($data['result'] == 1){
-                    $response = array(
-                        'status' => true,
-                        'message' => 'Image Update successfully',
-                        'data'    =>  $data,
-                    );
-                }else{
-                    $response = array(
-                        'status' => true,
-                        'message' => 'Invalid token',
-                    ); 
-                }
-            }
+                    if ($data['token'] == $defined_token) {
+                        $data = $controller->updateProfileImage($id, $data);
+                        // print_r($data);  die();
+                        if ($data['result'] == 1) {
+                            $response = array(
+                                'status' => true,
+                                'message' => 'Image Update successfully',
+                                'data'    =>  $data,
+                            );
+                        } else {
+                            $response = array(
+                                'status' => true,
+                                'message' => 'Not Uploaded',
+                            );
+                        }
+                    }
                 } else {
                     $response = array(
                         'status' => false,
@@ -109,7 +110,7 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
                         );
                         echo json_encode($response);
                     }
-                }else{
+                } else {
                     $response = array(
                         'status' => false,
                         'message' => 'kupon value must be wrong',
