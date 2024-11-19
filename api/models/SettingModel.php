@@ -24,11 +24,13 @@ class Setting
     function updatelogo($id, $imageName) {
         // print_r($id);  die();
         try {
+
+            $image = LOGO_IMG_PATH . $imageName;
             $updateQuery = "UPDATE `clinic_info` SET `logo`= ? WHERE `admin_id` = ?";
             
             $stmt = $this->conn->prepare($updateQuery);
     
-            $stmt->bind_param("ss", $imageName, $id);
+            $stmt->bind_param("ss", $image, $id);
     
             $stmt->execute();
     
@@ -70,6 +72,7 @@ class Setting
 
     public function getSiteLogo($hospitalId)
     {
+        
         // print_r($hospitalId);   die();
         $query = "SELECT * FROM clinic_info WHERE admin_id = ? LIMIT 1";
     

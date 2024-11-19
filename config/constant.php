@@ -119,6 +119,8 @@ session_start();
 	define("TICKET_DOCUMENT_DIR", 				ROOT_DIR.'images/ticket-documents/');
 	define("CLINIC_PERMIT_FORM_DIR", 			ROOT_DIR.'assets/images/orgs/drug-permit/');
 
+	
+
 	const TICKET_DOCUMENT_PATH				= 	URL.'images/ticket-documents/';
 	
 	
@@ -145,6 +147,9 @@ session_start();
 	const EMP_PATH							=	URL.'employee/';
 	const EMP_ASSETS						=	URL.'employee/assets/';
 	const EMP_CSS							=	URL.'employee/assets/css/';
+
+	const LOGO_IMG_PATH						=	'assets/images/orgs/';
+
 
 
 	
