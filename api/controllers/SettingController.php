@@ -13,10 +13,10 @@ class SettingController
     public function updateSiteLogo($hospitalId, $data)
     {
         $files = [];
-            $files[] = [
-                'file_name' => $data['imagesName'],
-                'temp_path' => $data['tempImgsName']
-            ];
+        $files[] = [
+            'file_name' => $data['imagesName'],
+            'temp_path' => $data['tempImgsName']
+        ];
 
         $productData = ['files' => $files];
         return $this->UpdateSettingLogo($hospitalId, $productData);
@@ -34,52 +34,51 @@ class SettingController
 
                 if ($imageName && $tempImgName) {
                     if ($existingImage) {
-                        $existingImagePath =dirname(dirname(__DIR__)) . "/assets/images/orgs" . DIRECTORY_SEPARATOR . $existingImage;
-                        // print_r($existingImagePath);  die();
-                        if (file_exists($existingImagePath) && is_writable($existingImagePath)) {                          
+
+                        $existingImagePath =  ROOT_DIR . DIRECTORY_SEPARATOR . $existingImage;
+                        if (file_exists($existingImagePath) && is_writable($existingImagePath)) {
                             unlink($existingImagePath);
-                        // print_r($existingImagePath);  die();
                         }
                     }
 
-                if ($imageName && $tempImgName) {
-                    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    $randomString = '';
-                    for ($k = 0; $k < 9; $k++) {
-                        $randomString .= $characters[rand(0, strlen($characters) - 1)];
-                    }
+                    if ($imageName && $tempImgName) {
+                        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        $randomString = '';
+                        for ($k = 0; $k < 9; $k++) {
+                            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+                        }
 
-                    $extension = substr($imageName, strrpos($imageName, '.'));
-                    $imageFileName = substr($imageName, 0, strrpos($imageName, '.'));
+                        $extension = substr($imageName, strrpos($imageName, '.'));
+                        $imageFileName = substr($imageName, 0, strrpos($imageName, '.'));
 
-                    $imageFile = $imageFileName . '-' . $randomString . $extension;
-                    // $imgFolder = SUP_ADM_IMG_DIR . DIRECTORY_SEPARATOR . $imageFile;
-                    $imgFolder      = dirname(dirname(__DIR__)) . "/assets/images/orgs/" . $imageFile;
-                    // print_r($imgFolder);  die();
+                        $imageFile = $imageFileName . '-' . $randomString . $extension;
+                        // $imgFolder = SUP_ADM_IMG_DIR . DIRECTORY_SEPARATOR . $imageFile;
+                        $imgFolder      = dirname(dirname(__DIR__)) . "/assets/images/orgs/" . $imageFile;
+                        // print_r($imgFolder);  die();
 
-                    if (!is_writable(SUP_ADM_IMG_DIR)) {
-                        throw new \Exception("Directory not writable: " . SUP_ADM_IMG_DIR);
-                    }
+                        if (!is_writable(SUP_ADM_IMG_DIR)) {
+                            throw new \Exception("Directory not writable: " . SUP_ADM_IMG_DIR);
+                        }
 
-                    if (!rename($tempImgName, $imgFolder)) {
-                        $errorMessage = "Failed to move file from '$tempImgName' to '$imgFolder'";
-                        error_log($errorMessage);
-                        throw new \Exception($errorMessage);
-                    }
+                        if (!rename($tempImgName, $imgFolder)) {
+                            $errorMessage = "Failed to move file from '$tempImgName' to '$imgFolder'";
+                            error_log($errorMessage);
+                            throw new \Exception($errorMessage);
+                        }
 
-                    $image = addslashes($imageFile);
-                    $status = 1;
-                    $addImages = $settingModel->updatelogo($admId, $image);
+                        $image = addslashes($imageFile);
+                        $status = 1;
+                        $addImages = $settingModel->updatelogo($admId, $image);
 
-                    if (!$addImages) {
-                        throw new \Exception("Failed to add image for product ID: $admId");
+                        if (!$addImages) {
+                            throw new \Exception("Failed to add image for product ID: $admId");
+                        }
+                    } else {
+                        throw new \Exception("Image data missing for product ID: $admId");
                     }
                 } else {
                     throw new \Exception("Image data missing for product ID: $admId");
                 }
-            } else {
-                throw new \Exception("Image data missing for product ID: $admId");
-            }
             }
 
             return true;

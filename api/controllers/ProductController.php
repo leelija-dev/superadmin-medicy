@@ -103,10 +103,9 @@ class ProductController
 
                 $imageFile = $imageFileName . '-' . $randomString . $extension;
                 $imgFolder = PRODUCT_IMG_DIR . DIRECTORY_SEPARATOR . $imageFile;
-                // print_r($imgFolder);  die();
 
-                if (!is_writable(PROD_IMG_DIR)) {
-                    throw new \Exception("Directory not writable: " . PROD_IMG_DIR);
+                if (!is_writable(PRODUCT_IMG_DIR)) {
+                    throw new \Exception("Directory not writable: " . PRODUCT_IMG_DIR);
                 }
 
                 // Use rename() since we created the file manually in the temporary path

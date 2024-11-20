@@ -20,8 +20,7 @@ class ProfileController
 
         $productData = ['files' => $files];
         $res = $this->UpdateProfilePic($prodId, $productData);
-        // print_r($this->UpdateProfilePic($prodId, $productData));  die();
-        // print_r($res);  die();
+        
         return $res;
     }
 
@@ -37,7 +36,7 @@ class ProfileController
 
                 if ($imageName && $tempImgName) {
                     if ($existingImage) {
-                        $existingImagePath = SUP_ADM_IMG_DIR . DIRECTORY_SEPARATOR . $existingImage;
+                        $existingImagePath = PROFILE_IMG_DIR . DIRECTORY_SEPARATOR . $existingImage;
                         // print_r($existingImagePath);  die();
 
                         if (file_exists($existingImagePath) && is_writable($existingImagePath)) {
@@ -57,10 +56,10 @@ class ProfileController
                     $imageFileName = substr($imageName, 0, strrpos($imageName, '.'));
 
                     $imageFile = $imageFileName . '-' . $randomString . $extension;
-                    $imgFolder = SUP_ADM_IMG_DIR . DIRECTORY_SEPARATOR . $imageFile;
+                    $imgFolder = PROFILE_IMG_DIR . DIRECTORY_SEPARATOR . $imageFile;
 
-                    if (!is_writable(SUP_ADM_IMG_DIR)) {
-                        throw new \Exception("Directory not writable: " . SUP_ADM_IMG_DIR);
+                    if (!is_writable(PROFILE_IMG_DIR)) {
+                        throw new \Exception("Directory not writable: " . PROFILE_IMG_DIR);
                     }
 
                     if (!rename($tempImgName, $imgFolder)) {
@@ -72,7 +71,6 @@ class ProfileController
                     $image = addslashes($imageFile);
                     $status = 1;
                     $addImages = $profileModel->updateprofileImage($admId, $image);
-// print_r($addImages);  die();
                     if (!$addImages) {
                         throw new \Exception("Failed to add image for product ID: $admId");
                     }

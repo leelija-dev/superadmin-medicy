@@ -21,7 +21,6 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
     $controller = new ProfileController();
     switch ($method) {
         case 'PUT':
-            // $id = $_GET['id'];
             $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
             if (strpos($contentType, 'multipart/form-data') !== false) {
                 $boundary = substr($contentType, strpos($contentType, "boundary=") + 9);
@@ -39,7 +38,6 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
                             preg_match('/Content-Type: ([^"]*)/', $part, $typeMatches);
                             $fileType = $typeMatches[1] ?? '';
 
-                            // Get the file content
                             $fileContent = trim(explode("\r\n\r\n", $part)[1]);
                             $tempPath = sys_get_temp_dir() . '/' . $filename;
                             file_put_contents($tempPath, $fileContent);
@@ -57,8 +55,12 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
 
                 if (!empty($data['imagesName'])) {
                     $defined_token = 'profile_details';
-                    $id = $data['id'];
-                    if ($data['token'] == $defined_token) {
+                    $enc_token = pass_enc($defined_token, ADMIN_PASS);
+                    $dec_token = pass_dec($enc_token, ADMIN_PASS);
+                    $token = $data['token'];
+                    if ($token == $dec_token) {
+                        $id = $data['id'];
+                        // if ($data['token'] == $defined_token) {
                         $data = $controller->updateProfileImage($id, $data);
                         // print_r($data);  die();
                         if ($data['result'] == 1) {
@@ -92,15 +94,11 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'profile.ph
         case 'GET':
             if ($_GET['name'] == 'admin-details') {
                 $key = 'profile-detail';
-                // $token = pass_enc($key, ADMIN_PASS);
-                // print_r($token);  die();
+                $enc_token = pass_enc($key, ADMIN_PASS);
+                $dec_token = pass_dec($enc_token, ADMIN_PASS);
                 $newToken = $_GET['token'];
-                // $newToken = pass_dec($getToken, ADMIN_PASS);
-                // print_r($newToken);
-                // die();
-                if ($key == $newToken) {
+                if ($dec_token == $newToken) {
                     $admId = $_GET['id'];
-                    // print_r($admId);  die();
                     $data = $controller->getAdminDetails($admId);
                     if (true) {
                         $response = array(
