@@ -58,7 +58,10 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'setting.ph
                 if (!empty($data['imagesName'])) {
                     $id = $data['id'];
                     $defined_token = 'setting_update';
-                    if ($data['token'] == $defined_token) {
+                    $enc_token = pass_enc($defined_token, ADMIN_PASS);
+                    $dec_token = pass_dec($enc_token, ADMIN_PASS);
+                    $token = $data['token'];
+                    if ($token == $dec_token) {
                         // $id = 8;
                         $controller->updateSiteLogo($id, $data);
                         $response = array(
@@ -90,13 +93,10 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'setting.ph
         case 'GET':
             $key = 'setting-detail';
             $token = pass_enc($key, ADMIN_PASS);
-            // print_r($token); die();
+            $dec_token = pass_dec($token, ADMIN_PASS);
             if ($_GET['name'] == 'settings-details') {
                 $getToken = $_GET['token'];
-                $newToken = pass_dec($getToken, ADMIN_PASS);
-                // print_r($newToken);  die();
-                if ($key == $newToken) {
-                    // echo "hi"; die();
+                if ($getToken == $dec_token) {
 
                     $hospitalId = $_GET['id'];
                     $data = $controller->getSettingValues($hospitalId);

@@ -26,18 +26,19 @@ class SettingController
     {
         try {
             $files = $data['files'];
-            $profileModel = new Setting();
-            $existingImage = $profileModel->getSiteLogo($admId);
+            $settingModel = new Setting();
+            $existingImage = $settingModel->getSiteLogo($admId);
             foreach ($files as $file) {
                 $imageName = $file['file_name'];
                 $tempImgName = $file['temp_path'];
-                // print_r($imageName);  die();
 
                 if ($imageName && $tempImgName) {
                     if ($existingImage) {
-                        $existingImagePath =dirname(dirname(__DIR__)) . "/assets/images/orgs/" . DIRECTORY_SEPARATOR . $existingImage;
-                        if (file_exists($existingImagePath) && is_writable($existingImagePath)) {
+                        $existingImagePath =dirname(dirname(__DIR__)) . "/assets/images/orgs" . DIRECTORY_SEPARATOR . $existingImage;
+                        // print_r($existingImagePath);  die();
+                        if (file_exists($existingImagePath) && is_writable($existingImagePath)) {                          
                             unlink($existingImagePath);
+                        // print_r($existingImagePath);  die();
                         }
                     }
 
@@ -68,7 +69,7 @@ class SettingController
 
                     $image = addslashes($imageFile);
                     $status = 1;
-                    $addImages = $profileModel->updatelogo($admId, $image);
+                    $addImages = $settingModel->updatelogo($admId, $image);
 
                     if (!$addImages) {
                         throw new \Exception("Failed to add image for product ID: $admId");

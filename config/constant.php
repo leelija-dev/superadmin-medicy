@@ -119,6 +119,8 @@ session_start();
 	define("TICKET_DOCUMENT_DIR", 				ROOT_DIR.'images/ticket-documents/');
 	define("CLINIC_PERMIT_FORM_DIR", 			ROOT_DIR.'assets/images/orgs/drug-permit/');
 
+	
+
 	const TICKET_DOCUMENT_PATH				= 	URL.'images/ticket-documents/';
 	
 	
@@ -146,6 +148,9 @@ session_start();
 	const EMP_ASSETS						=	URL.'employee/assets/';
 	const EMP_CSS							=	URL.'employee/assets/css/';
 
+	const LOGO_IMG_PATH						=	'assets/images/orgs/';
+
+
 
 	
 
@@ -155,6 +160,11 @@ session_start();
 	define('SUP_ADM_IMG_DIR',	SUP_ADM_DIR.'images/admin-images/');
 	// define('LAB_CAT_IMG_DIR', SUP_ADM_DIR.'images/lab-category-images/');
 	define('ADM_URL',  			URL);
+	define('PRODUCT_IMG_DIR',	ROOT_DIR.'assets/images/product-image/');
+	define('PROFILE_IMG_DIR',	ROOT_DIR.'assets/images/admin/');
+	define('SETTINGS_IMG_DIR',	ROOT_DIR.'assets/images/orgs/');
+
+
 
 	const SUP_ADM_IMG_PATH						=	ADM_URL.'images/admin-images/';
 	// const LAB_CAT_IMG_PATH						=	ADM_URL.'images/lab-category-images/';

@@ -35,9 +35,9 @@ class Profile
             if(true){
                $result = ['result' => '1', 'image_name' => $imageName];
             }else{
-                $result = ['result' => '1'];
+                $result = ['result' => '0'];
                }
-    
+    // print_r($result);  die();
             return $result;
         } catch (Exception $e) {
             return ['result' => '0', 'message' => $e->getMessage()];
