@@ -160,6 +160,11 @@ session_start();
 	define('SUP_ADM_IMG_DIR',	SUP_ADM_DIR.'images/admin-images/');
 	// define('LAB_CAT_IMG_DIR', SUP_ADM_DIR.'images/lab-category-images/');
 	define('ADM_URL',  			URL);
+	define('PRODUCT_IMG_DIR',	ROOT_DIR.'assets/images/product-image/');
+	define('PROFILE_IMG_DIR',	ROOT_DIR.'assets/images/admin/');
+	define('SETTINGS_IMG_DIR',	ROOT_DIR.'assets/images/orgs/');
+
+
 
 	const SUP_ADM_IMG_PATH						=	ADM_URL.'images/admin-images/';
 	// const LAB_CAT_IMG_PATH						=	ADM_URL.'images/lab-category-images/';

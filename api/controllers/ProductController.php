@@ -102,7 +102,8 @@ class ProductController
                 $imageFileName = substr($imageName, 0, strrpos($imageName, '.'));
 
                 $imageFile = $imageFileName . '-' . $randomString . $extension;
-                $imgFolder = PROD_IMG_DIR . DIRECTORY_SEPARATOR . $imageFile;
+                $imgFolder = PRODUCT_IMG_DIR . DIRECTORY_SEPARATOR . $imageFile;
+                // print_r($imgFolder);  die();
 
                 if (!is_writable(PROD_IMG_DIR)) {
                     throw new \Exception("Directory not writable: " . PROD_IMG_DIR);
