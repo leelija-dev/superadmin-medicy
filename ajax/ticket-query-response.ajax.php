@@ -54,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $msgTitle = $_POST['msg-title'];
     $response = $_POST['query-responce'];
     $prevFileInput = $_POST['prev-file-input'];
-
+    // print_r($_POST);
+    // echo $prevFileInput;
     // $fileName = $_POST['fileName'];
     // $filePath = $_POST['filePath'];
 
@@ -68,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }else{
         $updatedFilename = $prevFileInput;
     }
-    
-    $addResponse = $Request->addResponseToTicketQueryTable($responseTable, $ticketNo, $updatedFilename, $response, $status, NOW, $viewStatus);
+    // print_r($_POST);
+    $addResponse = $Request->addResponseToTicketQueryTable($responseTable, $ticketNo, $msgTitle, $updatedFilename, $response, $status, NOW, $viewStatus);
     // print_r($addResponse);
 
     $updatedResponse = json_decode($addResponse);

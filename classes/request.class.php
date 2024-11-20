@@ -657,11 +657,11 @@ class Request
 
 
 
-    function addResponseToTicketQueryTable($tableName, $masterTicketNo, $filename, $response, $status, $addedOn, $viewStatus)
+    function addResponseToTicketQueryTable($tableName, $masterTicketNo, $msgTitle, $filename, $response, $status, $addedOn, $viewStatus)
     {
         try {
 
-            $addQuery = "INSERT INTO $tableName(`ticket_no`, `attachment`, `response`, `status`, `added_on`, `view_status`) VALUES (?, ?, ?, ?, ?, ?)";
+            $addQuery = "INSERT INTO $tableName(`ticket_no`, `title`, `attachment`, `response`, `status`, `added_on`, `view_status`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $this->conn->prepare($addQuery);
 
@@ -670,7 +670,7 @@ class Request
             }
 
             // Adjust the types according to your database schema, here it's assumed that $addedOn is a string
-            $stmt->bind_param("sssssi", $masterTicketNo, $filename, $response, $status, $addedOn, $viewStatus);
+            $stmt->bind_param("ssssssi", $masterTicketNo, $msgTitle, $filename, $response, $status, $addedOn, $viewStatus);
 
             if (!$stmt->execute()) {
                 throw new Exception('Execute statement failed: ' . $stmt->error);

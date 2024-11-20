@@ -40,13 +40,13 @@ $(document).ready(function() {
         success: function(response) {
             var jsonResponse = JSON.parse(response);
             if(jsonResponse.status){
-                // console.log(jsonResponse.masterTable);
+                console.log(jsonResponse.masterTable);
                 
-                // $('#master-table').val(jsonResponse.masterTable);
-                // $('#respnse-table-name').val(jsonResponse.responseTable);
+                $('#master-table').val(jsonResponse.masterTable);
+                $('#respnse-table-name').val(jsonResponse.responseTable);
                 
-                // $('#db-file-data-holder').val(jsonResponse.data.attachment);
-                // console.log(jsonResponse); 
+                $('#db-file-data-holder').val(jsonResponse.data.attachment);
+                console.log(jsonResponse); 
             }
         },
         error: function(xhr, status, error) {
@@ -89,10 +89,9 @@ function ticketQueryResponse() {
         contentType: false,  // Let FormData handle the content type
         processData: false,  // Let FormData handle the data processing
         success: function(response) {
-            console.log(response);
             var jsonResponse = JSON.parse(response);
-
-            /*// Check if response status is success
+            console.log(jsonResponse);
+            // Check if response status is success
             if (jsonResponse.status) {
                 Swal.fire({
                     icon: 'success',
@@ -113,8 +112,7 @@ function ticketQueryResponse() {
                         window.location.href = 'requests.php'; // Redirect on error
                     }
                 });
-            }*/
-
+            }
             // Optionally, reset form fields (you can modify field names to match your actual form IDs)
             form.reset();
         },

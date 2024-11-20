@@ -132,22 +132,22 @@ if (isset($_GET['tokenNo'])) {
                 <!-- Begin container-fluid -->
                 <div class="container-fluid">
                     <div class="card-body shadow">
-                        <div class="row">
+                        <div class="row d-none">
                             <input type="text" id="ticket-number" name="ticket-number" value="<?= $token ?>" required readonly>
                             <input type="text" id="query-table" name="query-table" value="<?= $tableName ?>" required readonly>
                         </div>
                         <form id="admin-ticket-response" method="POST" enctype="multipart/form-data">
                             <!-- data holder -->
                             <div class="row d-flex">
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-4 form-group d-none">
                                     <label>Table Name</label></br>
                                     <input type="text" class="med-input" id="master-table" name="master-table" value="<?= $table1; ?>" required readonly>
                                 </div>
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-4 form-group d-none">
                                     <label>Response Table Name</label></br>
                                     <input type="text" class=" med-input" id="respnse-table-name" name="respnse-table-name" value="<?= $table2; ?>" required readonly>
                                 </div>
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-4 form-group d-none">
                                     <label>Sender admin id</label></br>
                                     <input type="text" class="med-input" id="user-id" name="user-id" value="<?= $adminId; ?>" required readonly>
                                 </div>
@@ -223,7 +223,7 @@ if (isset($_GET['tokenNo'])) {
                                     <label class="med-label text-primary mt-n4" for="fileInput" style="margin-left:10px;">Document</label>
                                     <i class="fas fa-upload text-primary" id="upload-document1" style="position: absolute; left: 18rem; bottom: 3rem; cursor: pointer;" onclick="document.getElementById('fileInput').click();"></i>
                                     <input type="file" class="d-none" name="new-file-input" id="fileInput" value="" onchange="takeInputFile(this, 'document-show')">
-                                    <input type="text" class="d-none" id="db-file-data-holder" name="prev-file-input" value="">
+                                    <input type="text" class="d-none" id="db-file-data-holder" name="prev-file-input" value="<?= $fileName; ?>">
                                 </div>
                             </div>
                             <hr class="my-2">
