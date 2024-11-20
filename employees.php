@@ -10,6 +10,7 @@ require_once CLASS_DIR   . 'employee.class.php';
 require_once CLASS_DIR   . 'encrypt.inc.php';
 require_once CLASS_DIR   . 'utility.class.php';
 require_once CLASS_DIR   . 'empRole.class.php';
+require_once CLASS_DIR   . 'rbacController.class.php';
 
 
 
@@ -17,24 +18,25 @@ require_once CLASS_DIR   . 'empRole.class.php';
 $Utility     = new Utility;
 $employees   = new Employees();
 $desigRole   = new Emproles();
+$RBAC        = new RbacController();
 
 
 $currentUrl = $Utility->currentUrl();
-
 $showEmployees = $employees->employeesDisplay();
-$adminId = url_dec($_GET['customerId']);
+// $adminId = url_dec($_GET['customerId']);
+$adminId = isset($_GET['customerId']) ? url_dec($_GET['customerId']) : null;
 $showEmployees = $employees->employeesDisplay($adminId);
 $showDesignation = $desigRole->designationRoleCheckForLogin();
 $showDesignation = json_decode($showDesignation, true);
 // print_r($showDesignation);
-
-//Employee Class Initilzed
-// $employees = new Employees();
+$permissionDetails = json_decode($RBAC->selectPermissionTableDetails());
 
 if (isset($_POST['add-emp']) == true) {
 
 
-    $empName      = $_POST['emp-name'];
+    // $empName      = $_POST['emp-name'];
+    $firstName    = $_POST['fname'];
+    $lastName     = $_POST['lname'];
     $empUsername  = $_POST['emp-username'];
     $empMail      = $_POST['emp-mail'];
     $empContact   = $_POST['contact'];
@@ -42,13 +44,18 @@ if (isset($_POST['add-emp']) == true) {
     $empPass      = $_POST['emp-pass'];
     $empCPass     = $_POST['emp-cpass'];
     $empAddress   = $_POST['emp-address'];
+    $empPermission = isset($_POST['permissions']) ? $_POST['permissions'] : [];
+    $permissions = !empty($empPermission) ? implode(',', $empPermission) : '';
 
-
-    if ($empPass == $empCPass) {
+    echo 'fname-'.$firstName.'lname-'. $lastName.'empUser-'.$empUsername.'mail-'.$empMail.'contact-'.$empContact.'role-'.$empRole.'pass-'.$empPass.'cpass-'.$empCPass.'add-'.$empAddress.'permission-'.$permissions;
+    
+    if ($empPass === $empCPass) {
         $wrongPasword = false;
-        $addEmployee = $employees->addEmp($adminId, $empUsername, $empName, $empRole, $empMail,$empContact, $empAddress, $empPass);
+
+        $addEmployee = $employees->addEmp($adminId, $empUsername, $firstName, $lastName, $empRole, $permissions, $empMail, $empContact, $empAddress, $empPass);
+
         if ($addEmployee) {
-            $Utility->redirectURL($currentUrl, 'SUCCESS', 'Employee Added Successfuly!');
+            $Utility->redirectURL($currentUrl, 'SUCCESS', 'Employee Added Successfuly  !');
         } else {
             echo "<script>alert('Employee Insertion Failed!')</script>";
         }
@@ -56,7 +63,6 @@ if (isset($_POST['add-emp']) == true) {
         echo "<script>alert('Password Did Not Matched!')</script>";
     }
 }
-
 
 ?>
 
@@ -142,7 +148,13 @@ if (isset($_POST['add-emp']) == true) {
                                 <?php
                                 if (isset($_GET['action'])) {
                                     if (isset($_GET['msg'])) {
-                                        echo "<p><strong>{$_GET['msg']}</strong></p>";
+                                        $message = htmlspecialchars($_GET['msg']); 
+                                        echo "<p id='message' class='mt-n2 text-center px-5 py-3 rounded w-75 bg-success text-white ' style='position:absolute; margin-left:120px;'><strong>$message</strong></p>";
+                                        echo "<script>
+                                                setTimeout(function() {
+                                                    document.getElementById('message').style.display = 'none';
+                                                }, 3000);
+                                            </script>";
                                     }
                                 }
                                 ?>
@@ -176,7 +188,7 @@ if (isset($_POST['add-emp']) == true) {
                                                 foreach ($showEmployees as $showEmployees) {
                                                     $empId = $showEmployees['emp_id'];
                                                     $empUsername = $showEmployees['emp_username'];
-                                                    $empName = $showEmployees['emp_name'];
+                                                    $empName = $showEmployees['fname'].' '.$showEmployees['lname'];
                                                     $empRoleId = $showEmployees['emp_role'];
                                                     print_r($empRoleId);
                                                     $empRolData = $desigRole->designationRoleID($adminId, $empRoleId);
@@ -211,14 +223,14 @@ if (isset($_POST['add-emp']) == true) {
                                                 foreach ($showEmployees as $showEmployees) {
                                                     $empId = $showEmployees['emp_id'];
                                                     $empUsername = $showEmployees['emp_username'];
-                                                    $empName = $showEmployees['emp_name'];
+                                                    $empName = $showEmployees['fname'].' '.$showEmployees['lname'];
                                                     $empRoleId = $showEmployees['emp_role'];
                                                     $empRolData = $desigRole->designationRoleID($empRoleId);
                                                     $empRolDatas = json_decode($empRolData, true);
                                                     $empRole = '';
                                                     if ($empRolDatas['status'] == '1')
                                                         $designationData = $empRolDatas['data'];
-                                                    $empRole    = $designationData['desig_name'];
+                                                    $empRole    = $designationData['desig_name'] ? $designationData['desig_name'] : '';
 
                                                     $empMail = $showEmployees['emp_email'];
                                                     // $emp['employee_password'];
@@ -266,13 +278,20 @@ if (isset($_POST['add-emp']) == true) {
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="employees.php" method="post">
+                                    <form action="" method="post">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="col-md-12">
-                                                    <label class="mb-0 mt-1" for="emp-name"> Employee Name:</label>
-                                                    <input class="form-control" type="text" name="emp-name" id="emp-name" maxlength="30" required>
+                                                    <div>
+                                                    <label class="mb-0 mt-1" for="emp-name">First Name:</label>
+                                                    <input class="form-control" type="text" name="fname" id="fname" maxlength="30" required>
+                                                    </div>
+                                                    <div>
+                                                    <label class="mb-0 mt-1" for="emp-name">Last Name:</label>
+                                                    <input class="form-control" type="text" name="lname" id="lname" maxlength="30" required>
+                                                    </div>
                                                 </div>
+
                                                 <div class="col-md-12">
                                                     <label class="mb-0 mt-1" for="emp-username">Employee Username:</label>
                                                     <input class="form-control" type="text" name="emp-username" id="emp-username" maxlength="12" required>
@@ -301,7 +320,7 @@ if (isset($_POST['add-emp']) == true) {
                                             <div class="col-md-6">
                                                 <div class="col-md-12">
                                                     <label class="mb-0 mt-1" for="emp-address">Full Address:</label>
-                                                    <textarea class="form-control" name="emp-address" id="emp-address" cols="30" rows="4" maxlength="255"></textarea>
+                                                    <textarea class="form-control" name="emp-address" id="emp-address" cols="30" rows="1" maxlength="255"></textarea>
                                                 </div>
 
                                                 <div class="col-md-12">
@@ -313,6 +332,20 @@ if (isset($_POST['add-emp']) == true) {
                                                     <label class="mb-0 mt-1" for="emp-conf-pass">Confirm Password:</label>
                                                     <input class="form-control" type="password" name="emp-cpass" id="emp-conf-pass" maxlength="12" required>
                                                     <div id="toggle" onclick="showHide('emp-conf-pass');"></div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="mt-2 mb-n2" for="emp-address">Access Permission</label>
+                                                    <div class="p-3" style="height: 165px; overflow-y: auto;" data-spy="scroll">
+                                                        <?php
+                                                       if ($permissionDetails->status == 1) {
+                                                        foreach ($permissionDetails->data as $permission) {
+                                                            echo '<input type="checkbox" name="permissions[]" value="' . $permission->permission_id . '">' . htmlspecialchars($permission->permissions) . '<br>';
+                                                        }
+                                                    } else {
+                                                        echo 'No permissions found.';
+                                                    }
+                                                        ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -345,8 +378,8 @@ if (isset($_POST['add-emp']) == true) {
     <!-- End of Page Wrapper -->
 
     <!-- Emp Edit and View Modal -->
-    <div class="modal fade" id="empViewAndEditModal" tabindex="-1" role="dialog" aria-labelledby="empViewAndEditModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade bd-example-modal-lg" id="empViewAndEditModal" tabindex="-1" role="dialog" aria-labelledby="empViewAndEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" style="min-width: 900px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="empViewAndEditModalLabel">Employee Information</h5>
@@ -357,10 +390,10 @@ if (isset($_POST['add-emp']) == true) {
                 <div class="modal-body viewnedit">
                     <!-- MODAL CONTENT GOES HERE BY AJAX -->
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-sm btn-primary" onclick="refreshPage()">Update</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

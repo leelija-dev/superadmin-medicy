@@ -34,25 +34,59 @@ class StockIn
 
 
 
-    function showStockIn($adminId = '')
-    {
+    // function showStockIn($adminId = '')
+    // {
+    //     try {
+    //         $data   = array();
+    //         if (empty($adminId)) {
+    //             $select = "SELECT * FROM stock_in ORDER BY id DESC";
+    //         } else {
+    //             $select = "SELECT * FROM `stock_in` WHERE `admin_id` = $adminId ORDER BY id DESC";
+    //         }
+
+    //         $selectQuery = $this->conn->query($select);
+    //         while ($result = $selectQuery->fetch_array()) {
+    //             $data[] = $result;
+    //         }
+    //         return $data;
+    //     } catch (Exception $e) {
+    //         echo "Error: " . $e->getMessage();
+    //     }
+    // } //eof showStockIn function
+    function showStockIn($adminId = '') {
         try {
-            $data   = array();
+            $data = array();
+            
+            // If $adminId is empty, select all records
             if (empty($adminId)) {
                 $select = "SELECT * FROM stock_in ORDER BY id DESC";
             } else {
-                $select = "SELECT * FROM `stock_in` WHERE `admin_id` = $adminId ORDER BY id DESC";
+                // If $adminId is provided, use a parameterized query to avoid SQL injection
+                $select = "SELECT * FROM `stock_in` WHERE `admin_id` = ? ORDER BY id DESC";
             }
-
-            $selectQuery = $this->conn->query($select);
-            while ($result = $selectQuery->fetch_array()) {
-                $data[] = $result;
+            
+            // Prepare and execute query
+            $stmt = $this->conn->prepare($select);
+            
+            // If $adminId is provided, bind it to the query
+            if (!empty($adminId)) {
+                $stmt->bind_param("s", $adminId);  // Assuming admin_id is a string (adjust if it's an integer)
             }
+    
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            // Fetch all results
+            while ($row = $result->fetch_array()) {
+                $data[] = $row;
+            }
+    
             return $data;
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
-    } //eof showStockIn function
+    }
+    
 
 
 
