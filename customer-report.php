@@ -73,7 +73,12 @@ $sodLst30Days = $StockOut->customerDayRange($lst30, $strtDt, $CustomerId);
 
 
 ///=========purches amount==================///
-$CountPurchesItems = count($StockIn->showStockIn($CustomerId));
+$CountPurchesItems = $StockIn->showStockIn($CustomerId);
+if (is_array($CountPurchesItems) || $CountPurchesItems instanceof Countable) {
+    $CountPurchesItems = count($CountPurchesItems);
+} else {
+    $CountPurchesItems = 0; 
+}
 $PurchesItems      = $StockIn->showStockIn($CustomerId);
 $PurchesRetun      = $StockReturn->showStockReturn($CustomerId);
 $PurchesRetun      = json_decode($PurchesRetun, true);

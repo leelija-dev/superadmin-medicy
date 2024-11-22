@@ -5,31 +5,35 @@ class Employees
 {
     use DatabaseConnection;
 
-    function addEmp($empId, $adminId, $empUsername, $fName, $lName, $empRole, $permissions, $empMail, $contactNo, $empAddress, $empPass)
-    {
-        $password = pass_enc($empPass, EMP_PASS);
-        try {
-            $sql = "INSERT INTO `employees` (emp_id, admin_id, emp_username, fname, lname, emp_role, permission_id, emp_email, contact, emp_address, emp_password) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-            $stmt = $this->conn->prepare($sql);
-            if (!$stmt) {
-                throw new Exception("Error preparing the insert statement: " . $this->conn->error);
-            }
-
-            $stmt->bind_param("sssssississ", $empId, $adminId, $empUsername, $fName, $lName, $empRole, $permissions, $empMail, $contactNo, $empAddress, $password);
-
-            if ($stmt->execute()) {
-                return ["result" => true, "message" => 'Employee added successfully!'];
-            } else {
-                return ["result" => false, "message" => 'Error executing insert statement: ' . $stmt->error];
-            }
-            $stmt->close();
-        } catch (Exception $e) {
-            return ["result" => false, "error" => $e->getMessage()];
-        } finally {
+    function addEmp($adminId, $empUsername, $firstName, $lastName, $empRole, $permissions, $empMail,   $empContact, $empAddress, $empPass)
+   {
+    $password = pass_enc($empPass, EMP_PASS);  // Encrypt the password
+    try {
+        // Insert query
+        $sql = "INSERT INTO `employees` (admin_id, emp_username, fname, lname, emp_role, permission_id, emp_email, contact, emp_address, emp_password) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            throw new Exception("Error preparing the insert statement: " . $this->conn->error);
         }
+
+        // Bind parameters for query
+        $stmt->bind_param("ssssississ", $adminId, $empUsername, $firstName, $lastName, $empRole, $permissions, $empMail, $empContact, $empAddress, $password);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            return ["result" => true, "message" => 'Employee added successfully..........!'];
+        } else {
+            return ["result" => false, "message" => 'Error executing insert statement: ' . $stmt->error];
+        }
+
+        $stmt->close();
+    } catch (Exception $e) {
+        return ["result" => false, "error" => $e->getMessage()];
     }
+   }
+
 
 
 
@@ -281,14 +285,22 @@ class Employees
     //     return $editQuery;
     // } //end updateEmp function
 
-
-    function updateEmp($empUsername, $firstName, $lastName, $empRole, $permission, $empEmail, $empContact, $empId) {
+    function updateEmp($empUsername, $empfName, $empLName, $empRole, $empPermission, $empEmail, $empContact, $empAddress, $empId) {
         try {
-            $edit = "UPDATE `employees` SET `emp_username` = ?, `fname` = ?, `lname` = ?, `emp_role` = ?, `permission_id` = ?, `emp_email` = ?, `contact` = ? WHERE `emp_id` = ?";
+            $edit = "UPDATE `employees` SET 
+                        `emp_username` = ?, 
+                        `fname` = ?, 
+                        `lname` = ?, 
+                        `emp_role` = ?, 
+                        `permission_id` = ?, 
+                        `emp_email` = ?, 
+                        `contact` = ?, 
+                        `emp_address` = ? 
+                     WHERE `emp_id` = ?";
+    
             $stmt = $this->conn->prepare($edit);
-    
-            $stmt->bind_param("sssissii", $empUsername, $firstName, $lastName, $empRole, $permission, $empEmail, $empContact, $empId);
-    
+            $stmt->bind_param("sssissisi", $empUsername, $empfName, $empLName, $empRole, $empPermission, $empEmail, $empContact, $empAddress, $empId);
+            
             $stmt->execute();
     
             if ($stmt->affected_rows > 0) {
@@ -298,8 +310,7 @@ class Employees
             }
         } catch (Exception $e) {
             return json_encode(['status'=>false, 'message'=>$e->getMessage()]); 
-        } 
-        
+        }
     }
     
 
