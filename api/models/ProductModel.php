@@ -47,6 +47,39 @@ class Product
         }
     }
 
+
+    function updateImagesBySupAdmin($productId, $productImage, $status, $addedBy, $addedOn, $adminId)
+    {
+        header('Content-Type: application/json');
+        try {
+            if (!empty($adminId)) {
+                $updateImage = "UPDATE `product_images` 
+                                SET `image` = ?, `status` = ?, `added_by` = ?, `added_on` = ? 
+                                WHERE `admin_id` = ? AND `product_id` = ?";
+                $stmt = $this->conn->prepare($updateImage);
+                $stmt->bind_param("ssssss", $productImage, $status, $addedBy, $addedOn, $adminId, $productId);
+            } else {
+                $updateImage = "UPDATE `product_images` 
+                                SET `image` = ?, `added_by` = ?, `added_on` = ? 
+                                WHERE `product_id` = ?";
+                $stmt = $this->conn->prepare($updateImage);
+                $stmt->bind_param("ssss", $productImage, $addedBy, $addedOn, $productId);
+            }
+    
+            if ($stmt->execute()) {
+                // Update successful
+                $stmt->close();
+                return true;
+            } else {
+                // Update failed
+                throw new Exception("Error updating data in the database: " . $stmt->error);
+            }
+        } catch (Exception $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
+    
+
     public function getDetails($hospitalId)
     {
         header('Content-Type: application/json');

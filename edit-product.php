@@ -88,7 +88,7 @@ $Category = $Category->data;
         // ===================== Fetching Product Details =====================
 
         $product = json_decode($Products->showProductsByIdOnTableName($ticketNo, $tableName));
-        
+
         if ($product->status) {
 
             // print_r($product);
@@ -179,17 +179,17 @@ $Category = $Category->data;
             $oldProdFlag = $product->old_prod_flag ?? '';
             $oldProdId = $oldProdFlag ? ($product->old_prod_id ?? '') : '';
 
-            if(!empty($oldProdId)){
+            if (!empty($oldProdId)) {
                 $col = 'product_id';
                 $data = $oldProdId;
                 $productDataFromProductsTable = json_decode($Products->showProductsByTable($col, $data));
                 // print_r($productDataFromProductsTable);
                 $editReqFlagData = $productDataFromProductsTable->data[0]->edit_request_flag;
-            }else{
+            } else {
                 $editReqFlagData = 0;
             }
 
-           
+
             $admin_id       = $product->admin_id;
 
             $images = json_decode($ProductImages->showImagesByProduct($productId));

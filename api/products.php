@@ -103,8 +103,10 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
                 if (!empty($data['imagesName'])) {
                     $defined_token = 'prod_details';
                     $id = $data['id'];
+                    $adm_id = $data['adminId'];
                     $token = $data['token'];
-                    // print_r($data);  die();
+                    // print_r($data);  die;
+                    // print_r($adm_id);  die();
                     if($defined_token == $token){
                     $controller->updateProductImage($id, $data);
                     $response = array(

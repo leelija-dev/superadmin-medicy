@@ -65,6 +65,7 @@ class ProductController
 
     public function updateProductImage($prodId, $data)
     {
+        $adm_id = $data['adminId'];
         // Prepare the image data array for processing in `UpdateProduct`
         $files = [];
         for ($i = 0; $i < count($data['imagesName']); $i++) {
@@ -77,15 +78,16 @@ class ProductController
         $productData = ['files' => $files];
 
         // Call the UpdateProduct function
-        return $this->UpdateProduct($prodId, $productData);
+        return $this->UpdateProduct($prodId, $adm_id, $productData);
     }
 
-    private function UpdateProduct($prodId, $data)
+    private function UpdateProduct($prodId, $adm_id, $data)
 {
     try {
+        // print_r($data);  die;
         $files = $data['files'];
         $productModel = new Product();
-        $admId = 111;
+        // $admId = 111;
 
         foreach ($files as $file) {
             $imageName = $file['file_name'];
@@ -117,7 +119,7 @@ class ProductController
 
                 $image = addslashes($imageFile);
                 $status = 1;
-                $addImages = $productModel->addImagesBySupAdmin($prodId, $image, $status, $admId, NOW, $admId);
+                $addImages = $productModel->addImagesBySupAdmin($prodId, $image, $status, $adm_id, NOW, $adm_id);
 
                 if (!$addImages) {
                     throw new \Exception("Failed to add image for product ID: $prodId");
