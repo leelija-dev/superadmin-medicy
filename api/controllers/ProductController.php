@@ -12,8 +12,8 @@ class ProductController
 
     public function addProductImage($data)
     {
-        // print_r($data); 
-        //  die;
+      
+        
         $productModel = new Product();
         $featured_image     = $data['featured_image'];
         $imagesName         = $data['imagesName']; //$_FILES['img-files']['name'];
@@ -23,8 +23,6 @@ class ProductController
         $tempImageArrayCaount = count($tempImgsName);
         $addedBy = 'self';
         $newProductId = 10;
-        // $setPriority = $data['setPriority'];
-
         $imageDataTuple = json_encode(['imageNmArray' => $imagesName, 'tempImageNmArray' => $tempImgsName, 'imgArrayCount' => $imageArrayCaount, 'tempImgArrayCount' => $tempImageArrayCaount, 'addedBy' => $addedBy, 'adminId' => $addedBy, 'productId' => $newProductId]); // createing image data tupel ------
 
         $imageDataTuple = json_decode($imageDataTuple);
@@ -104,7 +102,14 @@ class ProductController
             foreach ($files as $file) {
                 $imageName = $file['file_name'];
                 $tempImgName = $file['temp_path'];
-                $isfeatured = ($featured_image === $imageName) ? true : false;
+                $isfeatured = ($featured_image === $imageName) ? 1 : 0;
+                $priorityExist = $productModel->checkPriorityImage($prodId);
+                if ($isfeatured) {
+                    if (!empty($priorityExist)) {
+                        $existingProImgId = $priorityExist['id'];
+                        $setNewPriority = $productModel->setExistingPriotyAsZero($existingProImgId);
+                    }
+                }
 
                 if ($imageName && $tempImgName) {
                     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -155,11 +160,7 @@ class ProductController
     public function getProductDetails($ProductId)
     {
         $productModel = new Product();
-        // Prepare the image data array for processing in `UpdateProduct`
         $data = $productModel->getDetails($ProductId);
-        // print_r($data);  die();
         return $data;
     }
-
-    
 }

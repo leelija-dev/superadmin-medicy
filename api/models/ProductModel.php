@@ -171,7 +171,7 @@ class Product
         header('Content-Type: application/json');
 
         // Define query and priority value
-        $query = "SELECT image FROM product_images WHERE product_id = ? AND set_priority = ?";
+        $query = "SELECT id, image FROM product_images WHERE product_id = ? AND set_priority = ?";
         $priority = 1;
 
         // Prepare the statement
@@ -189,7 +189,7 @@ class Product
             $result = $stmt->get_result();
 
             if ($result) {
-                $rows = $result->fetch_all(MYSQLI_ASSOC);
+                $rows = $result->fetch_assoc();
                 
                 $result->free();
                 $stmt->close();
@@ -204,5 +204,27 @@ class Product
             $stmt->close();
             die(json_encode(['error' => 'Statement execution failed', 'details' => $stmt->error]));
         }
+    }
+
+    public function setExistingPriotyAsZero($imageId){
+        $newPriorityValue = 0;
+        $updateQuery = "UPDATE `product_images` SET `set_priority`= ? WHERE `id`=?";
+            
+            $stmt = $this->conn->prepare($updateQuery);
+    
+            $stmt->bind_param("ii", $newPriorityValue, $imageId);
+    
+            // $stmt->execute();
+    
+            // $stmt->close();
+            if ($stmt->execute()) {
+                // Insert successful
+                $stmt->close();
+              return true;
+                
+            } else {
+                // Insert failed
+                return false;
+            }
     }
 }
