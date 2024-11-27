@@ -12,7 +12,10 @@ class ProductController
 
     public function addProductImage($data)
     {
+      
+        
         $productModel = new Product();
+        $featured_image     = $data['featured_image'];
         $imagesName         = $data['imagesName']; //$_FILES['img-files']['name'];
         $tempImgsName       = $data['tempImgsName']; // $_FILES['img-files']['tmp_name'];
 
@@ -20,7 +23,6 @@ class ProductController
         $tempImageArrayCaount = count($tempImgsName);
         $addedBy = 'self';
         $newProductId = 10;
-
         $imageDataTuple = json_encode(['imageNmArray' => $imagesName, 'tempImageNmArray' => $tempImgsName, 'imgArrayCount' => $imageArrayCaount, 'tempImgArrayCount' => $tempImageArrayCaount, 'addedBy' => $addedBy, 'adminId' => $addedBy, 'productId' => $newProductId]); // createing image data tupel ------
 
         $imageDataTuple = json_decode($imageDataTuple);
@@ -47,6 +49,8 @@ class ProductController
             //===== Main Image 
             $imageName        = $imagesName[$j];
             $tempImageName   = $tempImgsName[$j];
+            // $priority = $setPriority[$j];
+            $isfeatured = ($featured_image === $imageName) ? true : false;
 
             $extension = substr($imageName, -4);
             $imageNameWithoutExtension = substr($imageName, 0, -4);
@@ -56,8 +60,7 @@ class ProductController
 
             move_uploaded_file($tempImageName, $imgFolder);
             $image         = addslashes($image);
-            // print_r($image);  die();
-            $addImages = $productModel->addImagesBySupAdmin($imageDataTuple->productId, $image, $imgStatus, $imageDataTuple->addedBy, NOW, $imageDataTuple->adminId);
+            $addImages = $productModel->addImagesBySupAdmin($imageDataTuple->productId, $image, $imgStatus, $imageDataTuple->addedBy, NOW, $imageDataTuple->adminId, $isfeatured);
         }
 
         return $addImages;
@@ -65,6 +68,13 @@ class ProductController
 
     public function updateProductImage($prodId, $data)
     {
+        $productModel = new Product();
+        $adm_id = $data['adminId'];
+        $checkedPriority = $productModel->checkPriorityImage($prodId);
+        // print_r($checkedPriority);  die;
+        $featured_image = $data['featured_image'];
+
+
         // Prepare the image data array for processing in `UpdateProduct`
         $files = [];
         for ($i = 0; $i < count($data['imagesName']); $i++) {
@@ -74,77 +84,83 @@ class ProductController
             ];
         }
 
-        $productData = ['files' => $files];
+        $productData = ['files' => $files, 'featured_image' => $featured_image];
 
         // Call the UpdateProduct function
-        return $this->UpdateProduct($prodId, $productData);
+        return $this->UpdateProduct($prodId, $adm_id, $productData);
     }
 
-    private function UpdateProduct($prodId, $data)
-{
-    try {
-        $files = $data['files'];
-        $productModel = new Product();
-        $admId = 111;
+    private function UpdateProduct($prodId, $adm_id, $data)
+    {
+        try {
+            $featured_image = $data['featured_image'];
+            // print_r($data);  die;
+            $files = $data['files'];
+            $productModel = new Product();
+            // $admId = 111;
 
-        foreach ($files as $file) {
-            $imageName = $file['file_name'];
-            $tempImgName = $file['temp_path'];
-
-            if ($imageName && $tempImgName) {
-                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $randomString = '';
-                for ($k = 0; $k < 9; $k++) {
-                    $randomString .= $characters[rand(0, strlen($characters) - 1)];
+            foreach ($files as $file) {
+                $imageName = $file['file_name'];
+                $tempImgName = $file['temp_path'];
+                $isfeatured = ($featured_image === $imageName) ? 1 : 0;
+                $priorityExist = $productModel->checkPriorityImage($prodId);
+                if ($isfeatured) {
+                    if (!empty($priorityExist)) {
+                        $existingProImgId = $priorityExist['id'];
+                        $setNewPriority = $productModel->setExistingPriotyAsZero($existingProImgId);
+                    }
                 }
 
-                $extension = substr($imageName, strrpos($imageName, '.'));
-                $imageFileName = substr($imageName, 0, strrpos($imageName, '.'));
+                if ($imageName && $tempImgName) {
+                    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $randomString = '';
+                    for ($k = 0; $k < 9; $k++) {
+                        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+                    }
 
-                $imageFile = $imageFileName . '-' . $randomString . $extension;
-                $imgFolder = PRODUCT_IMG_DIR . DIRECTORY_SEPARATOR . $imageFile;
+                    $extension = substr($imageName, strrpos($imageName, '.'));
+                    $imageFileName = substr($imageName, 0, strrpos($imageName, '.'));
 
-                if (!is_writable(PRODUCT_IMG_DIR)) {
-                    throw new \Exception("Directory not writable: " . PRODUCT_IMG_DIR);
+                    $imageFile = $imageFileName . '-' . $randomString . $extension;
+                    $imgFolder = PRODUCT_IMG_DIR . DIRECTORY_SEPARATOR . $imageFile;
+
+                    if (!is_writable(PRODUCT_IMG_DIR)) {
+                        throw new \Exception("Directory not writable: " . PRODUCT_IMG_DIR);
+                    }
+
+                    // Use rename() since we created the file manually in the temporary path
+                    if (!rename($tempImgName, $imgFolder)) {
+                        $errorMessage = "Failed to move file from '$tempImgName' to '$imgFolder'";
+                        error_log($errorMessage);
+                        throw new \Exception($errorMessage);
+                    }
+
+                    $image = addslashes($imageFile);
+                    $status = 1;
+                    $addImages = $productModel->updateImagesBySupAdmin($prodId, $image, $status, $adm_id, NOW, $adm_id, $isfeatured);
+
+                    if (!$addImages) {
+                        throw new \Exception("Failed to add image for product ID: $prodId");
+                    }
+                } else {
+                    throw new \Exception("Image data missing for product ID: $prodId");
                 }
-
-                // Use rename() since we created the file manually in the temporary path
-                if (!rename($tempImgName, $imgFolder)) {
-                    $errorMessage = "Failed to move file from '$tempImgName' to '$imgFolder'";
-                    error_log($errorMessage);
-                    throw new \Exception($errorMessage);
-                }
-
-                $image = addslashes($imageFile);
-                $status = 1;
-                $addImages = $productModel->addImagesBySupAdmin($prodId, $image, $status, $admId, NOW, $admId);
-
-                if (!$addImages) {
-                    throw new \Exception("Failed to add image for product ID: $prodId");
-                }
-            } else {
-                throw new \Exception("Image data missing for product ID: $prodId");
             }
+
+            return true;
+        } catch (\Exception $e) {
+            echo "Error: " . $e->getMessage();
+            error_log("UpdateProduct Error: " . $e->getMessage());
+
+            return false;
         }
-
-        return true;
-
-    } catch (\Exception $e) {
-        echo "Error: " . $e->getMessage();
-        error_log("UpdateProduct Error: " . $e->getMessage());
-
-        return false;
     }
-}
 
 
-public function getProductDetails($ProductId)
+    public function getProductDetails($ProductId)
     {
         $productModel = new Product();
-        // Prepare the image data array for processing in `UpdateProduct`
         $data = $productModel->getDetails($ProductId);
-        // print_r($data);  die();
         return $data;
     }
-
 }

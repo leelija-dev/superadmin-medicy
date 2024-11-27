@@ -21,8 +21,11 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
     switch ($method) {
         case 'POST':
             if ($_POST['name'] == 'add-image') {
+                // print_r($_POST);
                 $define_token = 'products_details';
                 if ($_POST['token'] == $define_token) {
+
+                    $data['featured_image']         = $_POST['featured_image'];
                     $imagesName         = $_FILES['img-files']['name'];
                     $data['imagesName']         = $imagesName;
 
@@ -47,7 +50,7 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
                             'status' => true,
                             'message' => 'Image added successfully',
                         );
-                        echo json_encode($response);
+                        // echo json_encode($response);
                     }
                 }
             } else {
@@ -103,8 +106,10 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
                 if (!empty($data['imagesName'])) {
                     $defined_token = 'prod_details';
                     $id = $data['id'];
+                    $adm_id = $data['adminId'];
                     $token = $data['token'];
-                    // print_r($data);  die();
+                    // print_r($data);  die;
+                    // print_r($adm_id);  die();
                     if($defined_token == $token){
                     $controller->updateProductImage($id, $data);
                     $response = array(

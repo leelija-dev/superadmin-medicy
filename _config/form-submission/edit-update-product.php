@@ -2,7 +2,6 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-// print_r(dirname(dirname(__DIR__)));  die();
 require_once dirname(dirname(__DIR__)) . '/config/constant.php';
 
 // require_once dirname(dirname(dirname(__DIR__))) . '/config/constant.php';
@@ -111,7 +110,6 @@ if (isset($_POST['update-product'])) {
             return error_log("Error in imageUpadate function: " . $e->getMessage());
         }
     }
-
 
     //--------------- image data tuple -------------------
     $imageData = json_encode(['imageNameArray' => $imageName, 'tempImgNmArray' => $tempImgName]);
