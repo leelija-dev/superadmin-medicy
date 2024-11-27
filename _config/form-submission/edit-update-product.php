@@ -342,18 +342,18 @@ if (isset($_POST['update-product'])) {
             
         ?>
             <script>
-                swal("Success", "Product updated successfully!", "success").then((value) => {
-                    parent.location.href = '<?php echo ADM_URL; ?>product-request-lsit.php';
-                });
+                // swal("Success", "Product updated successfully!", "success").then((value) => {
+                //     parent.location.href = '<?php echo ADM_URL; ?>product-request-lsit.php';
+                // });
             </script>
         <?php
 
         } else {
         ?>
             <script>
-                swal("Error", "Product updation failed!", "error").then((value) => {
-                    parent.location.href = '<?php echo ADM_URL; ?>product-request-lsit.php';
-                });
+                // swal("Error", "Product updation failed!", "error").then((value) => {
+                //     parent.location.href = '<?php echo ADM_URL; ?>product-request-lsit.php';
+                // });
             </script>
     <?php
         }

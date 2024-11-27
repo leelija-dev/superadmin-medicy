@@ -58,7 +58,7 @@ session_start();
 	
 	define('CLASS_DIR', 		ROOT_DIR.'classes/');
 	define('ASST_DIR', 			ROOT_DIR.'uploads/contents/');
-	define('PROD_IMG_DIR', 		ROOT_DIR.'images/product-image/');
+	define('PROD_IMG_DIR', 		ROOT_DIR.'assets/images/product-image/');
 	define('ADM_IMG_DIR', 		ROOT_DIR.'images/admin-images/');
 	define('EMP_IMG_DIR', 		ROOT_DIR.'images/employee-images/');
 	
@@ -140,7 +140,7 @@ session_start();
 	const LABTEST_IMG_PATH					= 	ASSETS_PATH.'images/lab-tests/';
 	const LABTEST_IMG_DIR					= 	IMG_DIR.'lab-tests/';
 
-	const PROD_IMG_PATH						=	URL.'images/product-image/';
+	const PROD_IMG_PATH						=	ASSETS_PATH.'images/product-image/';
 	const ADM_IMG_PATH						=	URL.'images/admin-images/';
 	
 	const DEFAULT_USER_IMG_PATH				=	URL.'images/user-default-image/defaultAvtar.png';

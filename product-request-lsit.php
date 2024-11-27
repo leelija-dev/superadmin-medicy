@@ -163,13 +163,11 @@ if ($modalName == 0) {
                                                             }
                                                         }
                                                 ?>
-
                                                         <div class="item col-12 col-sm-6 col-md-4 col-lg-3 ">
                                                             <div class="card  mb-3 p-3" style="min-width: 14rem; min-height: 11rem;">
                                                                 <img src="<?php echo PROD_IMG_PATH ?><?php echo $productImage ?>" class="card-img-top" alt="...">
                                                                 <div class="card-body">
-                                                                    <label><b><?php echo $item->name; ?></b></label>
-                                                                    <p class="mb-0"><b><?php $item->name ?></b></p>
+                                                                    <label><b><?= $item->name; ?></b></label>
                                                                     <small class="card-text mt-0" style="text-align: justify;"><?php echo substr($dsc, 0, 65) ?></small>
 
                                                                 </div>
@@ -213,10 +211,6 @@ if ($modalName == 0) {
 
             </div>
             <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <?php include_once SUP_ROOT_COMPONENT . 'footer-text.php'; ?>
-            <!-- End of Footer -->
 
         </div>
         <!--End of Content Wrapper -->
