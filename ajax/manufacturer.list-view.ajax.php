@@ -1,6 +1,6 @@
 <?php 
 // echo dirname(dirname(__DIR__));
-require_once dirname(dirname(__DIR__)).'/config/constant.php';
+require_once (dirname(__DIR__)).'/config/constant.php';
 require_once SUP_ADM_DIR.'_config/sessionCheck.php'; //check admin loggedin or not
 
 require_once CLASS_DIR.'dbconnect.php';

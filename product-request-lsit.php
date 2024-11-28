@@ -155,8 +155,8 @@ if ($modalName == 0) {
                                                         }
 
 
-                                                        if (isset($item->prod_req_status)) {
-                                                            if ($item->old_prod_flag == 0) {
+                                                        if (isset($item->new_prod_req_status)) {
+                                                            if ($item->updated_prod_flag == 0) {
                                                                 $modalHeading = 'New Product Request';
                                                             } else {
                                                                 $modalHeading = 'Existing Product Edit Request';

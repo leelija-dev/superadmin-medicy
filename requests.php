@@ -26,9 +26,6 @@ $allRequestResult = [];
 
 $requestTypes = [
     'product_request'      => ['tableName' => 'Product Request', 'data'      => []],
-    'distributor_request'  => ['tableName' => 'Distributor Request', 'data'  => []],
-    'manufacturer_request' => ['tableName' => 'Manufacturer Request', 'data' => []],
-    'packtype_request'     => ['tableName' => 'Packtype Request', 'data'     => []],
     'distributor'          => ['tableName' => 'Distributer Add', 'data'      => []],
     'manufacturer'         => ['tableName' => 'manufacturer Add', 'data'     => []],
     'packaging_type'       => ['tableName' => 'packaging Add', 'data'        => []],
@@ -68,13 +65,13 @@ foreach ($requestTypes as $table => &$requestType) {
     foreach ($requestType['data'] as $requestDataItem) {
         // print_r($requestDataItem);
         if ($requestType['tableName'] == 'Product Request') {
-            if($requestDataItem->prod_req_status == 1){
+            if ($requestDataItem->new_prod_req_status == 1) {
                 $prdReqStatus = 'ACTIVE';
                 $reqCheck = 0;
-            }elseif($requestDataItem->old_prod_flag == 1){
+            } elseif ($requestDataItem->updated_prod_flag == 1) {
                 $prdReqStatus = 'ACTIVE';
                 $reqCheck = 1;
-            }else{
+            } else {
                 $prdReqStatus = 'INACTIVE';
             }
             $allRequestResult[] = [
@@ -85,33 +82,6 @@ foreach ($requestTypes as $table => &$requestType) {
                 'description' => $requestDataItem->req_dsc,
                 'status'      => $prdReqStatus,
                 'request_check' => $reqCheck,
-            ];
-        } elseif ($requestType['tableName'] == 'Distributor Request') {
-            $allRequestResult[] = [
-                'id'          => getInitials($requestType['tableName']) . $requestDataItem->id,
-                'tableName'   => $requestType['tableName'],
-                'name'        => $requestDataItem->name,
-                'msgTitle'    => '',
-                'description' => property_exists($requestDataItem, 'req_dsc') ? $requestDataItem->req_dsc : '',
-                'status'      => '',
-            ];
-        } elseif ($requestType['tableName'] == 'Manufacturer Request') {
-            $allRequestResult[] = [
-                'id'          => getInitials($requestType['tableName']) . $requestDataItem->id,
-                'tableName'   => $requestType['tableName'],
-                'name'        => $requestDataItem->name,
-                'msgTitle'    => '',
-                'description' => property_exists($requestDataItem, 'req_dsc') ? $requestDataItem->req_dsc : '',
-                'status'      => '',
-            ];
-        } elseif ($requestType['tableName'] == 'Packtype Request') {
-            $allRequestResult[] = [
-                'id'          => getInitials($requestType['tableName']) . $requestDataItem->id,
-                'tableName'   => $requestType['tableName'],
-                'name'        => $requestDataItem->unit_name,
-                'msgTitle'    => '',
-                'description' => property_exists($requestDataItem, 'req_dsc') ? $requestDataItem->req_dsc : '',
-                'status'      => '',
             ];
         } elseif ($requestType['tableName'] == 'packaging Add') {
             $allRequestResult[] = [
@@ -140,7 +110,7 @@ foreach ($requestTypes as $table => &$requestType) {
                 'description' => $requestDataItem->message,
                 'status'      => $requestDataItem->status,
             ];
-        }elseif ($requestType['tableName'] == 'Generate Ticket') {
+        } elseif ($requestType['tableName'] == 'Generate Ticket') {
             $allRequestResult[] = [
                 'id'          => $requestDataItem->ticket_no,
                 'tableName'   => $requestType['tableName'],
@@ -149,7 +119,7 @@ foreach ($requestTypes as $table => &$requestType) {
                 'description' => $requestDataItem->message,
                 'status'      => $requestDataItem->status,
             ];
-        }else {
+        } else {
             $allRequestResult[] = [
                 'id'          => getInitials($requestType['tableName']) . $requestDataItem->id,
                 'tableName'   => $requestType['tableName'],
@@ -158,7 +128,7 @@ foreach ($requestTypes as $table => &$requestType) {
                 'description' => 'New' . ' ' . $requestType['tableName'],
                 'status'      => '',
             ];
-        }    
+        }
     }
 }
 
@@ -272,7 +242,7 @@ if ($pagination->status == 1) {
                                             } else {
                                                 $description = '';
                                             }
-
+                                            // print_r($resItems);  die;
                                             if ($resItems->status != null) {
                                                 $status = $resItems->status;
                                             } else {
@@ -282,12 +252,13 @@ if ($pagination->status == 1) {
 
                                             if ($resItems->tableName == 'Product Request') {
                                                 if ($resItems->status == 'ACTIVE') {
-                                                    
+
                                                     $link = "<a href='product-request-lsit.php?check=1&tokenNo=$resItems->id&modalName=$resItems->request_check'>View</a>";
                                                 } else {
                                                     $link = '';
                                                 }
-                                            } else if ($resItems->tableName == 'Generate Quarry' || $resItems->tableName == 'Generate Ticket'
+                                            } else if (
+                                                $resItems->tableName == 'Generate Quarry' || $resItems->tableName == 'Generate Ticket'
                                             ) {
                                                 if ($resItems->status == 'ACTIVE') {
                                                     $link = "<a href='view-query-ticket.php?tokenNo=$resItems->id&table=$tableName'>View</a>";
@@ -297,7 +268,7 @@ if ($pagination->status == 1) {
                                             } else {
                                                 $link = '';
                                             }
-                                            
+
 
                                             echo '<tr>
                                                         <td>' . $resItems->id . '</td>

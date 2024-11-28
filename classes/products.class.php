@@ -68,7 +68,7 @@ class Products
 
 
     /// ===========product add by superAdmin=========///
-    function addProductBySuperAdmin($producid, $productName, $productComp1, $productComp2, $hsnNumber, $type, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $addedBy, $verifyStatus, $addedOn)
+    function addProductBySuperAdmin($producid, $productName, $productComp1, $productComp2, $hsnNumber, $type, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $addedBy, $verifyStatus, $addedOn, $ticketNo)
     {
         try {
             $insertProducts = "INSERT INTO `products` (`product_id`, `name`, `comp_1`, `comp_2`, `hsno_number`, `type`, `packaging_type`, `power`, `unit_quantity`, `unit_id`, `unit`, `manufacturer_id`, `mrp`, `gst`, `dsc`, `added_by`, `verified`, `added_on`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -78,6 +78,13 @@ class Products
 
             if ($stmt->execute()) {
                 // Insert successful
+                $stmt->close();
+                $status = 0;
+                $updateStatus = "UPDATE product_request SET `status`=? WHERE `ticket_no`=?";
+
+                $stmt = $this->conn->prepare($updateStatus);
+                $stmt->bind_param("ss", $status, $ticketNo);
+                $stmt->execute();
                 $stmt->close();
 
                 // Return additional information if needed
@@ -452,7 +459,8 @@ class Products
                 $productRequests[] = $prodReqRes;
             }
 
-            if (count($products) > 0 || count($productRequests) > 0
+            if (
+                count($products) > 0 || count($productRequests) > 0
             ) {
                 $response = [
                     'status' => '1',
