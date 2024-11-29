@@ -78,6 +78,7 @@ class Products
 
             if ($stmt->execute()) {
                 // Insert successful
+                // echo "hi";  die;
                 $stmt->close();
                 $status = 0;
                 $updateStatus = "UPDATE product_request SET `status`=? WHERE `ticket_no`=?";

@@ -3,6 +3,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once dirname(dirname(__DIR__)) . '/config/constant.php';
+// print_r(dirname(dirname(__DIR__)) . '/config/api-keys.php.php');  die;
+require_once dirname(dirname(__DIR__)) . '/config/api-keys.php';
+
 
 // require_once dirname(dirname(dirname(__DIR__))) . '/config/constant.php';
 require_once SUP_ADM_DIR . '_config/sessionCheck.php'; //check admin loggedin or not
@@ -336,7 +339,7 @@ if (isset($_POST['update-product'])) {
                 $priority_image = 0;
                 $updateProdRequestTable = json_decode($Request->updateProductRequestTable($ticketNo, $col, $data));
                 if (preg_match("/Image Edited./", $productReqDsc)) {
-                    echo "check 21";
+                    // echo "check 21";
                     if (!empty($imageName[0])) {
                         // echo "check 22";
                         $updateProduct = imageUpdate($_FILES, $productid, $SUPER_ADMINID, API_URL, $priority_image);
@@ -352,16 +355,13 @@ if (isset($_POST['update-product'])) {
                 $updateProduct = false;
             }
         } elseif ($prodReqStatus == 0 && $oldProdFlag == 1) { // old product edit request
-            // echo "old";  
-            if (preg_match("/Name edited. /", $productReqDsc) || preg_match("/Medicine Qantity Edited. /", $productReqDsc) || preg_match("/Unit Edited./", $productReqDsc)) {
-                // echo "check 3"; 
-                // $status = 1;
+            
                 $addProductOnRequest = $Products->addProductBySuperAdmin($productid, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, $verifyStatus, NOW, $ticketNo);
+                // print_r($addProductOnRequest);  die;
                 $addProductOnRequest = json_decode($addProductOnRequest);
-// print_r($addProductOnRequest);  die;
                 if ($addProductOnRequest->status) {
                     // echo "hi";  die;
-                    $col = 'prod_req_status';
+                    $col = 'new_prod_req_status';
                     $data = 0;
                     $priority_image = 0;
                     $updateProdRequestTable = json_decode($Request->updateProductRequestTable($ticketNo, $col, $data));
@@ -371,9 +371,6 @@ if (isset($_POST['update-product'])) {
                         if (!empty($imageName[0])) {
                             // echo "check 32";
                             $updateProduct = imageUpdate($_FILES, $productid, $SUPER_ADMINID, API_URL, $priority_image);
-                            // print_r($updateProduct);  die;
-
-                            // print_r($updateProduct); die;
                         } else {
                             $updateProduct = $addProductOnRequest->status;
                         }
@@ -383,34 +380,36 @@ if (isset($_POST['update-product'])) {
                 } else {
                     $updateProduct = false;
                 }
-            } else {
-                // $status = 0;
-                $updateOnProdRequest = $Products->updateProductBySuperAdmin($oldProductId, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, NOW, $verifyStatus);
+                // print_r($updateProduct); die;
+      //      } 
+            // else {
+            //     // $status = 0;
+            //     $updateOnProdRequest = $Products->updateProductBySuperAdmin($oldProductId, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, NOW, $verifyStatus);
 
-                $updateOnProdRequest = json_decode($updateOnProdRequest);
-                if ($updateOnProdRequest->status) {
-                    // echo "check 41";
+            //     $updateOnProdRequest = json_decode($updateOnProdRequest);
+            //     if ($updateOnProdRequest->status) {
+            //         // echo "check 41";
 
-                    $col = 'prod_req_status';
-                    $data = 0;
-                    $priority_image = 0;
-                    $updateProdRequestTable = json_decode($Request->updateProductRequestTable($ticketNo, $col, $data));
+            //         $col = 'prod_req_status';
+            //         $data = 0;
+            //         $priority_image = 0;
+            //         $updateProdRequestTable = json_decode($Request->updateProductRequestTable($ticketNo, $col, $data));
 
-                    if (preg_match("/Image Edited./", $productReqDsc)) {
-                        if (!empty($imageName[0])) {
-                            // echo "check 42";
-                            $updateProduct = imageUpdate($_FILES, $oldProductId, $SUPER_ADMINID, API_URL, $priority_image);
-                            // print_r($updateProduct);  die;
-                        } else {
-                            $updateProduct = $updateOnProdRequest->status;
-                        }
-                    } else {
-                        $updateProduct = $updateOnProdRequest->status;
-                    }
-                } else {
-                    $updateProduct = false;
-                }
-            }
+            //         if (preg_match("/Image Edited./", $productReqDsc)) {
+            //             if (!empty($imageName[0])) {
+            //                 // echo "check 42";
+            //                 $updateProduct = imageUpdate($_FILES, $oldProductId, $SUPER_ADMINID, API_URL, $priority_image);
+            //                 // print_r($updateProduct);  die;
+            //             } else {
+            //                 $updateProduct = $updateOnProdRequest->status;
+            //             }
+            //         } else {
+            //             $updateProduct = $updateOnProdRequest->status;
+            //         }
+            //     } else {
+            //         $updateProduct = false;
+            //     }
+            // }
         }
     }
 

@@ -27,7 +27,7 @@ $Request        = new Request;
 // Function INitilized 
 $col = 'admin_id';
 $result = json_decode($Pagination->productRequestWithPagination()); //showAllProducts
-// print_r($result);
+// print_r($result);  die;
 
 $allProducts    = $result->products;
 $totalPtoducts  = $result->totalPtoducts;

@@ -101,7 +101,12 @@ class Pagination
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $startFrom = ($page - 1) * $recordsPerPage;
 
-        $sql = "SELECT * FROM product_request WHERE new_prod_req_status = 1 ORDER BY requested_on LIMIT $startFrom, $recordsPerPage";
+        // $sql = "SELECT * FROM product_request WHERE new_prod_req_status = 1 ORDER BY requested_on LIMIT $startFrom, $recordsPerPage";
+        $sql = "SELECT * 
+        FROM product_request 
+        WHERE ((new_prod_req_status = 1 AND status = 1) OR (updated_prod_flag = 1 AND status = 1)) 
+        ORDER BY requested_on 
+        LIMIT $startFrom, $recordsPerPage";
         $result = $this->conn->query($sql);
 
         $products = [];
