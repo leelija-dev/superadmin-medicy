@@ -58,12 +58,13 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'dragPermit
                 }
 
                 // Check if specific image fields are provided
-                if (!empty($data['form_20']['filename']) && !empty($data['form_21']['filename'])) {
+                // if (!empty($data['form_20']['filename']) && !empty($data['form_21']['filename'])) {
+                if (!empty($data)) {
                     $defined_token = 'prod_details';
                     $id = $data['id'] ?? null;
                     // $adm_id = $data['adminId'] ?? null;
                     $token = $data['token'] ?? '';
-
+                    // print_r($data);  die;
                     if ($defined_token == $token) {
                         $controller->updateDragPermit($id, $data);
                         $response = [
@@ -80,6 +81,7 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'dragPermit
                     $response = [
                         'status' => false,
                         'message' => 'Required image fields are missing',
+                        'data'   => $data
                     ];
                 }
                 echo json_encode($response);
