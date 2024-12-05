@@ -62,7 +62,7 @@ class ProductController
             $image         = addslashes($image);
             $addImages = $productModel->addImagesBySupAdmin($imageDataTuple->productId, $image, $imgStatus, $imageDataTuple->addedBy, NOW, $imageDataTuple->adminId, $isfeatured);
         }
-
+// print_r($addImages);  die;
         return $addImages;
     }
 

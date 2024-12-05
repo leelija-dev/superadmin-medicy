@@ -44,13 +44,15 @@ if ($uri[$uriPosition] === 'api' && str_contains($uri[$uriContains], 'products.p
                         $imageAdded = false;
                     }
 
-                    $controller->addProductImage($data);
+                    $result = $controller->addProductImage($data);
+// print_r($result);  die;
                     if (true) {
+                        // echo "hi";  die;
                         $response = array(
                             'status' => true,
                             'message' => 'Image added successfully',
                         );
-                        // echo json_encode($response);
+                        echo json_encode($response);
                     }
                 }
             } else {
