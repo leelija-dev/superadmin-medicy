@@ -2,7 +2,7 @@
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-$allowed_origins = ['https://medicy.in', 'http://localhost:5173', '*'];
+$allowed_origins = ['https://medicy.in', 'http://localhost:5173'];
 
 $server = LOCAL_DIR;
 // echo $server;
