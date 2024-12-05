@@ -28,7 +28,6 @@ class DragPermitController
         // Delete existing images if new images are provided
         if ($imageOne && $imageNameOne) {
             $existingImagePathOne = DRAG_PERMIT_IMG_DIR . DIRECTORY_SEPARATOR . $imageOne;
-            // print_r($existingImagePathOne);  die;
             if (file_exists($existingImagePathOne) && is_writable($existingImagePathOne)) {
                 // echo "hi"; die;
                 unlink($existingImagePathOne);
