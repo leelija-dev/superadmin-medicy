@@ -357,10 +357,9 @@ if (isset($_POST['update-product'])) {
         } elseif ($prodReqStatus == 0 && $oldProdFlag == 1) { // old product edit request
             
                 $addProductOnRequest = $Products->addProductBySuperAdmin($productid, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, $verifyStatus, NOW, $ticketNo);
-                // print_r($addProductOnRequest);  die;
                 $addProductOnRequest = json_decode($addProductOnRequest);
                 if ($addProductOnRequest->status) {
-                    // echo "hi";  die;
+                    // print_r($addProductOnRequest->status); 
                     $col = 'new_prod_req_status';
                     $data = 0;
                     $priority_image = 0;
@@ -372,7 +371,9 @@ if (isset($_POST['update-product'])) {
                             // echo "check 32";
                             $updateProduct = imageUpdate($_FILES, $productid, $SUPER_ADMINID, API_URL, $priority_image);
                         } else {
+                            // echo "check updateProduct";
                             $updateProduct = $addProductOnRequest->status;
+
                         }
                     } else {
                         $updateProduct = $addProductOnRequest->status;
@@ -423,12 +424,34 @@ if (isset($_POST['update-product'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
-        <script src="<?= JS_PATH ?>sweetAlert.min.js"></script>
+        <link rel="stylesheet" href="<?= CSS_PATH ?>sweetalert2/sweetalert2.min.css" type="text/css">
+        <script src="<?= JS_PATH ?>sweetalert2/sweetalert2.all.min.js"></script>
     </head>
 
     <body>
 
     <?php
+     if ($updateProduct) {
+
+?>
+        <script>
+            Swal.fire("Success", "Product updated successfully!", "success").then((value) => {
+                parent.location.reload();
+            });
+            console.log(gugiukhujjgb);
+        </script>
+    <?php
+
+    } else {
+    ?>
+        <script>
+            Swal.fire("Error", "Product updatation failed!", "error").then((value) => {
+                parent.location.reload();
+            });
+        </script>
+<?php
+    }
+
 
 }
 

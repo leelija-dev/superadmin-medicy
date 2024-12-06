@@ -26,13 +26,12 @@ $Request        = new Request;
 
 // Function INitilized 
 $col = 'admin_id';
-$result = json_decode($Pagination->productRequestWithPagination()); //showAllProducts
-// print_r($result);  die;
-
+$result = json_decode($Pagination->productRequestWithPagination()); 
+// print_r($result); die;
 $allProducts    = $result->products;
 $totalPtoducts  = $result->totalPtoducts;
 
-$productList = json_decode($Products->showProductsByLimit());
+// $productList = json_decode($Products->showProductsByLimit());
 
 $viewCheck = 0;
 $prodTicketNo = '';
