@@ -88,7 +88,7 @@ $Category = $Category->data;
         // ===================== Fetching Product Details =====================
 
         $product = json_decode($Products->showProductsByIdOnTableName($ticketNo, $tableName));
-
+// print_r($product);  die;
         if ($product->status) {
 
             // print_r($product);
@@ -109,6 +109,11 @@ $Category = $Category->data;
 
             // packaging type =========
             $packTypeId = $product->packaging_type;
+
+            // $new_prod_req_status = $product->new_prod_req_status;
+
+            // $updated_prod_flag = $product->updated_prod_flag;
+
 
             // product composition =====
             if (isset($product->comp_1)) {
@@ -175,8 +180,9 @@ $Category = $Category->data;
             $gst            = $product->gst;
 
 
-            $prodReqStatus = $product->prod_req_status ?? '';
-            $oldProdFlag = $product->old_prod_flag ?? '';
+            $prodReqStatus = $product->new_prod_req_status ?? '';
+            // print_r($prodReqStatus);  die;
+            $oldProdFlag = $product->updated_prod_flag ?? '';
             $oldProdId = $oldProdFlag ? ($product->old_prod_id ?? '') : '';
 
             if (!empty($oldProdId)) {
@@ -472,6 +478,8 @@ $Category = $Category->data;
                                             <div class="col-md-3">
                                                 <input type="text" name="table-info" id="table-info" value="<?php echo $tableName; ?>">
                                             </div>
+
+                                            
                                         </div>
 
                                     </div>

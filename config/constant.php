@@ -162,6 +162,8 @@ session_start();
 	define('ADM_URL',  			URL);
 	define('PRODUCT_IMG_DIR',	ROOT_DIR.'assets/images/product-image/');
 	define('PROFILE_IMG_DIR',	ROOT_DIR.'assets/images/admin-images/');
+	define('DRAG_PERMIT_IMG_DIR',	ROOT_DIR.'assets/images/drag-permit/');
+
 	// define('SETTINGS_IMG_DIR',	ROOT_DIR.'assets/images/orgs/');
 
 

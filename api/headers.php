@@ -1,7 +1,8 @@
 <?php
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-$allowed_origins = ['https://medicy.in', 'http://localhost:5173'];
+
+$allowed_origins = ['https://medicy.in', 'http://localhost:5173', 'https://app.medicy.in'];
 
 $server = LOCAL_DIR;
 // echo $server;

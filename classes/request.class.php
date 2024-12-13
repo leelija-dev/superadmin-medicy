@@ -479,22 +479,7 @@ class Request
                 case 'product_request':
                     $name = 'name';
                     $description = 'req_dsc';
-                    $statusColumn = 'prod_req_status';
-                    break;
-                case 'distributor_request':
-                    $name = 'name';
-                    $description = 'req_dsc';
-                    $statusColumn = 'status';
-                    break;
-                case 'manufacturer_request':
-                    $name = 'name';
-                    $description = 'req_dsc';
-                    $statusColumn = 'status';
-                    break;
-                case 'packtype_request':
-                    $name = 'unit_name';
-                    $description = 'req_dsc';
-                    $statusColumn = 'status';
+                    $statusColumn = 'new_prod_req_status';
                     break;
                 case 'distributor':
                     $name = 'name';

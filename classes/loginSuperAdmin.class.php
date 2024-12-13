@@ -17,7 +17,7 @@ class SuperAdminLoginForm{
                 // exit;
 
                 if ($password === $x_password) {
-                    // print_r($data);
+                    // print_r($data);  die;
                     session_start();
                     $_SESSION['SUPERADMINLOGGEDIN']       = true;
                     $_SESSION['SUPER_ADMIN']              = true;
@@ -30,7 +30,7 @@ class SuperAdminLoginForm{
                     $_SESSION['SUPER_ADMIN_CONTACT_NO']   = $data->mobile_no;
                     $_SESSION['SUPER_ADMIN_USERNAME']     = $data->username;
                     $_SESSION['SUPER_ADMIN_ADDRESS']      = $data->address;
-                    $_SESSION['SUPER_ADMINID']            = $data->admin_id;
+                    $_SESSION['SUPER_ADMINID']            = $data->id;
                     
                     
                     header("Location:". ADM_URL);

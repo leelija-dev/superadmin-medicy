@@ -50,7 +50,6 @@ class Product
     {
         header('Content-Type: application/json');
         try {
-            echo 'featured:' . $isfeatured;
             if (!empty($adminId)) {
                 $insertImage = "INSERT INTO `product_images` (`product_id`, `image`, `status`, `added_by`, `added_on`, `admin_id`, `set_priority`) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $this->conn->prepare($insertImage);
@@ -63,6 +62,7 @@ class Product
 
             if ($stmt->execute()) {
                 // Insert successful
+                // echo "hi";  die;
                 $stmt->close();
                 return true;
             } else {

@@ -26,13 +26,12 @@ $Request        = new Request;
 
 // Function INitilized 
 $col = 'admin_id';
-$result = json_decode($Pagination->productRequestWithPagination()); //showAllProducts
-// print_r($result);
-
+$result = json_decode($Pagination->productRequestWithPagination()); 
+// print_r($result); die;
 $allProducts    = $result->products;
 $totalPtoducts  = $result->totalPtoducts;
 
-$productList = json_decode($Products->showProductsByLimit());
+// $productList = json_decode($Products->showProductsByLimit());
 
 $viewCheck = 0;
 $prodTicketNo = '';
@@ -155,8 +154,8 @@ if ($modalName == 0) {
                                                         }
 
 
-                                                        if (isset($item->prod_req_status)) {
-                                                            if ($item->old_prod_flag == 0) {
+                                                        if (isset($item->new_prod_req_status)) {
+                                                            if ($item->updated_prod_flag == 0) {
                                                                 $modalHeading = 'New Product Request';
                                                             } else {
                                                                 $modalHeading = 'Existing Product Edit Request';

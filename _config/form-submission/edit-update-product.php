@@ -3,6 +3,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once dirname(dirname(__DIR__)) . '/config/constant.php';
+// print_r(dirname(dirname(__DIR__)) . '/config/api-keys.php.php');  die;
+require_once dirname(dirname(__DIR__)) . '/config/api-keys.php';
+
 
 // require_once dirname(dirname(dirname(__DIR__))) . '/config/constant.php';
 require_once SUP_ADM_DIR . '_config/sessionCheck.php'; //check admin loggedin or not
@@ -41,7 +44,7 @@ if (isset($_POST['update-product'])) {
 
     $table              = $_POST['table-info'];
     $ticketNo           = $_POST['ticket-no'];
-    // echo $table;
+    // print_r($SUPER_ADMINID); die;
     $productid          = $_POST['product-id'];
     $oldProductId       = $_POST['old-product-id'];
     $productName        = $_POST['product-name'];
@@ -61,53 +64,132 @@ if (isset($_POST['update-product'])) {
     $productReqDsc      = $_POST['product-req-description'];
     $prodReqStatus      = $_POST['prod-req-status'];
     $oldProdFlag        = $_POST['old-prod-flag'];
+    // print_r($prodReqStatus);  die;
     $editReqFlagData    = $_POST['edit-req-flag-data'];
     $imageName          = $_FILES['img-files']['name'];
-   
+
     $tempImgName        = $_FILES['img-files']['tmp_name'];
     $verifyStatus       = 1;
+    // $status = 1;
 
 
     //---------------- image update function gose hear --------------------
 
-    function imageUpdate($prodId, $imageData, $admId, $ProductImages)
+    // function imageUpdate($prodId, $imageData, $admId, $ProductImages)
+    // {
+    //     try {
+    //         $imageData = json_decode($imageData);
+
+    //         $imageName = $imageData->imageNameArray;
+    //         $tempImgName = $imageData->tempImgNmArray;
+
+    //         for ($i = 0, $j = 0; $i < count($imageName) && $j < count($tempImgName); $i++, $j++) {
+    //             $imgStatus = 0;
+    //             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    //             $randomString = '';
+    //             for ($k = 0; $k < 9; $k++) {
+    //                 $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    //             }
+
+    //             $image          = $imageName[$i];
+    //             $tempImage      = $tempImgName[$j];
+    //             $extention      = substr($image, -4);
+    //             $imageFileName  = substr($image, 0, -4);
+
+
+    //             $imageFile  =   $imageFileName . '-' . $randomString . $extention;
+    //             $imgFolder  = PROD_IMG_DIR . $imageFile;
+    //             move_uploaded_file($tempImage, $imgFolder);
+    //             $image      = addslashes($imageFile);
+
+    //             $status = 1;
+
+    //             $addImages = $ProductImages->addImagesBySupAdmin($prodId, $image, $status, $admId, NOW, $admId);
+
+    //             if (!$addImages) {
+    //                 throw new Exception("Failed to add image for product ID: $prodId");
+    //             }
+    //         }
+    //         return true;
+    //     } catch (Exception $e) {
+    //         return error_log("Error in imageUpadate function: " . $e->getMessage());
+    //     }
+    // }
+
+    function imageUpdate($files, $productId, $ADMINID, $API_URL, $priority_image)
     {
-        try {
-            $imageData = json_decode($imageData);
+        if (isset($files['img-files']) && !empty($files['img-files']['tmp_name'])) {
+            $postData = array();
+            $featured_image_set = false;
+            // Check if multiple files were uploaded
+            if (is_array($files['img-files']['tmp_name'])) {
+                foreach ($files['img-files']['tmp_name'] as $key => $tmpName) {
+                    if (!empty($tmpName) && $files['img-files']['error'][$key] === UPLOAD_ERR_OK) {
+                        $fileName = $files['img-files']['name'][$key];
+                        $fileType = $files['img-files']['type'][$key];
 
-            $imageName = $imageData->imageNameArray;
-            $tempImgName = $imageData->tempImgNmArray;
+                        // Create CURLFile for each file
+                        $postData['images[' . $key . ']'] = new CURLFile($tmpName, $fileType, $fileName);
 
-            for ($i = 0, $j = 0; $i < count($imageName) && $j < count($tempImgName); $i++, $j++) {
-                $imgStatus = 0;
-                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $randomString = '';
-                for ($k = 0; $k < 9; $k++) {
-                    $randomString .= $characters[rand(0, strlen($characters) - 1)];
+                        if ($priority_image === $fileName && !$featured_image_set) {
+                            $postData['featured_image'] = $fileName; // Set as featured image
+                            $featured_image_set = true; // Prevent setting multiple featured images
+                        }
+                    }
                 }
+            } else {
+                // Handle single file upload
+                $tmpName = $files['img-files']['tmp_name'];
+                $fileName = $files['img-files']['name'];
+                $fileType = $files['img-files']['type'];
 
-                $image          = $imageName[$i];
-                $tempImage      = $tempImgName[$j];
-                $extention      = substr($image, -4);
-                $imageFileName  = substr($image, 0, -4);
+                if (!empty($tmpName) && $files['img-files']['error'] === UPLOAD_ERR_OK) {
+                    $postData['image'] = new CURLFile($tmpName, $fileType, $fileName);
 
-
-                $imageFile  =   $imageFileName . '-' . $randomString . $extention;
-                $imgFolder  = PROD_IMG_DIR . $imageFile;
-                move_uploaded_file($tempImage, $imgFolder);
-                $image      = addslashes($imageFile);
-
-                $status = 1;
-
-                $addImages = $ProductImages->addImagesBySupAdmin($prodId, $image, $status, $admId, NOW, $admId);
-
-                if (!$addImages) {
-                    throw new Exception("Failed to add image for product ID: $prodId");
+                    if ($priority_image === $fileName) {
+                        $postData['featured_image'] = $fileName; // Set as featured image
+                    }
+                } else {
+                    return "Error uploading file.";
                 }
             }
-            return true;
-        } catch (Exception $e) {
-            return error_log("Error in imageUpadate function: " . $e->getMessage());
+
+            $token = 'prod_details';
+            $postData['name'] = 'update-image';
+            $postData['adminId'] = $ADMINID;
+            $postData['token'] = $token;
+            $postData['id'] = $productId;
+
+            // Initialize cURL
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $API_URL . 'products.php',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'PUT',
+                CURLOPT_POSTFIELDS => $postData,
+                CURLOPT_HTTPHEADER => array(
+                    'Cookie: PHPSESSID=25r92nbbhgd4l0rbcjc2t10nf8'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            // print_r($response);  die;
+            // Handle cURL errors
+            if (curl_errno($curl)) {
+                $error = 'cURL Error: ' . curl_error($curl);
+                curl_close($curl);
+                return $error;
+            }
+
+            curl_close($curl);
+
+            return $response;
         }
     }
 
@@ -216,16 +298,20 @@ if (isset($_POST['update-product'])) {
 
         // update product in products table ----------------
         // echo "check 1";
+        // $status = 0;
         $updateProduct = json_decode($Products->updateProductBySuperAdmin($productid, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, NOW, $verifyStatus));
 
         if ($updateProduct->status) {
             // echo "check 11";
             $col = 'prod_req_status';
             $data = 0;
+            $priority_image = 0;
             $updateProdRequestTable = json_decode($Request->updateProductRequestTable($ticketNo, $col, $data));
             if (preg_match("/Image Edited./", $editDescription)) {
                 if (!empty($imageName[0])) {
-                    $updateProduct = imageUpdate($productid, $imageData, $SUPER_ADMINID, $ProductImages);
+                    $updateProduct = imageUpdate($_FILES, $productid, $SUPER_ADMINID, API_URL, $priority_image);
+                    // print_r($updateProduct);  die;
+
                 } else {
                     $updateProduct = $updateProduct->status;
                 }
@@ -239,24 +325,28 @@ if (isset($_POST['update-product'])) {
 
 
     if ($table == 'product_request') {
-        // echo "added by".$addedBy;
+        // print_r($prodReqStatus);
+        // print_r($oldProdFlag);  die;
+
         if ($prodReqStatus == 1 && $oldProdFlag == 0) { // new product add request
-            // echo $productReqDsc;
-            // echo "check 2";
-            $addProductOnRequest = $Products->addProductBySuperAdmin($productid, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, $verifyStatus, NOW);
+// echo "hi";  die;
+            $addProductOnRequest = $Products->addProductBySuperAdmin($productid, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, $verifyStatus, NOW, $ticketNo);
             $addProductOnRequest = json_decode($addProductOnRequest);
-            // print_r($addProductOnRequest);
+            // print_r($addProductOnRequest); die;
             if ($addProductOnRequest->status) {
-                $col = 'prod_req_status';
+                $col = 'new_prod_req_status';
                 $data = 0;
+                $priority_image = 0;
                 $updateProdRequestTable = json_decode($Request->updateProductRequestTable($ticketNo, $col, $data));
                 if (preg_match("/Image Edited./", $productReqDsc)) {
                     // echo "check 21";
                     if (!empty($imageName[0])) {
                         // echo "check 22";
-                        $updateProduct = imageUpdate($productid, $imageData, $SUPER_ADMINID, $ProductImages);
+                        $updateProduct = imageUpdate($_FILES, $productid, $SUPER_ADMINID, API_URL, $priority_image);
+                        //    print_r($updateProduct); die;
                     } else {
                         $updateProduct = $addProductOnRequest->status;
+                        //    print_r($updateProduct); die;
                     }
                 } else {
                     $updateProduct = $addProductOnRequest->status;
@@ -265,25 +355,25 @@ if (isset($_POST['update-product'])) {
                 $updateProduct = false;
             }
         } elseif ($prodReqStatus == 0 && $oldProdFlag == 1) { // old product edit request
-
-            if (preg_match("/Name edited. /", $productReqDsc) || preg_match("/Medicine Qantity Edited. /", $productReqDsc) || preg_match("/Unit Edited./", $productReqDsc)) {
-                // echo "check 3";
-                $addProductOnRequest = $Products->addProductBySuperAdmin($productid, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, $verifyStatus, NOW);
+            
+                $addProductOnRequest = $Products->addProductBySuperAdmin($productid, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, $verifyStatus, NOW, $ticketNo);
                 $addProductOnRequest = json_decode($addProductOnRequest);
-
                 if ($addProductOnRequest->status) {
-
-                    $col = 'prod_req_status';
+                    // print_r($addProductOnRequest->status); 
+                    $col = 'new_prod_req_status';
                     $data = 0;
+                    $priority_image = 0;
                     $updateProdRequestTable = json_decode($Request->updateProductRequestTable($ticketNo, $col, $data));
 
                     if (preg_match("/Image Edited./", $productReqDsc)) {
                         // echo "check 31";
                         if (!empty($imageName[0])) {
                             // echo "check 32";
-                            $updateProduct = imageUpdate($productid, $imageData, $SUPER_ADMINID, $ProductImages);
+                            $updateProduct = imageUpdate($_FILES, $productid, $SUPER_ADMINID, API_URL, $priority_image);
                         } else {
+                            // echo "check updateProduct";
                             $updateProduct = $addProductOnRequest->status;
+
                         }
                     } else {
                         $updateProduct = $addProductOnRequest->status;
@@ -291,32 +381,36 @@ if (isset($_POST['update-product'])) {
                 } else {
                     $updateProduct = false;
                 }
-            } else {
+                // print_r($updateProduct); die;
+      //      } 
+            // else {
+            //     // $status = 0;
+            //     $updateOnProdRequest = $Products->updateProductBySuperAdmin($oldProductId, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, NOW, $verifyStatus);
 
-                $updateOnProdRequest = $Products->updateProductBySuperAdmin($oldProductId, $productName, $productComp1, $productComp2, $hsnNumber, $category, $packagingType, $medicinePower, $quantity, $qtyUnit, $itemUnit, $manufacturerId, $mrp, $gst, $productDesc, $SUPER_ADMINID, NOW, $verifyStatus);
+            //     $updateOnProdRequest = json_decode($updateOnProdRequest);
+            //     if ($updateOnProdRequest->status) {
+            //         // echo "check 41";
 
-                $updateOnProdRequest = json_decode($updateOnProdRequest);
-                if ($updateOnProdRequest->status) {
-                    // echo "check 41";
+            //         $col = 'prod_req_status';
+            //         $data = 0;
+            //         $priority_image = 0;
+            //         $updateProdRequestTable = json_decode($Request->updateProductRequestTable($ticketNo, $col, $data));
 
-                    $col = 'prod_req_status';
-                    $data = 0;
-                    $updateProdRequestTable = json_decode($Request->updateProductRequestTable($ticketNo, $col, $data));
-
-                    if (preg_match("/Image Edited./", $productReqDsc)) {
-                        if (!empty($imageName[0])) {
-                            // echo "check 42";
-                            $updateProduct = imageUpdate($oldProductId, $imageData, $SUPER_ADMINID, $ProductImages);
-                        } else {
-                            $updateProduct = $updateOnProdRequest->status;
-                        }
-                    } else {
-                        $updateProduct = $updateOnProdRequest->status;
-                    }
-                } else {
-                    $updateProduct = false;
-                }
-            }
+            //         if (preg_match("/Image Edited./", $productReqDsc)) {
+            //             if (!empty($imageName[0])) {
+            //                 // echo "check 42";
+            //                 $updateProduct = imageUpdate($_FILES, $oldProductId, $SUPER_ADMINID, API_URL, $priority_image);
+            //                 // print_r($updateProduct);  die;
+            //             } else {
+            //                 $updateProduct = $updateOnProdRequest->status;
+            //             }
+            //         } else {
+            //             $updateProduct = $updateOnProdRequest->status;
+            //         }
+            //     } else {
+            //         $updateProduct = false;
+            //     }
+            // }
         }
     }
 
@@ -330,32 +424,36 @@ if (isset($_POST['update-product'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
-        <script src="<?= JS_PATH ?>sweetAlert.min.js"></script>
+        <link rel="stylesheet" href="<?= CSS_PATH ?>sweetalert2/sweetalert2.min.css" type="text/css">
+        <script src="<?= JS_PATH ?>sweetalert2/sweetalert2.all.min.js"></script>
     </head>
 
     <body>
-        <?php
 
-        if ($updateProduct) {
-            
-        ?>
-            <script>
-                // swal("Success", "Product updated successfully!", "success").then((value) => {
-                //     parent.location.href = '<?php echo ADM_URL; ?>product-request-lsit.php';
-                // });
-            </script>
-        <?php
-
-        } else {
-        ?>
-            <script>
-                // swal("Error", "Product updation failed!", "error").then((value) => {
-                //     parent.location.href = '<?php echo ADM_URL; ?>product-request-lsit.php';
-                // });
-            </script>
     <?php
-        }
+     if ($updateProduct) {
+
+?>
+        <script>
+            Swal.fire("Success", "Product updated successfully!", "success").then((value) => {
+                parent.location.reload();
+            });
+            console.log(gugiukhujjgb);
+        </script>
+    <?php
+
+    } else {
+    ?>
+        <script>
+            Swal.fire("Error", "Product updatation failed!", "error").then((value) => {
+                parent.location.reload();
+            });
+        </script>
+<?php
     }
+
+
+}
 
     ?>
     </body>

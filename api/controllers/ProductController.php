@@ -16,8 +16,8 @@ class ProductController
         
         $productModel = new Product();
         $featured_image     = $data['featured_image'];
-        $imagesName         = $data['imagesName']; //$_FILES['img-files']['name'];
-        $tempImgsName       = $data['tempImgsName']; // $_FILES['img-files']['tmp_name'];
+        $imagesName         = $data['imagesName']; 
+        $tempImgsName       = $data['tempImgsName']; 
 
         $imageArrayCaount = count($imagesName);
         $tempImageArrayCaount = count($tempImgsName);
@@ -62,7 +62,7 @@ class ProductController
             $image         = addslashes($image);
             $addImages = $productModel->addImagesBySupAdmin($imageDataTuple->productId, $image, $imgStatus, $imageDataTuple->addedBy, NOW, $imageDataTuple->adminId, $isfeatured);
         }
-
+// print_r($addImages);  die;
         return $addImages;
     }
 
@@ -72,7 +72,7 @@ class ProductController
         $adm_id = $data['adminId'];
         $checkedPriority = $productModel->checkPriorityImage($prodId);
         // print_r($checkedPriority);  die;
-        $featured_image = $data['featured_image'];
+        $featured_image = !empty($data['featured_image']) ? $data['featured_image'] : null;
 
 
         // Prepare the image data array for processing in `UpdateProduct`
