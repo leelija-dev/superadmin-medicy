@@ -71,7 +71,7 @@ function openSingleTestModal($testCatId) {
             }
         })
         .catch((error) => {
-            Swal.fire("Error", "Fetch operation error!", "error");
+            Swal.fire("Error", "Fetch operation error!", error);
             console.error(
                 "There has been a problem with your fetch operation:",
                 error
